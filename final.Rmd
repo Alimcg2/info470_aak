@@ -1,19 +1,23 @@
+---
+title: "INFO470 Project"
+output: html_document
+---
 # A Fuck Ton Of Work
 
 ## Table of Contents
-[Introduction](#introduction)
-[Leterature Review](#litReview)
-[Method Description](#methodDescr)
+[Introduction](#Introduction)
+[Leterature Review](#literature-review)
+[Method Description](#method-description)
 
-## Introduction{#introduction}
-
-
-
-## Literature Review{#litReview}
+## Introduction
 
 
 
-## Method Description{#methodDescr}
+## Literature Review
+
+
+
+## Method Description
 
 
 ### Introduction
