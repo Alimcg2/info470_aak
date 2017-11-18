@@ -1,15 +1,20 @@
 # A Fuck Ton Of Work
 
-## Introduction
+## Table of Contents
+[Introduction](#introduction)
+[Leterature Review](#litReview)
+[Method Description](#methodDescr)
+
+## Introduction{#introduction}
 
 
-------------------------------------------------------------------------------
-## Literature Review
+
+## Literature Review{#litReview}
 
 
-------------------------------------------------------------------------------
-## Method Description
-------------------------------------------------------------------------------
+
+## Method Description{#methodDescr}
+
 
 ### Introduction
 Our dataset consists of three major parts that contribute to environmental hazards. We have aggregated and cleaned a few different data sets to fit our needs and the data now lives inside one CSV document. There is quantitative, state by state data on landfills and waste, power consumption and emissions, and water withdrawals and water waste. 
