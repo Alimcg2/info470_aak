@@ -1,0 +1,163 @@
+# A Fuck Ton Of Work
+
+## Introduction
+
+
+------------------------------------------------------------------------------
+## Literature Review
+
+
+------------------------------------------------------------------------------
+## Method Description
+------------------------------------------------------------------------------
+
+### Introduction
+Our dataset consists of three major parts that contribute to environmental hazards. We have aggregated and cleaned a few different data sets to fit our needs and the data now lives inside one CSV document. There is quantitative, state by state data on landfills and waste, power consumption and emissions, and water withdrawals and water waste. 
+### Landfills
+##### Source
+This data is from the Environmental Protection Agency’s (EPA) Landfill Methane Outreach Program (LMOP). This data is current as of June 2017. The LMOP is an program that aims to reduce methane emissions from landfills. One of the ways they accomplish this goal is through gathering data on landfills and potential energy projects that they have going on at the landfills. 
+##### Description
+This data has two major parts, information about the landfill and information about methane saving projects at the landfill. The landfill data is a collection of 2,400 municipal solid waste landfills across the United States. This data has been collected largely in part due to the partnerships the EPA has with landfills. It includes landfills that both do and don’t report to the EPA’s Greenhouse Gas Reporting Program. The landfill data includes information like the state it’s located in, the landfill’s name, the landfill operator’s name (or organization), the county it’s located in, the latitude and longitude of the plant and the amount of trash it contains (in tons); to name a few. It also contains information about landfill operations including the year it opened, the year it has closed if it has closed, if they have have methane protection projects going on, the year those methane protection projects started, and much more. 
+
+
+##### Analysis
+
+
+### Power Plant Emissions
+##### Source
+This data has also been collected by the EPA and is current as of 2014. It is a part of the EPA’s Emissions & Generated Resource Integrated Database (eGRID). The EPA describes eGRID as “a comprehensive source of data on the environmental characteristics of almost all electric power generated in the United States” (EPA). They collect data on air emissions for nitrogen oxides, sulfur dioxide, carbon dioxide, methane, and nitrous oxide; emissions rates; net generation; resource mix; and many other attributes.
+
+
+There are three major sources that the eGRID gets it’s data from:
+EPA/CAMD: this includes data reported to EPA by electric generating units to comply with the regulations in 40 CFR Part 75. Data include annual emissions of CO2, NOx, and SO2; ozone season emissions of NOx; and annual and ozone season generation and heat input. The data is available at https://www.epa.gov/airmarkets.
+EIA-860: this includes data reported to EIA on electric generators. Data include nameplate capacity, prime mover, primary fuel type, and indication of whether the generator is a combined-heat-and-power unit (EIA, 2016a).
+EIA-923: this includes data reported to EIA on fuel consumption and generation. Data include monthly generation and heat input at the unit or generator level for a subset of units and generators, and at the prime mover level for all plants. eGRID2014 uses unit- or generator-level data where available, and prime mover-level data for all other units and generators (EIA, 2016b).
+
+##### Description
+This data set comes with hundreds of columns, we have narrowed down those to just a few that are important to our mission. It describes the different amounts of emission of the different greenhouse gases, the amount of energy it produces and the type of energy it produces. It also shows summary statistics on the amount of renewable vs nonrenewable energy that it generates and combustible v.s. noncombustible energy that it generates. 
+
+##### Analysis
+
+
+### Water Withdrawals
+##### Source
+The data was gathered from the United States Geological Survey. This agency collects, monitors and assess data on different aspects of the United States’ geology for both policy makers and public interest. Their data is about many different aspects including land, air, water and everything in between. Our data comes from the USGS Water Science School’s report on Water Usage and is current as of 2010. 
+##### Description
+This data describes how much water is being used by the population of the United States. The data has been aggregated to reflect a state by state total for each column. The data is separated into many different parts, including where the water is coming from (surface water or groundwater), where it’s going to (agriculture, mining, industrial, livestock, aquaculture), who is using it (publicly supplied, domestically supplied), and the type of water (fresh or saline). There is also information on the populations for each state and the populations that use this water. 
+##### Analysis
+
+### Column Tables
+
+#### Landfill
+| Column Name                                             | Description                                                                                                                                                                              | 
+|---------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| 
+| Landfill Name                                           | Name of the landfill                                                                                                                                                                     | 
+| State                                                   | State that the landfill is in                                                                                                                                                            | 
+| Physical Address                                        | Address of the landfill                                                                                                                                                                  | 
+| City                                                    | City landfill is located in or near                                                                                                                                                      | 
+| County                                                  | County landfill is located in or near                                                                                                                                                    | 
+| Zip Code                                                | Zip code for the landfill                                                                                                                                                                | 
+| Latitude                                                | Latitude coordinate (decimal) for the landfill                                                                                                                                           | 
+| Longitude                                               | Longitude coordinate (decimal) for the landfill                                                                                                                                          | 
+| Ownership Type                                          | "Indicates if landfill is publicly owned, privately owned, or co-owned by public and private entities"                                                                                   | 
+| Landfill Owner Organization(s)                          | Organization that owns the landfill                                                                                                                                                      | 
+| Year Landfill Opened                                    | Year landfill opened or began accepting waste (YYYY)                                                                                                                                     | 
+| Landfill Closure Year                                   | Year landfill stopped accepting waste or is expected to stop accepting waste ÿor year landfill closed or is expected to close (YYYY)                                                     | 
+| Current Landfill Status                                 | Open/Closed status of landfill                                                                                                                                                           | 
+| Waste in Place (tons)                                   | Waste-in-place at the landfill in short tons                                                                                                                                             | 
+| Waste in Place Year                                     | Year corresponding to the waste-in-place at the landfill (YYYY)                                                                                                                          | 
+| LFG Collection System In Place?                         | "Is there a landfill gas collection system in place? 'Yes' for an active GCCS; 'No' if landfill has no gas collection system, is passively venting/flaring, or has perimeter gas wells." | 
+| LFG Collected (mmscfd)                                  | Amount of landfill gas being collected in million standard cubic feet per day                                                                                                            | 
+| LFG Flared (mmscfd)                                     | "Amount of landfill gas flared (if project is operational, amount of landfill gas flared in back-up flare(s)) in million standard cubic feet per day"                                    | 
+| Current Project Status                                  | "Current project status (Operational, Construction, Planned, Shutdown, Candidate, Potential, Other)"                                                                                     | 
+| Project Start Date                                      | Date project became operational (MM/DD/YYYY)                                                                                                                                             | 
+| Project Shutdown Date                                   | Date project shut down (MM/DD/YYYY)                                                                                                                                                      | 
+| LFG Energy Project Type                                 | Specific type of LFG energy project technology                                                                                                                                           | 
+| Project Type Category                                   | Specific type of LFG energy project technology                                                                                                                                           | 
+| MW Capacity                                             | Capacity in megawatts for electricity-generating projects                                                                                                                                | 
+| Current Year Emission Reductions (MMTCO2e/yr) - Direct  | Direct methane reductions by the energy project for the current year                                                                                                                     | 
+| Current Year Emission Reductions (MMTCO2e/yr) - Avoided | Avoided carbon dioxide emission reductions by the energy project for the current year                                                                                                    | 
+
+
+#### Power
+| Column Name                                                      | Column Name ID | Description                                                                                                                                                                                                                                                                                                                                                                            | 
+|------------------------------------------------------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| 
+| State abbreviation                                               | PSTATABB       | The state_s name abbreviation                                                                                                                                                                                                                                                                                                                                                          | 
+| State nameplate capacity (MW)                                    | NAMEPCAP       | It is the intended full-load sustained output of a facility                                                                                                                                                                                                                                                                                                                            | 
+| State total annual heat input (MMBtu)                            | STHTIANT       | "The total annual heat input from combustion and noncombustion units, in MMBtu, for the plant. For CHP plants, the value is adjusted by the electric allocation factor."                                                                                                                                                                                                               | 
+| State annual net generation (MWh)                                | STNGENAN       | The state_s total reported net generation in MWh.                                                                                                                                                                                                                                                                                                                                      | 
+| State ozone season net generation (MWh)                          | STNGENOZ       | "The state_s total five-month ozone season (May through September) net generation in MWh, based on monthly generator generation data. "                                                                                                                                                                                                                                                | 
+| State annual NOx emissions (tons)                                | STNOXAN        | "The total annual NOx emissions, in short tons, for the state. Biogas components are adjusted. For CHP plants, the value is adjusted by the electric allocation factor. This adjusted emissions field is estimated by first making the biogas adjustment (if it exists) and then applying the electric allocation factor (if the plant is a CHP). "                                    | 
+| State ozone season NOx emissions (tons)                          | STNOXOZ        | "The five-month ozone season (May through September) NOx emissions, in short tons, for the state. Biogas components are adjusted. For CHP plants, the value is adjusted by the electric allocation factor. This adjusted emissions field is estimated by first making the biogas adjustment (if it exists) and then applying the electric allocation factor (if the plant is a CHP). " | 
+| State annual SO2 emissions (tons)                                | STSO2AN        | "The total annual SO2 emissions, in short tons, for the state. Landfill gas components are adjusted. For CHP plants, the value is adjusted by the electric allocation factor. This adjusted emissions field is estimated by first making the landfill gas adjustment (if it exists) and then applying the electric allocation factor (if the plant is a CHP). "                        | 
+| State annual CO2 emissions (tons)                                | STCO2AN        | "The total annual CO2 emissions, in short tons, for the state. All CO2 emissions from biomass fuels are adjusted to zero. For CHP plants, the value is adjusted by the electric allocation factor. This adjusted emissions field is estimated by first making the biomass adjustment (if it exists) and then applying the electric allocation factor (if the plant is a CHP). "        | 
+| State annual CH4 emissions (lbs)                                 | STCH4AN        | "The total annual CH4 emissions, in pounds, for the state. Biogas biomass components are adjusted. For CHP plants, the value is adjusted by the electric allocation factor. This adjusted emissions field is estimated by first making the biomass adjustment (if it exists) and then applying the electric allocation factor (if the plant is a CHP)."                                | 
+| State annual N2O emissions (lbs)                                 | STN2OAN        | "The total annual N2O emissions, in pounds for the state. Biogas biomass components are adjusted. For CHP plants, the value is adjusted by the electric allocation factor. This adjusted emissions field is estimated by first making the biomass adjustment (if it exists) and then applying the electric allocation factor (if the plant is a CHP). "                                | 
+| State annual coal net generation (MWh)                           | STGENACL       | "The plant annual net generation, in MWh, for coal. Fuel codes that are included in coal are BIT, COG, SUB, LIG, WC, and SC."                                                                                                                                                                                                                                                          | 
+| State annual oil net generation (MWh)                            | STGENAOL       | "The plant annual net generation, in MWh, for oil. Fuel codes included in oil are DFO, JF, KER, OO, PC, RFO, RG, and WO."                                                                                                                                                                                                                                                              | 
+| State annual gas net generation (MWh)                            | STGENAGS       | "The plant annual net generation, in MWh, for natural gas. Fuel codes included in gas are NG and PG"                                                                                                                                                                                                                                                                                   | 
+| State annual nuclear net generation (MWh)                        | STGENANC       | "The plant annual net generation, in MWh, for nuclear. Fuel codes include NUC."                                                                                                                                                                                                                                                                                                        | 
+| State annual hydro net generation (MWh)                          | STGENAHY       | "The plant annual net generation, in MWh, for hydro. Fuel codes include WAT."                                                                                                                                                                                                                                                                                                          | 
+| State annual biomass net generation (MWh)                        | STGENABM       | "The annual net generation, in MWh, for biomass. Biomass is a fuel derived from organic matter such as wood and paper products, agricultural waste, or methane (e.g., from landfills). The renewable portion of solid waste, fuel code MSB, is included as biomass, as are AB, BLQ, DG, LFG, ME, OBL, OBS, PP, SLW, WDL, and WDS. "                                                    | 
+| State annual wind net generation (MWh)                           | STGENAWI       | "The plant annual net generation, in MWh, for wind. Fuel codes include WND."                                                                                                                                                                                                                                                                                                           | 
+| State annual solar net generation (MWh)                          | STGENASO       | "The plant annual net generation, in MWh, for solar. Fuel codes include SUN. "                                                                                                                                                                                                                                                                                                         | 
+| State annual geothermal net generation (MWh)                     | STGENAGT       | "The plant annual net generation, in MWh, for geothermal. Fuel codes include GEO."                                                                                                                                                                                                                                                                                                     | 
+| State annual other fossil net generation (MWh)                   | STGENAOF       | "The plant annual net generation, in MWh, for other fossil fuel that cannot be categorized as coal, oil, or gas. Other fossil fuel codes include BFG, COG, HY, LB, MH, MSF, OG, PRG, and TDF. "                                                                                                                                                                                        | 
+| State annual other unknown/ purchased fuel net generation (MWh)  | STGENAOP       | "The plant annual net generation, in MWh, for other unknown/purchased. Fuel codes include OTH, PUR, or WH. "                                                                                                                                                                                                                                                                           | 
+| State annual total nonrenewables net generation (MWh)            | STGENATN       | "The annual total nonrenewables net generation, in MWh, for the plant. Nonrenewables are exhaustible energy resources such as coal, oil, gas, other fossil, nuclear power, and other unknown/purchased fuel. This field is the sum of STGENACL, STGENAOL, STGENAGS, STGENAOF, STGENANC, and STGENAOP."                                                                                 | 
+| State annual total renewables net generation (MWh)               | STGENATR       | "The annual total renewables net generation, in MWh, for the plant. Renewables are inexhaustible energy resources such as biomass, wind, solar, geothermal, and hydro. This field is the sum of STGENABM, STGENAWI, STGENASO, STGENAGT, and STGENAHY."                                                                                                                                 | 
+| State annual total nonhydro renewables net generation (MWh)      | STGENATH       | "The annual total nonhydro renewables net generation, in MWh, for the plant. This field is the sum of STGENABM, STGENAWI, STGENASO, and STGENAGT."                                                                                                                                                                                                                                     | 
+| State annual total combustion net generation (MWh)               | STGENACY       | "The annual total combustion net generation, in MWh, for the plant. This field is the sum of STGENACL, STGENAOL, STGENAGS, STGENAOF, STGENABM, and STGENAOP."                                                                                                                                                                                                                          | 
+| State annual total noncombustion net generation (MWh)            | STGENACN       | "The annual total noncombustion net generation, in MWh, for the plant. This field is the sum of STGENANC, STGENAHY, STGENAWI, STGENASO, and STGENAGT."                                                                                                                                                                                                                                 | 
+
+#### Water
+
+| Column Name                    | Description                                                          |  | 
+|--------------------------------|----------------------------------------------------------------------|--| 
+| State                          | The state_s name                                                     |  | 
+| Population2010                 | The population in 2010                                               |  | 
+| Total-Fresh                    | "Total withdrawals, fresh, in Mgal/d"                                |  | 
+| Total-Saline                   | "Total withdrawals, saline, in Mgal/d"                               |  | 
+| Total                          | "Total withdrawals, total (fresh+saline), in Mgal/d"                 |  | 
+| Groundwater-Fresh              | "Total groundwater withdrawals, fresh, in Mgal/d"                    |  | 
+| Groundwater-Saline             | "Total groundwater withdrawals, saline, in Mgal/d"                   |  | 
+| Groundwater-Total              | "Total groundwater withdrawals, total (fresh+saline), in Mgal/d"     |  | 
+| Surfacewater-Fresh             | "Total surface-water withdrawals, fresh, in Mgal/d"                  |  | 
+| Surfacewater-Saline            | "Total surface-water withdrawals, saline, in Mgal/d"                 |  | 
+| Surfacewater-Total             | "Total surface-water withdrawals, total (fresh+saline), in Mgal/d"   |  | 
+| PublicSuply                    | "Public Supply, total population served, in thousands"               |  | 
+| Self-SuppliedDomestic          | "Domestic, self-supplied population, in thousands"                   |  | 
+| Irrigation                     | "Irrigation, total withdrawals, fresh, in Mgal/d"                    |  | 
+| LiveStock                      | "Livestock, total withdrawals, fresh, in Mgal/d"                     |  | 
+| Aquaculture                    | "Aquaculture, total withdrawals, total (fresh+saline), in Mgal/d"    |  | 
+| SelfSuppliedIndustrial-Saline  | "Industrial, self-supplied total withdrawals, saline, in Mgal/d"     |  | 
+| SelfSuppliedIndustrial-Fresh   | "Industrial, self-supplied total withdrawals, fresh, in Mgal/d"      |  | 
+| Mining-Fresh                   | "Mining, total withdrawals, fresh, in Mgal/d"                        |  | 
+| Mining-Saline                  | "Mining, total withdrawals, saline, in Mgal/d"                       |  | 
+| ThermoelectricPower-Saline     | "Thermoelectric, total withdrawals, saline, in Mgal/d"               |  | 
+| ThermoelectricPower-Fresh      | "Thermoelectric, total withdrawals, fresh, in Mgal/d"                |  | 
+| Population-Total               | "Total population of county, in thousands"                           |  | 
+| Population-Served              | "Public Supply, total population served, in thousands"               |  | 
+| Population-Served-Percent      | Population served over the total population                          |  | 
+| PublicWithdrawals-Groundwater  | "Public Supply, groundwater withdrawals, total, in Mgal/d"           |  | 
+| PublicWithdrawals-Surfacewater | "Public Supply, surface-water withdrawals, total, in Mgal/d"         |  | 
+| PublicWithdrawls-Total         | "Public Supply, total withdrawals, total (fresh+saline), in Mgal/d"  |  | 
+| WaterDomesticUse               | "Domestic, total use (withdrawals + deliveries)"                     |  | 
+| DomesticUse-Percent            | Domestic use over the total population                               |  | 
+| AllOtherUse                    | Other uses other than domestic or public supplied                    |  | 
+| Irrigation-Groundwater         | "Irrigation, groundwater withdrawals, fresh, in Mgal/d"              |  | 
+| Irigation-Surfacewater         | "Irrigation, surface-water withdrawals, fresh, in Mgal/d"            |  | 
+| Irigation-Total                | "Irrigation, total withdrawals, fresh, in Mgal/d"                    |  | 
+| Livestock-Groundwater          | "Livestock, groundwater withdrawals, fresh, in Mgal/d"               |  | 
+| Livestock-Surfacewater         | "Livestock, surface-water withdrawals, fresh, in Mgal/d"             |  | 
+| Livestock-Total                | "Livestock, total withdrawals, fresh, in Mgal/d"                     |  | 
+| Aquaculture-Groundwater        | "Aquaculture, groundwater withdrawals, total, in Mgal/d"             |  | 
+| Aquaculture-Surfacewater       | "Aquaculture, surface-water withdrawals, total, in Mgal/d"           |  | 
+| Aquaculture-Total              | "Aquaculture, total withdrawals, total (fresh+saline), in Mgal/d"    |  | 
+| Mining-Groundwater             | "Mining, groundwater withdrawals, total, in Mgal/d"                  |  | 
+| Mining-Surfacewater            | "Mining, surface-water withdrawals, total, in Mgal/d"                |  | 
+| Mining-Total                   | "Mining, total withdrawals, total (fresh+saline), in Mgal/d"         |  | 
+| Thermoelectric-Groundwater     | "Thermoelectric, groundwater withdrawals, total, in Mgal/d"          |  | 
+| Thermoelectric-Surfacewater    | "Thermoelectric, surface-water withdrawals, total, in Mgal/d"        |  | 
+| Thermoelectric-Total           | "Thermoelectric, total withdrawals, total (fresh+saline), in Mgal/d" |  | 
+| ThermoelectricPower-Generated  | "Thermoelectric, power generated, in gigawatt-hours"                 |  | 
