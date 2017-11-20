@@ -33,10 +33,16 @@ num.landfills.per.state <- landfill %>%
 # ----------------------------------------------------------------------------------------------#
 # Power Data
 
-
-
+power <- power %>% 
+  select(-State.ozone.season.net.generation..MWh., -State.ozone.season.NOx.emissions..tons.)
 
 # ----------------------------------------------------------------------------------------------#
 # Water Data 
 
+water <- water %>% 
+  select(-Groundwater.Fresh, -Groundwater.Saline, -Surfacewater.Fresh, -Surfacewater.Saline, -Irrigation, -LiveStock, -Aquaculture, 
+         -Mining.Fresh, -Mining.Saline, -ThermoelectricPower.Fresh, -ThermoelectricPower.Saline, -PublicWithdrawals.Groundwater, 
+         -PublicWithdrawals.Surfacewater, -Irrigation.Groundwater, -Irigation.Surfacewater, -Livestock.Groundwater, -Livestock.Surfacewater, 
+         -Aquaculture.Groundwater, -Aquaculture.Surfacewater, -Mining.Groundwater, -Mining.Surfacewater, -Thermoelectric.Groundwater,
+         -Thermoelectric.Surfacewater)
 
