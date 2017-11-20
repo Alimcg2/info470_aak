@@ -1,11 +1,7 @@
----
-title: "INFO470 Project"
-output: html_document
----
 # A Fuck Ton Of Work
 
 ## Table of Contents
-[Introduction](#Introduction)
+[Introduction](#introduction)
 [Leterature Review](#literature-review)
 [Method Description](#method-description)
 
@@ -22,9 +18,12 @@ output: html_document
 
 ### Introduction
 Our dataset consists of three major parts that contribute to environmental hazards. We have aggregated and cleaned a few different data sets to fit our needs and the data now lives inside one CSV document. There is quantitative, state by state data on landfills and waste, power consumption and emissions, and water withdrawals and water waste. 
+
 ### Landfills
+
 ##### Source
 This data is from the Environmental Protection Agency’s (EPA) Landfill Methane Outreach Program (LMOP). This data is current as of June 2017. The LMOP is an program that aims to reduce methane emissions from landfills. One of the ways they accomplish this goal is through gathering data on landfills and potential energy projects that they have going on at the landfills. 
+
 ##### Description
 This data has two major parts, information about the landfill and information about methane saving projects at the landfill. The landfill data is a collection of 2,400 municipal solid waste landfills across the United States. This data has been collected largely in part due to the partnerships the EPA has with landfills. It includes landfills that both do and don’t report to the EPA’s Greenhouse Gas Reporting Program. The landfill data includes information like the state it’s located in, the landfill’s name, the landfill operator’s name (or organization), the county it’s located in, the latitude and longitude of the plant and the amount of trash it contains (in tons); to name a few. It also contains information about landfill operations including the year it opened, the year it has closed if it has closed, if they have have methane protection projects going on, the year those methane protection projects started, and much more. 
 
@@ -33,6 +32,7 @@ This data has two major parts, information about the landfill and information ab
 
 
 ### Power Plant Emissions
+
 ##### Source
 This data has also been collected by the EPA and is current as of 2014. It is a part of the EPA’s Emissions & Generated Resource Integrated Database (eGRID). The EPA describes eGRID as “a comprehensive source of data on the environmental characteristics of almost all electric power generated in the United States” (EPA). They collect data on air emissions for nitrogen oxides, sulfur dioxide, carbon dioxide, methane, and nitrous oxide; emissions rates; net generation; resource mix; and many other attributes.
 
@@ -49,10 +49,13 @@ This data set comes with hundreds of columns, we have narrowed down those to jus
 
 
 ### Water Withdrawals
+
 ##### Source
 The data was gathered from the United States Geological Survey. This agency collects, monitors and assess data on different aspects of the United States’ geology for both policy makers and public interest. Their data is about many different aspects including land, air, water and everything in between. Our data comes from the USGS Water Science School’s report on Water Usage and is current as of 2010. 
+
 ##### Description
 This data describes how much water is being used by the population of the United States. The data has been aggregated to reflect a state by state total for each column. The data is separated into many different parts, including where the water is coming from (surface water or groundwater), where it’s going to (agriculture, mining, industrial, livestock, aquaculture), who is using it (publicly supplied, domestically supplied), and the type of water (fresh or saline). There is also information on the populations for each state and the populations that use this water. 
+
 ##### Analysis
 
 ### Column Tables
