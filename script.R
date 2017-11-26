@@ -77,7 +77,7 @@ population.waste <- landfill_by_state %>%
 # public vs private with lfg system?
 # maybe a feasibility reason that people don't have it?
 # year opened and the lfg system
-
+# get data on the population density
 
 # chi-squared independence on state and waste
 states <- landfill_by_state$State
@@ -105,6 +105,7 @@ power <- power %>%
 # Summary Stats
 
 # HEat input is how many mmbtus that have to go in to generate that output
+# Convert these into jewels
 
 # Actual Generation over nameplate capacity
 # OOPS NEED TO CONVERT MWh into MW HAHHAHAA
