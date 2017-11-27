@@ -33,7 +33,7 @@ bubbleGraphFunc <- function(data, lon, lat, sizeData, colorData, hoverText, titl
   )
   plot_geo(landfill, locationmode = 'USA-states', sizes = c(1, 50)) %>%
     add_markers(
-      x = lon, y = lat, size = sizeData, color = colorData, hoverinfo = "text",
+      x = lon, y = lat, size = sizeData, color = colorData, colors="PRGn", hoverinfo = "text",
       text = hoverText
     ) %>%
     layout(title = titleText, geo = g)
@@ -127,12 +127,14 @@ chisq.test(observed, p = expected)
 
 # Total waste by population graph
 waste.by.pop <- choroplthFunc(population.waste, population.waste$population.waste, population.waste$State, 
-              population.waste$population.waste, "Total Waste (in tons) Per Capita", c("yellow", "red"))
+              population.waste$population.waste, "Total Waste (in tons) Per Capita", 
+              c("forestgreen", "darkmagenta"))
 # Percent of landfills with an lfg system in the state
 percent.with.lfg <- choroplthFunc(num.LFG, num.LFG$percent.lfg, num.LFG$State, num.LFG$percent.lfg, 
-              "Percentage of Landfills With LFG Collection", c("red","yellow"))
+              "Percentage of Landfills With LFG Collection", c("darkmagenta", "forestgreen"))
 # Lanfills by their amount of waste and if they have an LFG system
-bubble.by.waste.lfg <- bubbleGraphFunc(landfill, landfill$Longitude, landfill$Latitude, as.numeric(landfill$Waste.in.Place..tons.),
+bubble.by.waste.lfg <- bubbleGraphFunc(landfill, landfill$Longitude, landfill$Latitude, 
+                                       as.numeric(landfill$Waste.in.Place..tons.),
                 landfill$LFG.Collection.System.In.Place.,
                 paste("State: ", landfill$State, "<br> Name: ", landfill$Landfill.Name,
                       "<br> Waste (tons): ", landfill$Waste.in.Place..tons.), 
@@ -155,10 +157,11 @@ year.withoutlfg <- landfill %>%
   summarise(countWithout = n())
 lfg.by.year.half <- left_join(year.lfg, year.withlfg, by="Year.Landfill.Opened") 
 lfg.by.year <- left_join(lfg.by.year.half, year.withoutlfg, by="Year.Landfill.Opened")
-num.plants.by.year.lfg <- plot_ly(lfg.by.year, x = ~Year.Landfill.Opened, y = ~countWithout, type = 'bar', name = 'Without LFG') %>%
-  add_trace(y = ~countWith, name = 'With LFG') %>%
+num.plants.by.year.lfg <- plot_ly(lfg.by.year, x = ~Year.Landfill.Opened, y = ~countWithout, 
+                                  type = 'bar', name = 'Without LFG', marker = list(color = "Purple")) %>%
+  add_trace(y = ~countWith, name = 'With LFG',  marker = list(color = "Green")) %>%
   layout(yaxis = list(title = 'Count'), barmode = 'group')
-
+# Number of plants by year and if they are public or private
 year.pub <- landfill %>% 
   select(Year.Landfill.Opened, Ownership.Type) %>% 
   filter(Ownership.Type == "Public") %>% 
@@ -170,8 +173,9 @@ year.priv <- landfill %>%
   group_by(Year.Landfill.Opened) %>% 
   summarise(countPrivate = n())
 ownership.year <- left_join(year.pub, year.priv, by="Year.Landfill.Opened")
-num.plants.by.year.owner <- plot_ly(ownership.year, x = ~Year.Landfill.Opened, y = ~countPublic, type = 'bar', name = 'Public') %>%
-  add_trace(y = ~countPrivate, name = 'Private') %>%
+num.plants.by.year.owner <- plot_ly(ownership.year, x = ~Year.Landfill.Opened, y = ~countPublic, type = 'bar', 
+                                    name = 'Public', marker = list(color = "Green")) %>%
+  add_trace(y = ~countPrivate, name = 'Private', marker = list(color = "Purple")) %>%
   layout(yaxis = list(title = 'Count'), barmode = 'group')
 
 
@@ -190,6 +194,7 @@ power <- power %>%
 StateFull <- as.data.frame(StateFull)
 power <- bind_cols(power, StateFull)
 
+
 # ------------------- #
 # Summary Stats
 
@@ -199,22 +204,89 @@ power <- bind_cols(power, StateFull)
 # Annual Generation over their capacity
 amount.used <- power %>% 
   select(State.abbreviation, State.nameplate.capacity..MW., State.annual.net.generation..MWh.) %>% 
-  mutate(amount.power.used = as.numeric(State.annual.net.generation..MWh.) / as.numeric(State.nameplate.capacity..MW.))
+  mutate(amount.power.used = as.numeric(State.annual.net.generation..MWh.) 
+         / as.numeric(State.nameplate.capacity..MW.))
 # Heat input over their anual output
 input.to.output <- power %>% 
-  select()
+  select(State.abbreviation, State.total.annual.heat.input..MMBtu.,State.annual.net.generation..MWh.) %>% 
+  mutate(input.output = as.numeric(State.total.annual.heat.input..MMBtu.) 
+         / as.numeric(State.annual.net.generation..MWh.))
+# Total combustion over noncombustion 
+# Smaller numbers are better
+combustion.noncumbustion <- power %>% 
+  select(State.abbreviation, State.annual.total.combustion.net.generation..MWh., 
+         State.annual.total.noncombustion.net.generation..MWh.) %>% 
+  mutate(combustion.ratio = as.numeric(State.annual.total.combustion.net.generation..MWh.) /
+           as.numeric(State.annual.total.noncombustion.net.generation..MWh.))
+# Total renewables over nonrenewables
+# Smaller numbers are better 
+renewables.nonrenewables <- power %>% 
+  select(State.abbreviation, State.annual.total.renewables.net.generation..MWh.,
+         State.annual.total.nonrenewables.net.generation..MWh.) %>% 
+  mutate(renewables.ratio = as.numeric(State.annual.total.renewables.net.generation..MWh.) /
+           as.numeric(State.annual.total.nonrenewables.net.generation..MWh.))
+
 
 # ------------------- #
 # Tests
 
 
+# ------------------- #
+# Graphs
+
+# emissions by state and emission type
+state.emissiontype <- plot_ly(power, x = ~State.abbreviation, y = ~State.annual.NOx.emissions..tons., 
+                              type = 'bar', name = 'NOx Emissions', 
+                              marker = list(color = 'rgb(193, 0, 0)')) %>%
+  add_trace(y = ~State.annual.SO2.emissions..tons., name = 'SO2 Emissions', 
+            marker = list(color = 'rgb(249, 107, 107)')) %>%
+  add_trace(y = ~State.annual.CO2.emissions..tons., name = 'CO2 Emissions', 
+            marker = list(color = 'rgb(252, 117, 0)')) %>%
+  add_trace(y = ~State.annual.CH4.emissions..lbs., name = 'CH4 Emissions', 
+            marker = list(color = 'rgb(255, 199, 0)')) %>%
+  add_trace(y = ~State.annual.N2O.emissions..lbs., name = 'N2O Emissions', 
+            marker = list(color = 'rgb(255, 228, 132)')) %>%
+  layout(yaxis = list(title = ""), xaxis = list(title = ""), barmode = 'stack', 
+         title="Power Plant Emissions by State and Emission Type")
+# generation by state and type
+state.generationtype <- plot_ly(power, x = ~State.abbreviation, y = ~State.annual.coal.net.generation..MWh., 
+                                type = 'bar', name = 'Coal',  marker = list(color = 'rgb(94, 0, 0)')) %>%
+  add_trace( y = ~State.annual.oil.net.generation..MWh., name = 'Oil', 
+             marker = list(color = 'rgb(193, 0, 0)')) %>%
+  add_trace(y = ~State.annual.nuclear.net.generation..MWh., name = 'Nuclear', 
+            marker = list(color = 'rgb(249, 107, 107)')) %>%
+  add_trace(y = ~State.annual.gas.net.generation..MWh., name = 'Gas', 
+            marker = list(color = 'rgb(255, 174, 104)')) %>%
+  add_trace(y = ~State.annual.biomass.net.generation..MWh., name = 'Biomass',
+            marker = list(color = 'rgb(252, 117, 0)')) %>%
+  add_trace(y = ~State.annual.geothermal.net.generation..MWh., name = 'Geothermal', 
+            marker = list(color = 'rgb(160, 74, 0)')) %>%
+  add_trace(y = ~State.annual.hydro.net.generation..MWh., name = 'Hydro', 
+            marker = list(color = 'rgb(160, 125, 0)')) %>%
+  add_trace(y = ~State.annual.wind.net.generation..MWh., name = 'Wind', 
+            marker = list(color = 'rgb(255, 199, 0)')) %>%
+  add_trace(y = ~State.annual.solar.net.generation..MWh., name = 'Solar',
+            marker = list(color = 'rgb(255, 228, 132)')) %>%
+  add_trace(y = ~State.annual.other.fossil.net.generation..MWh., name = 'Other Fossil', 
+            marker = list(color = 'rgb(155, 155, 155)')) %>% 
+  layout(yaxis = list(title = ''), xaxis = list(title = ""), barmode = 'stack', 
+         title = "Power Plant Generation by State and Energy Type")
+# States and combustion vs non combustion
+combustion.map <- choroplthFunc(combustion.noncumbustion, combustion.noncumbustion$combustion.ratio, 
+              combustion.noncumbustion$State.abbreviation, combustion.noncumbustion$combustion.ratio, 
+              "States and Combustion Ratio", c("Yellow", "Red"))
+# States and renewables vs non renewables
+renewables.map <- choroplthFunc(renewables.nonrenewables, renewables.nonrenewables$renewables.ratio, 
+              renewables.nonrenewables$State.abbreviation, renewables.nonrenewables$renewables.ratio, 
+              "States and Renewables Ratio", c("Yellow", "Red"))
 
 # ----------------------------------------------------------------------------------------------#
 # Water Data 
 
 water <- water %>% 
   select(-Groundwater.Fresh, -Groundwater.Saline, -Surfacewater.Fresh, -Surfacewater.Saline, -Irrigation, 
-         -LiveStock, -Aquaculture, -Mining.Fresh, -Mining.Saline, -ThermoelectricPower.Fresh, -ThermoelectricPower.Saline, 
+         -LiveStock, -Aquaculture, -Mining.Fresh, -Mining.Saline, -ThermoelectricPower.Fresh, 
+         -ThermoelectricPower.Saline, 
          -PublicWithdrawals.Groundwater, -PublicWithdrawals.Surfacewater, -Irrigation.Groundwater, 
          -Irigation.Surfacewater, -Livestock.Groundwater, -Livestock.Surfacewater, -Aquaculture.Groundwater, 
          -Aquaculture.Surfacewater, -Mining.Groundwater, -Mining.Surfacewater, -Thermoelectric.Groundwater, 

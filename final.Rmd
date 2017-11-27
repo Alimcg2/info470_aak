@@ -189,11 +189,18 @@ This data describes how much water is being used by the population of the United
 
 
 # Data Analysis
+
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 source("script.R")
 waste.by.pop
 percent.with.lfg
 bubble.by.waste.lfg
+num.plants.by.year.lfg
 num.plants.by.year.owner
+
+state.emissiontype
+state.generationtype
+renewables.map
+combustion.map
 ```
 
