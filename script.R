@@ -106,22 +106,18 @@ population.waste <- landfill_by_state %>%
 # ------------------- #
 # Tests
 
-# chi-squared independence on state and waste
-states <- landfill_by_state$State
-waste <- landfill_by_state$total.waste
-chisq.test(waste, states)
+# Chi-square test for independence - year opened versus LFG
+lfg_and_year_data <- landfill %>% select(Year.Landfill.Opened, LFG.Collection.System.In.Place.)
+lfg_and_year_data <- na.omit(lfg_and_year_data)
 
-# correlation between LFG collected and waste
-LFG.collected <- landfill_by_state$total.lfg.collected
-cor.test(LFG.collected, waste)
+chisq.test(lfg_and_year_data$Year.Landfill.Opened, lfg_and_year_data$LFG.Collection.System.In.Place.)
 
-# chi-squared goodness of fit on waste based on state population and actual
-expected <- landfill_by_state$X2017.Population / sum(landfill_by_state$X2017.Population, na.rm = TRUE)
-observed <- landfill_by_state$total.waste
-# LMAO THIS IS HELLA WRONG
-chisq.test(observed, p = expected)
+# Chi-square test for independence - private/public versus LFG
+lfg_and_ownership_data <- landfill %>% select(Ownership.Type, LFG.Collection.System.In.Place.)
+lfg_and_ownership_data <- na.omit(lfg_and_ownership_data)
 
-
+chisq.test(lfg_and_ownership_data$Ownership.Type, lfg_and_ownership_data$LFG.Collection.System.In.Place.)
+  
 # ------------------- #
 # Graphs
 
