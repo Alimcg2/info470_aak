@@ -229,6 +229,8 @@ renewables.nonrenewables <- power %>%
 
 # ------------------- #
 # Tests
+states <- power$State.abbreviation
+emissions <- c("NOx", "SO2", "CO2", "CH4", "N2")
 
 
 # ------------------- #
@@ -283,6 +285,7 @@ renewables.map <- choroplthFunc(renewables.nonrenewables, renewables.nonrenewabl
 # ----------------------------------------------------------------------------------------------#
 # Water Data 
 
+
 water <- water %>% 
   select(-Groundwater.Fresh, -Groundwater.Saline, -Surfacewater.Fresh, -Surfacewater.Saline, -Irrigation, 
          -LiveStock, -Aquaculture, -Mining.Fresh, -Mining.Saline, -ThermoelectricPower.Fresh, 
@@ -290,9 +293,24 @@ water <- water %>%
          -PublicWithdrawals.Groundwater, -PublicWithdrawals.Surfacewater, -Irrigation.Groundwater, 
          -Irigation.Surfacewater, -Livestock.Groundwater, -Livestock.Surfacewater, -Aquaculture.Groundwater, 
          -Aquaculture.Surfacewater, -Mining.Groundwater, -Mining.Surfacewater, -Thermoelectric.Groundwater, 
-         -Thermoelectric.Surfacewater)
+         -Thermoelectric.Surfacewater) %>% 
+  mutate(SelfSuppliedIndustrialTotal = (as.numeric(water$SelfSuppliedIndustrial.Saline) + 
+                                          as.numeric(water$SelfSuppliedIndustrial.Fresh))) %>% 
+  filter(State != "District Of Columbia")
 
 
+# ------------------- #
+# Summary Stats
+
+
+
+# ------------------- #
+# Tests
+
+
+
+# ------------------- #
+# Graphs
 
 
 
