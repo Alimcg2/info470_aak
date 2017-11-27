@@ -1,9 +1,21 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # A Fuck Ton Of Work
+
+by Alison McGuire, Alyssa Holzer and MacKenzie Olson
 
 ## Table of Contents
 [Introduction](#introduction)
+
 [Leterature Review](#literature-review)
+
 [Method Description](#method-description)
+
+[Data Analysis](#data-analysis)
+
 
 ## Introduction
 
@@ -173,3 +185,15 @@ This data describes how much water is being used by the population of the United
 | Thermoelectric-Surfacewater    | "Thermoelectric, surface-water withdrawals, total, in Mgal/d"        |  | 
 | Thermoelectric-Total           | "Thermoelectric, total withdrawals, total (fresh+saline), in Mgal/d" |  | 
 | ThermoelectricPower-Generated  | "Thermoelectric, power generated, in gigawatt-hours"                 |  | 
+
+
+
+# Data Analysis
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("script.R")
+waste.by.pop
+percent.with.lfg
+bubble.by.waste.lfg
+num.plants.by.year.owner
+```
+

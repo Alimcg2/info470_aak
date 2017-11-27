@@ -15,6 +15,35 @@ pop2017 <- read.csv("pop2017.csv")
 # ---------------------------------------------------------------------------------------------- #
 # Landfill Data 
 
+# Common functions 
+choroplthFunc <- function(data, zData, stateAbb, colorData, titleText, colorPick){
+  l <- list(color = toRGB("white"), width = 2)
+  # specify some map projection/options
+  g <- list(scope = 'usa', projection = list(type = 'albers usa'),showlakes = TRUE,lakecolor = toRGB('white'))
+  plot_geo(data, locationmode = 'USA-states') %>%
+    add_trace( z = zData, locations = stateAbb, color = colorData, colors = colorPick, 
+               marker = list(line = l))  %>%
+    layout(title = titleText, geo = g)
+}
+
+bubbleGraphFunc <- function(data, lon, lat, sizeData, colorData, hoverText, titleText) {
+  g <- list(
+    scope = 'usa', projection = list(type = 'albers usa'), showland = TRUE, landcolor = toRGB("gray85"), 
+    subunitcolor = toRGB("white"), countrycolor = toRGB("white")
+  )
+  plot_geo(landfill, locationmode = 'USA-states', sizes = c(1, 50)) %>%
+    add_markers(
+      x = lon, y = lat, size = sizeData, color = colorData, hoverinfo = "text",
+      text = hoverText
+    ) %>%
+    layout(title = titleText, geo = g)
+}
+stackChartFunc <- function(data, xData, YData, YDataName, YData2, YDataName2){
+  plot_ly(data, x = xData, y = YData, type = 'bar', name = YDataName) %>%
+    add_trace(y = YData2, name = YDataName2) %>%
+    layout(yaxis = list(title = 'Count'), barmode = 'stack')
+}
+
 landfill <- landfill %>% 
   select(State, Landfill.Name, Longitude, Latitude, Ownership.Type, Year.Landfill.Opened, 
          Landfill.Closure.Year, Waste.in.Place..tons., LFG.Collection.System.In.Place., 
@@ -130,6 +159,20 @@ num.plants.by.year.lfg <- plot_ly(lfg.by.year, x = ~Year.Landfill.Opened, y = ~c
   add_trace(y = ~countWith, name = 'With LFG') %>%
   layout(yaxis = list(title = 'Count'), barmode = 'group')
 
+year.pub <- landfill %>% 
+  select(Year.Landfill.Opened, Ownership.Type) %>% 
+  filter(Ownership.Type == "Public") %>% 
+  group_by(Year.Landfill.Opened) %>% 
+  summarise(countPublic = n())
+year.priv <- landfill %>% 
+  select(Year.Landfill.Opened, Ownership.Type) %>% 
+  filter(Ownership.Type == "Private") %>% 
+  group_by(Year.Landfill.Opened) %>% 
+  summarise(countPrivate = n())
+ownership.year <- left_join(year.pub, year.priv, by="Year.Landfill.Opened")
+num.plants.by.year.owner <- plot_ly(ownership.year, x = ~Year.Landfill.Opened, y = ~countPublic, type = 'bar', name = 'Public') %>%
+  add_trace(y = ~countPrivate, name = 'Private') %>%
+  layout(yaxis = list(title = 'Count'), barmode = 'group')
 
 
 # ----------------------------------------------------------------------------------------------#
@@ -182,31 +225,3 @@ water <- water %>%
 
 
 # ----------------------------------------------------------------------------------------------#
-# Common functions 
-choroplthFunc <- function(data, zData, stateAbb, colorData, titleText, colorPick){
-  l <- list(color = toRGB("white"), width = 2)
-  # specify some map projection/options
-  g <- list(scope = 'usa', projection = list(type = 'albers usa'),showlakes = TRUE,lakecolor = toRGB('white'))
-  plot_geo(data, locationmode = 'USA-states') %>%
-    add_trace( z = zData, locations = stateAbb, color = colorData, colors = colorPick, 
-               marker = list(line = l))  %>%
-    layout(title = titleText, geo = g)
-}
-
-bubbleGraphFunc <- function(data, lon, lat, sizeData, colorData, hoverText, titleText) {
-  g <- list(
-    scope = 'usa', projection = list(type = 'albers usa'), showland = TRUE, landcolor = toRGB("gray85"), 
-    subunitcolor = toRGB("white"), countrycolor = toRGB("white")
-  )
-  plot_geo(landfill, locationmode = 'USA-states', sizes = c(1, 50)) %>%
-    add_markers(
-      x = lon, y = lat, size = sizeData, color = colorData, hoverinfo = "text",
-      text = hoverText
-    ) %>%
-    layout(title = titleText, geo = g)
-}
-stackChartFunc <- function(data, xData, YData, YDataName, YData2, YDataName2){
-  plot_ly(data, x = xData, y = YData, type = 'bar', name = YDataName) %>%
-    add_trace(y = YData2, name = YDataName2) %>%
-    layout(yaxis = list(title = 'Count'), barmode = 'stack')
-}
