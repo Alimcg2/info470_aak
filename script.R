@@ -106,20 +106,43 @@ population.waste <- landfill_by_state %>%
 # ------------------- #
 # Tests
 
+# TRASH SECTION
+
 # Chi-square test for independence - year opened versus LFG
 lfg_and_year_data <- landfill %>% select(Year.Landfill.Opened, LFG.Collection.System.In.Place.)
 lfg_and_year_data <- na.omit(lfg_and_year_data)
 
-chisq.test(lfg_and_year_data$Year.Landfill.Opened, lfg_and_year_data$LFG.Collection.System.In.Place.)
+trash_year_and_lfg_chi_square <- chisq.test(lfg_and_year_data$Year.Landfill.Opened, lfg_and_year_data$LFG.Collection.System.In.Place.)
 
 # Chi-square test for independence - private/public versus LFG
 lfg_and_ownership_data <- landfill %>% select(Ownership.Type, LFG.Collection.System.In.Place.)
 lfg_and_ownership_data <- na.omit(lfg_and_ownership_data)
 
-chisq.test(lfg_and_ownership_data$Ownership.Type, lfg_and_ownership_data$LFG.Collection.System.In.Place.)
-  
+trash_ownership_and_lfg_chi_square <- chisq.test(lfg_and_ownership_data$Ownership.Type, lfg_and_ownership_data$LFG.Collection.System.In.Place.)
+ 
+# Chi-square test for independence - state versus lfg  
+state_and_lfg_data <- landfill %>% select(State, LFG.Collection.System.In.Place.)
+state_and_lfg_data <- na.omit(state_and_lfg_data)
+
+trash_state_and_lfg_chi_square <- chisq.test(state_and_lfg_data$State, state_and_lfg_data$LFG.Collection.System.In.Place.)
+
+# POWER SECTION
+
+# Linear regression 
+input_output_data <- power %>% select(State.total.annual.heat.input..MMBtu., State.annual.net.generation..MWh.)
+input_output_data <- na.omit(input_output_data)
+
+power_input_output_linearregression <- lm(as.numeric(State.annual.net.generation..MWh.) ~ as.numeric(State.total.annual.heat.input..MMBtu.), data=input_output_data)
+print(power_input_output_linearregression)
+
+# WATERWITHDRAWAL SECTION
+
 # ------------------- #
 # Graphs
+
+# Power linear regression graph of heat input and output 
+power_lin_regression <- plot(as.numeric(input_output_data$State.total.annual.heat.input..MMBtu.), as.numeric(input_output_data$State.annual.net.generation..MWh.), col = "blue")
+power_lin_regression <- abline(power_input_output_linearregression)
 
 # Total waste by population graph
 waste.by.pop <- choroplthFunc(population.waste, population.waste$population.waste, population.waste$State, 
