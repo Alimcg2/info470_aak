@@ -8,7 +8,7 @@ library(ggplot2)
 library(plotly)
 library(leaflet)
 landfill <- read.csv("landfill.csv", stringsAsFactors = FALSE)
-power <- read.csv("power.csv")
+power <- read.csv("power.csv", stringsAsFactors = FALSE)
 water <- read.csv("water.csv", stringsAsFactors = FALSE)
 pop2017 <- read.csv("pop2017.csv")
 
@@ -249,23 +249,36 @@ renewables.nonrenewables <- power %>%
 # ------------------- #
 # Tests
 states <- power$State.abbreviation
-emissions <- c("NOx", "SO2", "CO2", "CH4", "N2")
+emissions <- c("NOx", "SO2", "CO2", "CH4", "N20")
 
-
-fuels <- power %>% mutate(Coal = as.numeric(State.annual.coal.net.generation..MWh.), 
-                          Oil = as.numeric(State.annual.oil.net.generation..MWh.),
-                          Gas = as.numeric(State.annual.gas.net.generation..MWh.),
-                          Nuclear = as.numeric(State.annual.nuclear.net.generation..MWh.),
-                          Hydro = as.numeric(State.annual.hydro.net.generation..MWh.),
-                          Biomass = as.numeric(State.annual.biomass.net.generation..MWh.), 
-                          Wind = as.numeric(State.annual.wind.net.generation..MWh.),
-                          Solar = as.numeric(State.annual.solar.net.generation..MWh.), 
-                          Geothermal = as.numeric(State.annual.geothermal.net.generation..MWh.), 
-                          OtherFossil = as.numeric(State.annual.other.fossil.net.generation..MWh.)) %>% 
+# add column for greatest source of fuel for each state
+fuels <- power %>% mutate(Coal = as.numeric(gsub(",","",State.annual.coal.net.generation..MWh.)), 
+                          Oil = as.numeric(gsub(",","",State.annual.oil.net.generation..MWh.)),
+                          Gas = as.numeric(gsub(",","",State.annual.gas.net.generation..MWh.)),
+                          Nuclear = as.numeric(gsub(",","",State.annual.nuclear.net.generation..MWh.)),
+                          Hydro = as.numeric(gsub(",","",State.annual.hydro.net.generation..MWh.)),
+                          Biomass = as.numeric(gsub(",","",State.annual.biomass.net.generation..MWh.)), 
+                          Wind = as.numeric(gsub(",","",State.annual.wind.net.generation..MWh.)),
+                          Solar = as.numeric(gsub(",","",State.annual.solar.net.generation..MWh.)), 
+                          Geothermal = as.numeric(gsub(",","",State.annual.geothermal.net.generation..MWh.)), 
+                          OtherFossil = as.numeric(gsub(",","",State.annual.other.fossil.net.generation..MWh.))) %>% 
   select(State.abbreviation, Coal, Oil, Gas, Nuclear, Hydro, Biomass, Wind, Solar, Geothermal, OtherFossil)
-fuels$max <- do.call(pmax, fuels[2:11])
+fuels[is.na(fuels)] <- " "
 maxfuels <- as.data.frame(colnames(fuels)[apply(fuels,1,which.max)])
 fuels <- bind_cols(fuels, maxfuels)
+ 
+# add column for most emitted chemical 
+emissions <- power %>% mutate(NOx = as.numeric(gsub(",","",State.annual.NOx.emissions..tons.)),
+                              SO2 = as.numeric(gsub(",","",State.annual.SO2.emissions..tons.)),
+                              CO2 = as.numeric(gsub(",","",State.annual.CO2.emissions..tons.)),
+                              CH4 = as.numeric(gsub(",","",State.annual.CH4.emissions..lbs.)), #convert to tons
+                              N2O = as.numeric(gsub(",","",State.annual.N2O.emissions..lbs.)) #convert to tons
+                              ) %>% 
+  select(State.abbreviation, NOx, SO2, CO2, CH4, N2O)
+emissions[is.na(emissions)] <- " "
+maxemissions <- as.data.frame(colnames(emissions)[apply(emissions,1,which.max)])
+emissions <- bind_cols(emissions, maxemissions)
+
 # ------------------- #
 # Graphs
 
