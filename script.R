@@ -7,9 +7,9 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(leaflet)
-landfill <- read.csv("landfill.csv")
+landfill <- read.csv("landfill.csv", stringsAsFactors = FALSE)
 power <- read.csv("power.csv")
-water <- read.csv("water.csv")
+water <- read.csv("water.csv", stringsAsFactors = FALSE)
 pop2017 <- read.csv("pop2017.csv")
 
 # ---------------------------------------------------------------------------------------------- #
@@ -229,6 +229,20 @@ states <- power$State.abbreviation
 emissions <- c("NOx", "SO2", "CO2", "CH4", "N2")
 
 
+fuels <- power %>% mutate(Coal = as.numeric(State.annual.coal.net.generation..MWh.), 
+                          Oil = as.numeric(State.annual.oil.net.generation..MWh.),
+                          Gas = as.numeric(State.annual.gas.net.generation..MWh.),
+                          Nuclear = as.numeric(State.annual.nuclear.net.generation..MWh.),
+                          Hydro = as.numeric(State.annual.hydro.net.generation..MWh.),
+                          Biomass = as.numeric(State.annual.biomass.net.generation..MWh.), 
+                          Wind = as.numeric(State.annual.wind.net.generation..MWh.),
+                          Solar = as.numeric(State.annual.solar.net.generation..MWh.), 
+                          Geothermal = as.numeric(State.annual.geothermal.net.generation..MWh.), 
+                          OtherFossil = as.numeric(State.annual.other.fossil.net.generation..MWh.)) %>% 
+  select(State.abbreviation, Coal, Oil, Gas, Nuclear, Hydro, Biomass, Wind, Solar, Geothermal, OtherFossil)
+fuels$max <- do.call(pmax, fuels[2:11])
+maxfuels <- as.data.frame(colnames(fuels)[apply(fuels,1,which.max)])
+fuels <- bind_cols(fuels, maxfuels)
 # ------------------- #
 # Graphs
 
