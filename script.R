@@ -7,9 +7,9 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(leaflet)
-landfill <- read.csv("landfill.csv", stringsAsFactors = FALSE)
-power <- read.csv("power.csv", stringsAsFactors = FALSE)
-water <- read.csv("water.csv", stringsAsFactors = FALSE)
+landfill <- read.csv("landfill.csv")
+power <- read.csv("power.csv")
+water <- read.csv("water.csv")
 pop2017 <- read.csv("pop2017.csv")
 
 # ---------------------------------------------------------------------------------------------- #
@@ -82,6 +82,15 @@ power <- bind_cols(power, StateFull)
 
 # ----------------------------------------------------------------------------------------------#
 # New Stuff
+
+# Landfill Scores
+# Waste by Pop
+total.waste.population <- 
+
+# Power Scores
+
+
+# Water Scores
 
 
 
