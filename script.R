@@ -15,34 +15,6 @@ pop2017 <- read.csv("pop2017.csv")
 # ---------------------------------------------------------------------------------------------- #
 # Landfill Data 
 
-# Common functions 
-choroplthFunc <- function(data, zData, stateAbb, colorData, titleText, colorPick){
-  l <- list(color = toRGB("white"), width = 2)
-  # specify some map projection/options
-  g <- list(scope = 'usa', projection = list(type = 'albers usa'),showlakes = TRUE,lakecolor = toRGB('white'))
-  plot_geo(data, locationmode = 'USA-states') %>%
-    add_trace( z = zData, locations = stateAbb, color = colorData, colors = colorPick, 
-               marker = list(line = l))  %>%
-    layout(title = titleText, geo = g)
-}
-
-bubbleGraphFunc <- function(data, lon, lat, sizeData, colorData, hoverText, titleText) {
-  g <- list(
-    scope = 'usa', projection = list(type = 'albers usa'), showland = TRUE, landcolor = toRGB("gray85"), 
-    subunitcolor = toRGB("white"), countrycolor = toRGB("white")
-  )
-  plot_geo(landfill, locationmode = 'USA-states', sizes = c(1, 50)) %>%
-    add_markers(
-      x = lon, y = lat, size = sizeData, color = colorData, colors="PRGn", hoverinfo = "text",
-      text = hoverText
-    ) %>%
-    layout(title = titleText, geo = g)
-}
-stackChartFunc <- function(data, xData, YData, YDataName, YData2, YDataName2){
-  plot_ly(data, x = xData, y = YData, type = 'bar', name = YDataName) %>%
-    add_trace(y = YData2, name = YDataName2) %>%
-    layout(yaxis = list(title = 'Count'), barmode = 'stack')
-}
 
 landfill <- landfill %>% 
   select(State, Landfill.Name, Longitude, Latitude, Ownership.Type, Year.Landfill.Opened, 
@@ -73,8 +45,99 @@ pop2017 <- bind_cols(pop2017, StateAbbr)
 landfill_by_state <- left_join(landfill_by_state, pop2017, by = c("State" = "StateAbbr")) %>% 
   filter(State.y != "NA")
 
+# ----------------------------------------------------------------------------------------------#
+# Water Data 
+
+
+
+water <- water %>% 
+  select(-Groundwater.Fresh, -Groundwater.Saline, -Surfacewater.Fresh, -Surfacewater.Saline, -Irrigation, 
+         -LiveStock, -Aquaculture, -Mining.Fresh, -Mining.Saline, -ThermoelectricPower.Fresh, 
+         -ThermoelectricPower.Saline, 
+         -PublicWithdrawals.Groundwater, -PublicWithdrawals.Surfacewater, -Irrigation.Groundwater, 
+         -Irigation.Surfacewater, -Livestock.Groundwater, -Livestock.Surfacewater, -Aquaculture.Groundwater, 
+         -Aquaculture.Surfacewater, -Mining.Groundwater, -Mining.Surfacewater, -Thermoelectric.Groundwater, 
+         -Thermoelectric.Surfacewater) %>% 
+  mutate(SelfSuppliedIndustrialTotal = (as.numeric(water$SelfSuppliedIndustrial.Saline) + 
+                                          as.numeric(water$SelfSuppliedIndustrial.Fresh))) %>% 
+  filter(State != "District Of Columbia")
+
+
+# ----------------------------------------------------------------------------------------------#
+# Power  Data 
+
+i <- 1
+StateFull = c()
+while (i < 52){
+  StateFull <- c(StateFull, state.name[grep(power$State.abbreviation[i], state.abb)])
+  i <- i + 1
+}
+power <- power %>% 
+  select(-State.ozone.season.net.generation..MWh., -State.ozone.season.NOx.emissions..tons.)  %>% 
+  filter(State.abbreviation != "DC")
+
+StateFull <- as.data.frame(StateFull)
+power <- bind_cols(power, StateFull)
+
+
+# ----------------------------------------------------------------------------------------------#
+# New Stuff
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ----------------------------------------------------------------------------------------------#
+# Old Stuff
+
+# -------------- #
+# Common functions 
+
+choroplthFunc <- function(data, zData, stateAbb, colorData, titleText, colorPick){
+  l <- list(color = toRGB("white"), width = 2)
+  # specify some map projection/options
+  g <- list(scope = 'usa', projection = list(type = 'albers usa'),showlakes = TRUE,lakecolor = toRGB('white'))
+  plot_geo(data, locationmode = 'USA-states') %>%
+    add_trace( z = zData, locations = stateAbb, color = colorData, colors = colorPick, 
+               marker = list(line = l))  %>%
+    layout(title = titleText, geo = g)
+}
+bubbleGraphFunc <- function(data, lon, lat, sizeData, colorData, hoverText, titleText) {
+  g <- list(
+    scope = 'usa', projection = list(type = 'albers usa'), showland = TRUE, landcolor = toRGB("gray85"), 
+    subunitcolor = toRGB("white"), countrycolor = toRGB("white")
+  )
+  plot_geo(landfill, locationmode = 'USA-states', sizes = c(1, 50)) %>%
+    add_markers(
+      x = lon, y = lat, size = sizeData, color = colorData, colors="PRGn", hoverinfo = "text",
+      text = hoverText
+    ) %>%
+    layout(title = titleText, geo = g)
+}
+stackChartFunc <- function(data, xData, YData, YDataName, YData2, YDataName2){
+  plot_ly(data, x = xData, y = YData, type = 'bar', name = YDataName) %>%
+    add_trace(y = YData2, name = YDataName2) %>%
+    layout(yaxis = list(title = 'Count'), barmode = 'stack')
+}
+
 # ------------------- #
-# Summary Stats
+# Summary Stats Landfill
 
 # Number of Landfills Per State
 num.landfills <- landfill_by_state %>% 
@@ -100,13 +163,8 @@ population.waste <- landfill_by_state %>%
   select(State, X2017.Population, total.waste) %>% 
   mutate(population.waste = (total.waste / X2017.Population) * 100) %>% 
   arrange(desc(population.waste))
-
-
-
 # ------------------- #
-# Tests
-
-
+# Tests Landfill
 # Chi-square test for independence - year opened versus LFG
 lfg_and_year_data <- landfill %>% select(Year.Landfill.Opened, LFG.Collection.System.In.Place.)
 lfg_and_year_data <- na.omit(lfg_and_year_data)
@@ -127,12 +185,8 @@ state_and_lfg_data <- na.omit(state_and_lfg_data)
 
 trash_state_and_lfg_chi_square <- chisq.test(state_and_lfg_data$State, 
                                              state_and_lfg_data$LFG.Collection.System.In.Place.)
-
-
-
 # ------------------- #
-# Graphs
-
+# Graphs Landfill
 # Total waste by population graph
 waste.by.pop <- choroplthFunc(population.waste, population.waste$population.waste, population.waste$State, 
               population.waste$population.waste, "Total Waste (in tons) Per Capita", 
@@ -185,25 +239,8 @@ num.plants.by.year.owner <- plot_ly(ownership.year, x = ~Year.Landfill.Opened, y
   add_trace(y = ~countPrivate, name = 'Private', marker = list(color = "Purple")) %>%
   layout(yaxis = list(title = 'Count'), barmode = 'group')
 
-
-# ----------------------------------------------------------------------------------------------#
-# Power Data
-i <- 1
-StateFull = c()
-while (i < 52){
-  StateFull <- c(StateFull, state.name[grep(power$State.abbreviation[i], state.abb)])
-  i <- i + 1
-}
-power <- power %>% 
-  select(-State.ozone.season.net.generation..MWh., -State.ozone.season.NOx.emissions..tons.)  %>% 
-  filter(State.abbreviation != "DC")
-
-StateFull <- as.data.frame(StateFull)
-power <- bind_cols(power, StateFull)
-
-
 # ------------------- #
-# Summary Stats
+# Summary Stats Power
 
 # HEat input is how many mmbtus that have to go in to generate that output
 # Convert these into jewels
@@ -235,7 +272,7 @@ renewables.nonrenewables <- power %>%
 
 
 # ------------------- #
-# Tests
+# Tests Power
 states <- power$State.abbreviation
 emissions <- c("NOx", "SO2", "CO2", "CH4", "N20")
 
@@ -260,25 +297,25 @@ fuels <- bind_cols(fuels, maxfuels)
 input_output_data <- power %>% select(State.total.annual.heat.input..MMBtu., State.annual.net.generation..MWh.)
 input_output_data <- na.omit(input_output_data)
 
-power_input_output_linearregression <- lm(as.numeric(State.annual.net.generation..MWh.) 
-                                          ~ as.numeric(State.total.annual.heat.input..MMBtu.), 
-                                          data=input_output_data)
-print(power_input_output_linearregression)
- 
+#power_input_output_linearregression <- lm(as.numeric(State.annual.net.generation..MWh.) 
+#                                         ~ as.numeric(State.total.annual.heat.input..MMBtu.), 
+#                                          data=input_output_data)
+#print(power_input_output_linearregression)
+
 # add column for most emitted chemical 
 emissions <- power %>% mutate(NOx = as.numeric(gsub(",","",State.annual.NOx.emissions..tons.)),
                               SO2 = as.numeric(gsub(",","",State.annual.SO2.emissions..tons.)),
                               CO2 = as.numeric(gsub(",","",State.annual.CO2.emissions..tons.)),
                               CH4 = as.numeric(gsub(",","",State.annual.CH4.emissions..lbs.)), #convert to tons
                               N2O = as.numeric(gsub(",","",State.annual.N2O.emissions..lbs.)) #convert to tons
-                              ) %>% 
+) %>% 
   select(State.abbreviation, NOx, SO2, CO2, CH4, N2O)
 emissions[is.na(emissions)] <- " "
 maxemissions <- as.data.frame(colnames(emissions)[apply(emissions,1,which.max)])
 emissions <- bind_cols(emissions, maxemissions)
 
 # ------------------- #
-# Graphs
+# Graphs Power
 
 # emissions by state and emission type
 state.emissiontype <- plot_ly(power, x = ~State.abbreviation, y = ~State.annual.NOx.emissions..tons., 
@@ -319,55 +356,34 @@ state.generationtype <- plot_ly(power, x = ~State.abbreviation, y = ~State.annua
          title = "Power Plant Generation by State and Energy Type")
 # States and combustion vs non combustion
 combustion.map <- choroplthFunc(combustion.noncumbustion, combustion.noncumbustion$combustion.ratio, 
-              combustion.noncumbustion$State.abbreviation, combustion.noncumbustion$combustion.ratio, 
-              "States and Combustion Ratio", c("Yellow", "Red"))
+                                combustion.noncumbustion$State.abbreviation, combustion.noncumbustion$combustion.ratio, 
+                                "States and Combustion Ratio", c("Yellow", "Red"))
 # States and renewables vs non renewables
 renewables.map <- choroplthFunc(renewables.nonrenewables, renewables.nonrenewables$renewables.ratio, 
-              renewables.nonrenewables$State.abbreviation, renewables.nonrenewables$renewables.ratio, 
-              "States and Renewables Ratio", c("Yellow", "Red"))
+                                renewables.nonrenewables$State.abbreviation, renewables.nonrenewables$renewables.ratio, 
+                                "States and Renewables Ratio", c("Yellow", "Red"))
 
 # Power linear regression graph of heat input and output 
-power_lin_regression <- plot(as.numeric(input_output_data$State.total.annual.heat.input..MMBtu.), 
-                             as.numeric(input_output_data$State.annual.net.generation..MWh.), col = "blue")
-power_lin_regression <- abline(power_input_output_linearregression)
+#power_lin_regression <- plot(as.numeric(input_output_data$State.total.annual.heat.input..MMBtu.), 
+#                             as.numeric(input_output_data$State.annual.net.generation..MWh.))
+#power_lin_regression <- abline(power_input_output_linearregression)
 
 
-fit <- lm(as.numeric(State.annual.net.generation..MWh.)
-          ~ as.numeric(State.total.annual.heat.input..MMBtu.),
-          data = input_output_data)
-plot_ly(input_output_data, x = ~State.total.annual.heat.input..MMBtu.) %>% 
-  add_markers(y = ~State.annual.net.generation..MWh.) %>% 
-  add_lines(x = ~State.total.annual.heat.input..MMBtu., y = fitted(fit))
-# ----------------------------------------------------------------------------------------------#
-# Water Data 
-
-
-water <- water %>% 
-  select(-Groundwater.Fresh, -Groundwater.Saline, -Surfacewater.Fresh, -Surfacewater.Saline, -Irrigation, 
-         -LiveStock, -Aquaculture, -Mining.Fresh, -Mining.Saline, -ThermoelectricPower.Fresh, 
-         -ThermoelectricPower.Saline, 
-         -PublicWithdrawals.Groundwater, -PublicWithdrawals.Surfacewater, -Irrigation.Groundwater, 
-         -Irigation.Surfacewater, -Livestock.Groundwater, -Livestock.Surfacewater, -Aquaculture.Groundwater, 
-         -Aquaculture.Surfacewater, -Mining.Groundwater, -Mining.Surfacewater, -Thermoelectric.Groundwater, 
-         -Thermoelectric.Surfacewater) %>% 
-  mutate(SelfSuppliedIndustrialTotal = (as.numeric(water$SelfSuppliedIndustrial.Saline) + 
-                                          as.numeric(water$SelfSuppliedIndustrial.Fresh))) %>% 
-  filter(State != "District Of Columbia")
-
+#fit <- lm(as.numeric(State.annual.net.generation..MWh.)
+#          ~ as.numeric(State.total.annual.heat.input..MMBtu.),
+#          data = input_output_data)
+#plot_ly(input_output_data, x = ~State.total.annual.heat.input..MMBtu.) %>% 
+#  add_markers(y = ~State.annual.net.generation..MWh.) %>% 
+#  add_lines(x = ~State.total.annual.heat.input..MMBtu., y = fitted(fit))
 
 # ------------------- #
-# Summary Stats
-
-
+# Summary Stats Water
 
 # ------------------- #
-# Tests
-
-
+# Tests Water
 
 # ------------------- #
-# Graphs
+# Graphs Water
 
 
 
-# ----------------------------------------------------------------------------------------------#
