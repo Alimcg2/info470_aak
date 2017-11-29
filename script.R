@@ -93,7 +93,6 @@ lfg.collected.population <- landfill_by_state %>%
   mutate(lfg.collected.pop = total.lfg.collected / X2017.Population) %>% 
   select(State, lfg.collected.pop)
 
-
 # Power Scores
 noncombust.total <- power %>% 
   mutate(total.combust = as.numeric(State.annual.total.combustion.net.generation..MWh.)
@@ -108,7 +107,9 @@ renewables.total <- power %>%
   select(State.abbreviation, renewables)
 
 # Water Scores
-
+water_withdrawals_given_pop <- slice(water, 1:50)
+water_withdrawals_given_pop <- transform(water_withdrawals_given_pop, scores = as.numeric(Total) / as.numeric(Population.Total))
+water_withdrawals_given_pop <- water_withdrawals_given_pop %>% select(State, scores)
 
 
 
@@ -410,6 +411,4 @@ renewables.map <- choroplthFunc(renewables.nonrenewables, renewables.nonrenewabl
 
 # ------------------- #
 # Graphs Water
-
-
 
