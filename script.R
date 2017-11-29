@@ -85,10 +85,27 @@ power <- bind_cols(power, StateFull)
 
 # Landfill Scores
 # Waste by Pop
-total.waste.population <- 
+total.waste.population <- landfill_by_state %>% 
+  mutate(total.waste.pop = total.waste / X2017.Population) %>% 
+  select(State, total.waste.pop) %>% 
+
+lfg.collected.population <- landfill_by_state %>% 
+  mutate(lfg.collected.pop = total.lfg.collected / X2017.Population) %>% 
+  select(State, lfg.collected.pop)
+
 
 # Power Scores
+noncombust.total <- power %>% 
+  mutate(total.combust = as.numeric(State.annual.total.combustion.net.generation..MWh.)
+         + as.numeric(State.annual.total.noncombustion.net.generation..MWh.)) %>% 
+  mutate(noncombust = as.numeric(State.annual.total.noncombustion.net.generation..MWh.) / total.combust) %>% 
+  select(State.abbreviation, noncombust)
 
+renewables.total <- power %>% 
+  mutate(total.renewables = as.numeric(State.annual.total.renewables.net.generation..MWh.)
+         + as.numeric(State.annual.total.nonrenewables.net.generation..MWh.)) %>% 
+  mutate(renewables = as.numeric(State.annual.total.renewables.net.generation..MWh.) / total.renewables) %>% 
+  select(State.abbreviation, renewables)
 
 # Water Scores
 
