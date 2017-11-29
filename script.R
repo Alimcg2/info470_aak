@@ -107,9 +107,9 @@ renewables.total <- power %>%
   select(State.abbreviation, renewables)
 
 # Water Scores
-water_withdrawals_given_pop <- slice(water, 1:50)
-water_withdrawals_given_pop <- transform(water_withdrawals_given_pop, scores = as.numeric(Total) / as.numeric(Population.Total))
-water_withdrawals_given_pop <- water_withdrawals_given_pop %>% select(State, scores)
+water_withdrawals_given_pop <- slice(water, 1:50) %>% 
+  transform(water_withdrawals_given_pop, scores = as.numeric(Total) / as.numeric(Population.Total)) %>% 
+  select(State, scores)
 
 
 
