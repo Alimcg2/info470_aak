@@ -60,7 +60,8 @@ water <- water %>%
          -Thermoelectric.Surfacewater) %>% 
   mutate(SelfSuppliedIndustrialTotal = (as.numeric(water$SelfSuppliedIndustrial.Saline) + 
                                           as.numeric(water$SelfSuppliedIndustrial.Fresh))) %>% 
-  filter(State != "District Of Columbia")
+  filter(State != "District Of Columbia") %>% 
+  mutate(State.abbr = )
 
 
 # ----------------------------------------------------------------------------------------------#
@@ -84,48 +85,65 @@ power <- bind_cols(power, StateFull)
 # New Stuff
 
 # Landfill Scores
-# Waste by Pop
 total.waste.population <- landfill_by_state %>% 
   mutate(total.waste.pop = total.waste / X2017.Population) %>% 
-  select(State, total.waste.pop) %>% 
+  select(State.y, total.waste.pop) %>% 
+  mutate(biggest = max(total.waste.population$total.waste.pop)) %>% 
+  mutate(landfill.a = 1 - (total.waste.pop / biggest))%>% 
+  select(State.y, landfill.a)
 
 lfg.collected.population <- landfill_by_state %>% 
   mutate(lfg.collected.pop = total.lfg.collected / X2017.Population) %>% 
-  select(State, lfg.collected.pop)
+  select(State.y, lfg.collected.pop) %>% 
+  mutate(biggest = max(lfg.collected.population$lfg.collected.pop)) %>% 
+  mutate(landfill.b = lfg.collected.pop / biggest) %>% 
+  select(State.y, landfill.b)
 
 # Power Scores
 noncombust.total <- power %>% 
   mutate(total.combust = as.numeric(State.annual.total.combustion.net.generation..MWh.)
          + as.numeric(State.annual.total.noncombustion.net.generation..MWh.)) %>% 
   mutate(noncombust = as.numeric(State.annual.total.noncombustion.net.generation..MWh.) / total.combust) %>% 
-  select(State.abbreviation, noncombust)
+  select(StateFull, noncombust) %>% 
+  mutate(biggest = max(noncombust.total$noncombust)) %>% 
+  mutate(power.a = noncombust / biggest) %>% 
+  select(StateFull, power.b)
 
 renewables.total <- power %>% 
   mutate(total.renewables = as.numeric(State.annual.total.renewables.net.generation..MWh.)
          + as.numeric(State.annual.total.nonrenewables.net.generation..MWh.)) %>% 
   mutate(renewables = as.numeric(State.annual.total.renewables.net.generation..MWh.) / total.renewables) %>% 
-  select(State.abbreviation, renewables)
+  select(StateFull, renewables) %>% 
+  mutate(biggest = max(renewables.total$renewables)) %>% 
+  mutate(power.b = renewables / biggest) %>% 
+  select(StateFull, power.b)
 
 emissions.generation <- power %>% 
-  select(State.abbreviation, State.annual.NOx.emissions..tons., 
+  select(StateFull, State.annual.NOx.emissions..tons., 
          State.annual.CH4.emissions..lbs., 
          State.annual.CO2.emissions..tons., 
          State.annual.N2O.emissions..lbs., 
          State.annual.SO2.emissions..tons., 
          State.annual.net.generation..MWh.) %>% 
-  filter(State.abbreviation != "DC") %>% 
   mutate(totalTesting = (as.numeric(State.annual.N2O.emissions..lbs.) * 0.0005) +
            as.numeric(State.annual.CO2.emissions..tons.) +
            as.numeric(State.annual.NOx.emissions..tons.) +
            (as.numeric(State.annual.CH4.emissions..lbs.) * 0.0005)) %>% 
-  mutate(emissions.total.gen = totalTesting / as.numeric(State.annual.net.generation..MWh.))
+  mutate(emissions.total.gen = totalTesting / as.numeric(State.annual.net.generation..MWh.)) %>% 
+  mutate(biggest = max(emissions.generation$emissions.total.gen)) %>% 
+  mutate(power.c = 1 - (emissions.total.gen / biggest)) %>% 
+  select(StateFull, power.c)
+
 
 # Water Scores
 water_withdrawals_given_pop <- slice(water, 1:50) %>% 
-  transform(water_withdrawals_given_pop, scores = as.numeric(Total) / as.numeric(Population.Total)) %>% 
-  select(State, scores)
+  transform( scores = as.numeric(Total) / as.numeric(Population.Total)) %>% 
+  select(State, scores) %>% 
+  mutate(biggest = max(water_withdrawals_given_pop$scores)) %>% 
+  mutate(water.a = 1 - (scores / biggest)) %>% 
+  select(State, water.a)
 
-
+all.data <- left_join(total.waste.population, lfg.collected.population, by="State.y")
 
 
 
