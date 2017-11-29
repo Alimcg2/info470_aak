@@ -84,14 +84,17 @@ power <- bind_cols(power, StateFull)
 # New Stuff
 
 # Landfill Scores
+
 # Waste by Pop
-total.waste.population <- 
+
 
 # Power Scores
 
 
 # Water Scores
-
+water_withdrawals_given_pop <- slice(water, 1:50)
+water_withdrawals_given_pop <- transform(water_withdrawals_given_pop, scores = as.numeric(Total) / as.numeric(Population.Total))
+water_withdrawals_given_pop <- water_withdrawals_given_pop %>% select(State, scores)
 
 
 
@@ -393,6 +396,4 @@ renewables.map <- choroplthFunc(renewables.nonrenewables, renewables.nonrenewabl
 
 # ------------------- #
 # Graphs Water
-
-
 
