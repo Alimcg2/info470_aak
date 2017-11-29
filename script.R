@@ -106,6 +106,20 @@ renewables.total <- power %>%
   mutate(renewables = as.numeric(State.annual.total.renewables.net.generation..MWh.) / total.renewables) %>% 
   select(State.abbreviation, renewables)
 
+emissions.generation <- power %>% 
+  select(State.abbreviation, State.annual.NOx.emissions..tons., 
+         State.annual.CH4.emissions..lbs., 
+         State.annual.CO2.emissions..tons., 
+         State.annual.N2O.emissions..lbs., 
+         State.annual.SO2.emissions..tons., 
+         State.annual.net.generation..MWh.) %>% 
+  filter(State.abbreviation != "DC") %>% 
+  mutate(totalTesting = (as.numeric(State.annual.N2O.emissions..lbs.) * 0.0005) +
+           as.numeric(State.annual.CO2.emissions..tons.) +
+           as.numeric(State.annual.NOx.emissions..tons.) +
+           (as.numeric(State.annual.CH4.emissions..lbs.) * 0.0005)) %>% 
+  mutate(emissions.total.gen = totalTesting / as.numeric(State.annual.net.generation..MWh.))
+
 # Water Scores
 water_withdrawals_given_pop <- slice(water, 1:50) %>% 
   transform(water_withdrawals_given_pop, scores = as.numeric(Total) / as.numeric(Population.Total)) %>% 
