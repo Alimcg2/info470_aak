@@ -277,7 +277,6 @@ emissions[is.na(emissions)] <- " "
 maxemissions <- as.data.frame(colnames(emissions)[apply(emissions,1,which.max)])
 emissions <- bind_cols(emissions, maxemissions)
 
-
 # ------------------- #
 # Graphs
 
