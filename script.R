@@ -88,14 +88,14 @@ power <- bind_cols(power, StateFull)
 total.waste.population <- landfill_by_state %>% 
   mutate(total.waste.pop = total.waste / X2017.Population) %>% 
   select(State.y, total.waste.pop) %>% 
-  mutate(biggest = max(total.waste.population$total.waste.pop)) %>% 
+  mutate(biggest = max(total.waste.pop)) %>% 
   mutate(landfill.a = 1 - (total.waste.pop / biggest))%>% 
   select(State.y, landfill.a)
 
 lfg.collected.population <- landfill_by_state %>% 
   mutate(lfg.collected.pop = total.lfg.collected / X2017.Population) %>% 
   select(State.y, lfg.collected.pop) %>% 
-  mutate(biggest = max(lfg.collected.population$lfg.collected.pop)) %>% 
+  mutate(biggest = max(lfg.collected.pop)) %>% 
   mutate(landfill.b = lfg.collected.pop / biggest) %>% 
   select(State.y, landfill.b)
 
@@ -105,16 +105,16 @@ noncombust.total <- power %>%
          + as.numeric(State.annual.total.noncombustion.net.generation..MWh.)) %>% 
   mutate(noncombust = as.numeric(State.annual.total.noncombustion.net.generation..MWh.) / total.combust) %>% 
   select(StateFull, noncombust) %>% 
-  mutate(biggest = max(noncombust.total$noncombust)) %>% 
+  mutate(biggest = max(noncombust)) %>% 
   mutate(power.a = noncombust / biggest) %>% 
-  select(StateFull, power.b)
+  select(StateFull, power.a)
 
 renewables.total <- power %>% 
   mutate(total.renewables = as.numeric(State.annual.total.renewables.net.generation..MWh.)
          + as.numeric(State.annual.total.nonrenewables.net.generation..MWh.)) %>% 
   mutate(renewables = as.numeric(State.annual.total.renewables.net.generation..MWh.) / total.renewables) %>% 
   select(StateFull, renewables) %>% 
-  mutate(biggest = max(renewables.total$renewables)) %>% 
+  mutate(biggest = max(renewables)) %>% 
   mutate(power.b = renewables / biggest) %>% 
   select(StateFull, power.b)
 
@@ -130,7 +130,7 @@ emissions.generation <- power %>%
            as.numeric(State.annual.NOx.emissions..tons.) +
            (as.numeric(State.annual.CH4.emissions..lbs.) * 0.0005)) %>% 
   mutate(emissions.total.gen = totalTesting / as.numeric(State.annual.net.generation..MWh.)) %>% 
-  mutate(biggest = max(emissions.generation$emissions.total.gen)) %>% 
+  mutate(biggest = max(emissions.total.gen)) %>% 
   mutate(power.c = 1 - (emissions.total.gen / biggest)) %>% 
   select(StateFull, power.c)
 
@@ -139,13 +139,43 @@ emissions.generation <- power %>%
 water_withdrawals_given_pop <- slice(water, 1:50) %>% 
   transform( scores = as.numeric(Total) / as.numeric(Population.Total)) %>% 
   select(State, scores) %>% 
-  mutate(biggest = max(water_withdrawals_given_pop$scores)) %>% 
+  mutate(biggest = max(scores)) %>% 
   mutate(water.a = 1 - (scores / biggest)) %>% 
   select(State, water.a)
 
 all.data <- left_join(total.waste.population, lfg.collected.population, by="State.y")
+all.data <- left_join(all.data, noncombust.total, by = c("State.y" = "StateFull"))
+all.data <- left_join(all.data,renewables.total, by = c("State.y" = "StateFull"))
+all.data <- left_join(all.data,emissions.generation, by = c("State.y" = "StateFull"))
+all.data <- left_join(all.data,water_withdrawals_given_pop, by = c("State.y" = "State"))
+locations <- state.abb
 
-
+# weighted originally
+all.data <- all.data %>% 
+  filter(State.y != "District of Columbia") %>% 
+  mutate(totalScore = (landfill.a * 0.165) +
+           (landfill.b * 0.165) +
+           (power.c * 0.099) + 
+           (power.b * 0.132) +
+           (power.a * 0.099) +
+           (water.a * 0.33)) %>% 
+  arrange(State.y) %>% 
+  mutate(loc = locations)
+choroplthFunc(all.data, all.data$totalScore, all.data$loc, all.data$totalScore, 
+              "titleText", c("red", "yellow"))
+# weighted unequally
+all.data2 <- all.data %>% 
+  filter(State.y != "District of Columbia") %>% 
+  mutate(totalScore = (landfill.a * 0.166) +
+           (landfill.b * 0.166) +
+           (power.c * 0.166) + 
+           (power.b * 0.166) +
+           (power.a * 0.166) +
+           (water.a * 0.166)) %>% 
+  arrange(State.y) %>% 
+  mutate(loc = locations)
+choroplthFunc(all.data2, all.data2$totalScore, all.data2$loc, all.data2$totalScore, 
+              "titleText", c("red", "yellow"))
 
 
 
