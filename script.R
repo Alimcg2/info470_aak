@@ -11,6 +11,8 @@ landfill <- read.csv("landfill.csv")
 power <- read.csv("power.csv")
 water <- read.csv("water.csv")
 pop2017 <- read.csv("pop2017.csv")
+popdensity <- read.csv("popdensity.csv")
+source("functions.R")
 
 # ---------------------------------------------------------------------------------------------- #
 # Landfill Data 
@@ -43,7 +45,8 @@ while (i < 52){
 StateAbbr <- as.data.frame(StateAbbr)
 pop2017 <- bind_cols(pop2017, StateAbbr)
 landfill_by_state <- left_join(landfill_by_state, pop2017, by = c("State" = "StateAbbr")) %>% 
-  filter(State.y != "NA")
+  filter(State.y != "NA") %>% 
+  left_join(landfill_by_state, )
 
 # ----------------------------------------------------------------------------------------------#
 # Water Data 
@@ -153,31 +156,16 @@ locations <- state.abb
 # weighted originally
 all.data <- all.data %>% 
   filter(State.y != "District of Columbia") %>% 
-  mutate(totalScore = (landfill.a * 0.165) +
-           (landfill.b * 0.165) +
-           (power.c * 0.099) + 
-           (power.b * 0.132) +
-           (power.a * 0.099) +
-           (water.a * 0.33)) %>% 
+  mutate(totalScore = (landfill.a * 0.16) +
+           (landfill.b * 0.13) +
+           (power.c * 0.25) + 
+           (power.b * 0.12) +
+           (power.a * 0.14) +
+           (water.a * 0.2)) %>% 
   arrange(State.y) %>% 
   mutate(loc = locations)
 choroplthFunc(all.data, all.data$totalScore, all.data$loc, all.data$totalScore, 
               "titleText", c("red", "yellow"))
-# weighted unequally
-all.data2 <- all.data %>% 
-  filter(State.y != "District of Columbia") %>% 
-  mutate(totalScore = (landfill.a * 0.166) +
-           (landfill.b * 0.166) +
-           (power.c * 0.166) + 
-           (power.b * 0.166) +
-           (power.a * 0.166) +
-           (water.a * 0.166)) %>% 
-  arrange(State.y) %>% 
-  mutate(loc = locations)
-choroplthFunc(all.data2, all.data2$totalScore, all.data2$loc, all.data2$totalScore, 
-              "titleText", c("red", "yellow"))
-
-
 
 
 
@@ -197,33 +185,6 @@ choroplthFunc(all.data2, all.data2$totalScore, all.data2$loc, all.data2$totalSco
 
 # -------------- #
 # Common functions 
-
-choroplthFunc <- function(data, zData, stateAbb, colorData, titleText, colorPick){
-  l <- list(color = toRGB("white"), width = 2)
-  # specify some map projection/options
-  g <- list(scope = 'usa', projection = list(type = 'albers usa'),showlakes = TRUE,lakecolor = toRGB('white'))
-  plot_geo(data, locationmode = 'USA-states') %>%
-    add_trace( z = zData, locations = stateAbb, color = colorData, colors = colorPick, 
-               marker = list(line = l))  %>%
-    layout(title = titleText, geo = g)
-}
-bubbleGraphFunc <- function(data, lon, lat, sizeData, colorData, hoverText, titleText) {
-  g <- list(
-    scope = 'usa', projection = list(type = 'albers usa'), showland = TRUE, landcolor = toRGB("gray85"), 
-    subunitcolor = toRGB("white"), countrycolor = toRGB("white")
-  )
-  plot_geo(landfill, locationmode = 'USA-states', sizes = c(1, 50)) %>%
-    add_markers(
-      x = lon, y = lat, size = sizeData, color = colorData, colors="PRGn", hoverinfo = "text",
-      text = hoverText
-    ) %>%
-    layout(title = titleText, geo = g)
-}
-stackChartFunc <- function(data, xData, YData, YDataName, YData2, YDataName2){
-  plot_ly(data, x = xData, y = YData, type = 'bar', name = YDataName) %>%
-    add_trace(y = YData2, name = YDataName2) %>%
-    layout(yaxis = list(title = 'Count'), barmode = 'stack')
-}
 
 # ------------------- #
 # Summary Stats Landfill
