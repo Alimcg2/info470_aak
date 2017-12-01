@@ -130,10 +130,11 @@ emissions.generation <- power %>%
          State.annual.N2O.emissions..lbs., 
          State.annual.SO2.emissions..tons., 
          State.annual.net.generation..MWh.) %>% 
-  mutate(totalTesting = (as.numeric(State.annual.N2O.emissions..lbs.) * 0.0005) +
-           as.numeric(State.annual.CO2.emissions..tons.) +
-           as.numeric(State.annual.NOx.emissions..tons.) +
-           (as.numeric(State.annual.CH4.emissions..lbs.) * 0.0005)) %>% 
+  mutate(totalTesting = (as.numeric(gsub(",","",power$State.annual.N2O.emissions..lbs.) * 0.0005)) +
+           as.numeric(gsub(",","",power$State.annual.CO2.emissions..tons.)) +
+           as.numeric(gsub(",","",power$State.annual.NOx.emissions..tons.)) +
+           as.numeric(gsub(",","",power$State.annual.SO2.emissions..tons.))
+           (as.numeric(gsub(",","",power$State.annual.CH4.emissions..lbs.) * 0.0005))) %>% 
   mutate(emissions.total.gen = totalTesting / as.numeric(State.annual.net.generation..MWh.)) %>% 
   mutate(biggest = max(emissions.total.gen)) %>% 
   mutate(power.c = 1 - (emissions.total.gen / biggest)) %>% 
