@@ -191,7 +191,6 @@ choroplthFunc(all.data.density, all.data.density$totalScore, all.data.density$lo
 
 
 
-
 # ----------------------------------------------------------------------------------------------#
 # Old Stuff
 
