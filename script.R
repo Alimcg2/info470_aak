@@ -13,6 +13,8 @@ water <- read.csv("water.csv")
 pop2017 <- read.csv("pop2017.csv")
 popdensity <- read.csv("popdensity.csv")
 source("functions.R")
+states <- as.data.frame(state.name, state.abb) %>% 
+  mutate(stateabrev = state.abb)
 
 # ---------------------------------------------------------------------------------------------- #
 # Landfill Data 
@@ -35,18 +37,11 @@ landfill_by_state <- landfill %>%
             total.capacity = sum(MW.Capacity, na.rm = TRUE),
             total.reduction = sum(Current.Year.Emission.Reductions..MMTCO2e.yr....Direct, na.rm = TRUE)) 
 
-# adding popluation to the landfills by state
-i <- 1
-StateAbbr = c()
-while (i < 52){
-  StateAbbr <- c(StateAbbr, state.abb[grep(pop2017$State[i], state.name)])
-  i <- i + 1
-}
-StateAbbr <- as.data.frame(StateAbbr)
-pop2017 <- bind_cols(pop2017, StateAbbr)
-landfill_by_state <- left_join(landfill_by_state, pop2017, by = c("State" = "StateAbbr")) %>% 
-  filter(State.y != "NA") %>% 
-  left_join(landfill_by_state, )
+landfill_by_state <- left_join(landfill_by_state, states, by = c("State" = "stateabrev")) 
+landfill_by_state <- left_join(landfill_by_state, pop2017, by = c("state.name" = "State")) 
+landfill_by_state <- landfill_by_state %>% 
+  filter(state.name != "N/A")
+landfill_by_state <-left_join(landfill_by_state, popdensity, by = c("state.name" = "State"))
 
 # ----------------------------------------------------------------------------------------------#
 # Water Data 
@@ -90,17 +85,24 @@ power <- bind_cols(power, StateFull)
 # Landfill Scores
 total.waste.population <- landfill_by_state %>% 
   mutate(total.waste.pop = total.waste / X2017.Population) %>% 
-  select(State.y, total.waste.pop) %>% 
+  select(state.name, total.waste.pop) %>% 
   mutate(biggest = max(total.waste.pop)) %>% 
   mutate(landfill.a = 1 - (total.waste.pop / biggest))%>% 
-  select(State.y, landfill.a)
+  select(state.name, landfill.a)
+
+total.waste.populationdensity <- landfill_by_state %>% 
+  mutate(total.waste.pop = total.waste / Density) %>% 
+  select(state.name, total.waste.pop) %>% 
+  mutate(biggest = max(total.waste.pop)) %>% 
+  mutate(landfill.a.1 = 1 - (total.waste.pop / biggest))%>% 
+  select(state.name, landfill.a.1)
 
 lfg.collected.population <- landfill_by_state %>% 
   mutate(lfg.collected.pop = total.lfg.collected / X2017.Population) %>% 
-  select(State.y, lfg.collected.pop) %>% 
+  select(state.name, lfg.collected.pop) %>% 
   mutate(biggest = max(lfg.collected.pop)) %>% 
   mutate(landfill.b = lfg.collected.pop / biggest) %>% 
-  select(State.y, landfill.b)
+  select(state.name, landfill.b)
 
 # Power Scores
 noncombust.total <- power %>% 
@@ -146,32 +148,41 @@ water_withdrawals_given_pop <- slice(water, 1:50) %>%
   mutate(water.a = 1 - (scores / biggest)) %>% 
   select(State, water.a)
 
-all.data <- left_join(total.waste.population, lfg.collected.population, by="State.y")
-all.data <- left_join(all.data, noncombust.total, by = c("State.y" = "StateFull"))
-all.data <- left_join(all.data,renewables.total, by = c("State.y" = "StateFull"))
-all.data <- left_join(all.data,emissions.generation, by = c("State.y" = "StateFull"))
-all.data <- left_join(all.data,water_withdrawals_given_pop, by = c("State.y" = "State"))
+all.data <- left_join(total.waste.population, lfg.collected.population, by="state.name")
+all.data <- left_join(all.data, total.waste.populationdensity, by = "state.name")
+all.data <- left_join(all.data, noncombust.total, by = c("state.name" = "StateFull"))
+all.data <- left_join(all.data,renewables.total, by = c("state.name" = "StateFull"))
+all.data <- left_join(all.data,emissions.generation, by = c("state.name" = "StateFull"))
+all.data <- left_join(all.data,water_withdrawals_given_pop, by = c("state.name" = "State"))
 locations <- state.abb
 
-# weighted originally
-all.data <- all.data %>% 
-  filter(State.y != "District of Columbia") %>% 
+# population 
+all.data.pop <- all.data %>% 
+  filter(state.name != "District of Columbia") %>% 
   mutate(totalScore = (landfill.a * 0.16) +
            (landfill.b * 0.13) +
            (power.c * 0.25) + 
            (power.b * 0.12) +
            (power.a * 0.14) +
            (water.a * 0.2)) %>% 
-  arrange(State.y) %>% 
+  arrange(state.name) %>% 
   mutate(loc = locations)
-choroplthFunc(all.data, all.data$totalScore, all.data$loc, all.data$totalScore, 
+choroplthFunc(all.data.pop, all.data.pop$totalScore, all.data.pop$loc, all.data.pop$totalScore, 
               "titleText", c("red", "yellow"))
 
-
-
-
-
-
+# population density
+all.data.density <- all.data %>% 
+  filter(state.name != "District of Columbia") %>% 
+  mutate(totalScore = (landfill.a.1 * 0.16) +
+           (landfill.b * 0.13) +
+           (power.c * 0.25) + 
+           (power.b * 0.12) +
+           (power.a * 0.14) +
+           (water.a * 0.2)) %>% 
+  arrange(state.name) %>% 
+  mutate(loc = locations)
+choroplthFunc(all.data.density, all.data.density$totalScore, all.data.density$loc,
+              all.data.density$totalScore, "titleText", c("red", "yellow"))
 
 
 
