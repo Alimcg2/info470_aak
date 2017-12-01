@@ -106,18 +106,18 @@ lfg.collected.population <- landfill_by_state %>%
 
 # Power Scores
 noncombust.total <- power %>% 
-  mutate(total.combust = as.numeric(State.annual.total.combustion.net.generation..MWh.)
-         + as.numeric(State.annual.total.noncombustion.net.generation..MWh.)) %>% 
-  mutate(noncombust = as.numeric(State.annual.total.noncombustion.net.generation..MWh.) / total.combust) %>% 
+  mutate(total.combust = as.numeric(gsub(",","",power$State.annual.total.combustion.net.generation..MWh.))
+         + as.numeric(gsub(",","",power$State.annual.total.noncombustion.net.generation..MWh.))) %>% 
+  mutate(noncombust = as.numeric(gsub(",","",power$State.annual.total.noncombustion.net.generation..MWh.)) / total.combust) %>% 
   select(StateFull, noncombust) %>% 
   mutate(biggest = max(noncombust)) %>% 
   mutate(power.a = noncombust / biggest) %>% 
   select(StateFull, power.a)
 
 renewables.total <- power %>% 
-  mutate(total.renewables = as.numeric(State.annual.total.renewables.net.generation..MWh.)
-         + as.numeric(State.annual.total.nonrenewables.net.generation..MWh.)) %>% 
-  mutate(renewables = as.numeric(State.annual.total.renewables.net.generation..MWh.) / total.renewables) %>% 
+  mutate(total.renewables = as.numeric(gsub(",","",power$State.annual.total.renewables.net.generation..MWh.))
+         + as.numeric(gsub(",","",power$State.annual.total.nonrenewables.net.generation..MWh.))) %>% 
+  mutate(renewables = as.numeric(gsub(",","",power$State.annual.total.renewables.net.generation..MWh.)) / total.renewables) %>% 
   select(StateFull, renewables) %>% 
   mutate(biggest = max(renewables)) %>% 
   mutate(power.b = renewables / biggest) %>% 
@@ -130,12 +130,12 @@ emissions.generation <- power %>%
          State.annual.N2O.emissions..lbs., 
          State.annual.SO2.emissions..tons., 
          State.annual.net.generation..MWh.) %>% 
-  mutate(totalTesting = (as.numeric(gsub(",","",power$State.annual.N2O.emissions..lbs.) * 0.0005)) +
-           as.numeric(gsub(",","",power$State.annual.CO2.emissions..tons.)) +
-           as.numeric(gsub(",","",power$State.annual.NOx.emissions..tons.)) +
-           as.numeric(gsub(",","",power$State.annual.SO2.emissions..tons.))
-           (as.numeric(gsub(",","",power$State.annual.CH4.emissions..lbs.) * 0.0005))) %>% 
-  mutate(emissions.total.gen = totalTesting / as.numeric(State.annual.net.generation..MWh.)) %>% 
+  mutate(totalTesting = ((as.numeric(gsub(",","",power$State.annual.N2O.emissions..lbs.))) * 0.0005) +
+           (as.numeric(gsub(",","",power$State.annual.CO2.emissions..tons.))) +
+           (as.numeric(gsub(",","",power$State.annual.NOx.emissions..tons.))) +
+           (as.numeric(gsub(",","",power$State.annual.SO2.emissions..tons.))) +
+           ((as.numeric(gsub(",","",power$State.annual.CH4.emissions..lbs.))) * 0.0005)) %>% 
+  mutate(emissions.total.gen = totalTesting / as.numeric(gsub(",","",power$State.annual.net.generation..MWh.))) %>% 
   mutate(biggest = max(emissions.total.gen)) %>% 
   mutate(power.c = 1 - (emissions.total.gen / biggest)) %>% 
   select(StateFull, power.c)
