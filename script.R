@@ -90,13 +90,17 @@ power <- bind_cols(power, StateFull)
 # New Stuff
 
 # Landfill Scores
+# get waste/pop
 total.waste.population <- landfill_by_state %>% 
   mutate(total.waste.pop = total.waste / X2017.Population) %>% 
-  select(state.name, total.waste.pop) %>% 
+  select(state.name, total.waste.pop) 
+# get waste scores
+waste.score <- total.waste.population %>% 
   mutate(biggest = max(total.waste.pop)) %>% 
   mutate(waste.pop = 1 - (total.waste.pop / biggest))%>% 
   select(state.name, waste.pop)
 
+#pop den scores
 total.waste.populationdensity <- landfill_by_state %>% 
   mutate(waste.density = total.waste / Density) %>% 
   select(state.name, waste.density) %>% 
@@ -104,32 +108,42 @@ total.waste.populationdensity <- landfill_by_state %>%
   mutate(landfill.a.1 = 1 - (waste.density / biggest))%>% 
   select(state.name, waste.density)
 
+# get lfg/pop
 lfg.collected.population <- landfill_by_state %>% 
   mutate(lfg.collected.pop = total.lfg.collected / X2017.Population) %>% 
-  select(state.name, lfg.collected.pop) %>% 
+  select(state.name, lfg.collected.pop) 
+# get lfg scores
+lfg.score <- lfg.collected.population %>%
   mutate(biggest = max(lfg.collected.pop)) %>% 
   mutate(lfg.collected = lfg.collected.pop / biggest) %>% 
   select(state.name, lfg.collected)
 
 # Power Scores
+# get noncombust ratio
 noncombust.total <- power %>% 
   mutate(total.combust = as.numeric(gsub(",","",power$State.annual.total.combustion.net.generation..MWh.))
          + as.numeric(gsub(",","",power$State.annual.total.noncombustion.net.generation..MWh.))) %>% 
   mutate(noncombust = as.numeric(gsub(",","",power$State.annual.total.noncombustion.net.generation..MWh.)) / total.combust) %>% 
-  select(StateFull, noncombust) %>% 
+  select(StateFull, noncombust) 
+# get noncombust score
+noncombust.score <- noncombust.total %>% 
   mutate(biggest = max(noncombust)) %>% 
   mutate(combustion = noncombust / biggest) %>% 
   select(StateFull, combustion)
 
+# get renewables ratio
 renewables.total <- power %>% 
   mutate(total.renewables = as.numeric(gsub(",","",power$State.annual.total.renewables.net.generation..MWh.))
          + as.numeric(gsub(",","",power$State.annual.total.nonrenewables.net.generation..MWh.))) %>% 
   mutate(renewables = as.numeric(gsub(",","",power$State.annual.total.renewables.net.generation..MWh.)) / total.renewables) %>% 
-  select(StateFull, renewables) %>% 
+  select(StateFull, renewables) 
+# get renewables score 
+renewables.score <- renewables.total %>% 
   mutate(biggest = max(renewables)) %>% 
   mutate(renews = renewables / biggest) %>% 
   select(StateFull, renews)
 
+# get total emissions/net generation
 total.emissions <- power %>% 
   select(StateFull, State.annual.NOx.emissions..tons., 
          State.annual.CH4.emissions..lbs., 
@@ -142,29 +156,31 @@ total.emissions <- power %>%
            State.annual.NOx.emissions..tons. +
            State.annual.SO2.emissions..tons. +
            (State.annual.CH4.emissions..lbs.* 0.0005)) %>% 
-  mutate(emissions.total.gen = total / State.annual.net.generation..MWh.)
-  
-emissions.generation <- total.emissions %>% 
+  mutate(emissions.total.gen = total / State.annual.net.generation..MWh.) %>% 
+  select(StateFull, emissions.total.gen)
+# get emissions score
+emissions.score <- total.emissions %>% 
   mutate(biggest = max(emissions.total.gen)) %>% 
   mutate(emissions = 1 - (emissions.total.gen / biggest)) %>% 
   select(StateFull, emissions)
 
 # Water Scores
-water.withdrawls.by.pop <- slice(water, 1:50) %>% 
-  transform( scores = as.numeric(Total) / as.numeric(Population.Total)) %>% 
-  select(State, scores)
-
-water_withdrawals_given_pop <- water.withdrawls.by.pop %>% 
-  mutate(biggest = max(scores)) %>% 
-  mutate(withdrawals = 1 - (scores / biggest)) %>% 
+# get water withdrawal/pop
+water.withdrawals.by.pop <- slice(water, 1:50) %>% 
+  transform( withdrawal.pop = as.numeric(Total) / as.numeric(Population.Total)) %>% 
+  select(State, withdrawal.pop)
+# get water scores
+water.score <- water.withdrawals.by.pop %>% 
+  mutate(biggest = max(withdrawal.pop)) %>% 
+  mutate(withdrawals = 1 - (withdrawal.pop / biggest)) %>% 
   select(State, withdrawals)
 
-all.data <- left_join(total.waste.population, lfg.collected.population, by="state.name")
+all.data <- left_join(waste.score, lfg.score, by="state.name")
 all.data <- left_join(all.data, total.waste.populationdensity, by = "state.name")
-all.data <- left_join(all.data, noncombust.total, by = c("state.name" = "StateFull"))
-all.data <- left_join(all.data,renewables.total, by = c("state.name" = "StateFull"))
-all.data <- left_join(all.data,emissions.generation, by = c("state.name" = "StateFull"))
-all.data <- left_join(all.data,water_withdrawals_given_pop, by = c("state.name" = "State"))
+all.data <- left_join(all.data, noncombust.score, by = c("state.name" = "StateFull"))
+all.data <- left_join(all.data,renewables.score, by = c("state.name" = "StateFull"))
+all.data <- left_join(all.data,emissions.score, by = c("state.name" = "StateFull"))
+all.data <- left_join(all.data,water.score, by = c("state.name" = "State"))
 locations <- state.abb
 
 # population 
@@ -198,16 +214,27 @@ density.map <- choroplthFunc(all.data.density, all.data.density$totalScore, all.
 # ----------------------------------------------------------------------------------------------#
 # summary stats
 
-# table
-emissions.sum.stats <- summarise(total.emissions, variable = "total emissions by population", mean = mean(emissions.total.gen),
-            median = median(emissions.total.gen))
-water.sum.stats <- summarise(water.withdrawls.by.pop, variable = "total water withdrawls by population", mean = mean(scores),
-                       median = median(scores))
-# total waste
-# % renewable
-# total LFG collected
-# % non-combustible
-sum.stats <- rbind(emissions.sum.stats, water.sum.stats)
+# get sum stats and combine
+emissions.sum.stats <- summarise(total.emissions, variable = "total emissions by net generation", 
+                                 mean = mean(emissions.total.gen),
+                                 median = median(emissions.total.gen))
+water.sum.stats <- summarise(water.withdrawals.by.pop, variable = "total water withdrawals by population", 
+                             mean = mean(withdrawal.pop),
+                             median = median(withdrawal.pop))
+waste.sum.stats <- summarise(total.waste.population, variable = "total waste by population",
+                             mean = mean(total.waste.pop),
+                             median = median(total.waste.pop))
+renewables.sum.stats <- summarise(renewables.total , variable = "renewables ratio",
+                                  mean = mean(renewables),
+                                  median = median(renewables))
+lfg.sum.stats <- summarise(lfg.collected.population, variable = "lfg collected by population",
+                           mean = mean(lfg.collected.pop),
+                           median = median(lfg.collected.pop))
+noncombust.sum.stats <- summarise(noncombust.total, variable = "noncombustion ratio",
+                                  mean = mean(noncombust),
+                                  median = median(noncombust))
+sum.stats <- rbind(emissions.sum.stats, water.sum.stats, waste.sum.stats, renewables.sum.stats,
+                   lfg.sum.stats, noncombust.sum.stats)
 
 
 # distributions

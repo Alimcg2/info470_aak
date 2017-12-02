@@ -131,9 +131,10 @@ Once we ranked the variables we decided on a weighted system to determine each s
 
 These factors contributed to our total score for each state. The rest of our analysis was completed based on this score. 
 
-
+### Summary Statistics
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-
+library(knitr)
+kable(sum.stats)
 
 ```
 
