@@ -130,28 +130,31 @@ renewables.total <- power %>%
   mutate(renews = renewables / biggest) %>% 
   select(StateFull, renews)
 
-emissions.generation <- power %>% 
+total.emissions <- power %>% 
   select(StateFull, State.annual.NOx.emissions..tons., 
          State.annual.CH4.emissions..lbs., 
          State.annual.CO2.emissions..tons., 
          State.annual.N2O.emissions..lbs., 
          State.annual.SO2.emissions..tons., 
          State.annual.net.generation..MWh.) %>% 
-  mutate(totalTesting = ((as.numeric(gsub(",","",power$State.annual.N2O.emissions..lbs.))) * 0.0005) +
-           (as.numeric(gsub(",","",power$State.annual.CO2.emissions..tons.))) +
-           (as.numeric(gsub(",","",power$State.annual.NOx.emissions..tons.))) +
-           (as.numeric(gsub(",","",power$State.annual.SO2.emissions..tons.))) +
-           ((as.numeric(gsub(",","",power$State.annual.CH4.emissions..lbs.))) * 0.0005)) %>% 
-  mutate(emissions.total.gen = totalTesting / as.numeric(gsub(",","",power$State.annual.net.generation..MWh.))) %>% 
+  mutate(total = (State.annual.N2O.emissions..lbs. * 0.0005) +
+           State.annual.CO2.emissions..tons. +
+           State.annual.NOx.emissions..tons. +
+           State.annual.SO2.emissions..tons. +
+           (State.annual.CH4.emissions..lbs.* 0.0005)) %>% 
+  mutate(emissions.total.gen = total / State.annual.net.generation..MWh.)
+  
+emissions.generation <- total.emissions %>% 
   mutate(biggest = max(emissions.total.gen)) %>% 
   mutate(emissions = 1 - (emissions.total.gen / biggest)) %>% 
   select(StateFull, emissions)
 
-
 # Water Scores
-water_withdrawals_given_pop <- slice(water, 1:50) %>% 
+water.withdrawls.by.pop <- slice(water, 1:50) %>% 
   transform( scores = as.numeric(Total) / as.numeric(Population.Total)) %>% 
-  select(State, scores) %>% 
+  select(State, scores)
+
+water_withdrawals_given_pop <- water.withdrawls.by.pop %>% 
   mutate(biggest = max(scores)) %>% 
   mutate(withdrawals = 1 - (scores / biggest)) %>% 
   select(State, withdrawals)
@@ -192,9 +195,17 @@ all.data.density <- all.data %>%
 choroplthFunc(all.data.density, all.data.density$totalScore, all.data.density$loc,
               all.data.density$totalScore, "titleText", c("red", "yellow"))
 
+# summary stats
 
-
-
+emissions.sum.stats <- summarise(total.emissions, variable = "total emissions by population", mean = mean(emissions.total.gen),
+            median = median(emissions.total.gen))
+water.sum.stats <- summarise(water.withdrawls.by.pop, variable = "total water withdrawls by population", mean = mean(scores),
+                       median = median(scores))
+# total waste
+# % renewable
+# total LFG collected
+# % non-combustible
+sum.stats <- rbind(emissions.sum.stats, water.sum.stats)
 
 
 
