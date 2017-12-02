@@ -221,8 +221,24 @@ distribution.plot <-
   add_trace(y = ~renews, name = 'Renewable Power', mode = 'lines') %>%
   add_trace(y = ~combustion, name = 'Noncombustables', mode = 'lines') 
 
-
-
+emissions.dist <- 
+  plot_ly(all.data.pop, x = ~state.name, y = ~emissions, name = 'Emissions', type = 'scatter', mode = 'lines',
+          text = ~state.name)
+withdrawals.dist <- 
+  plot_ly(all.data.pop, y = ~withdrawals, name = 'Withdrawals', mode = 'lines', type = 'scatter',
+          text = ~state.name)
+waste.dist <- 
+  plot_ly(all.data.pop, y = ~waste.pop, name = 'Waste', mode = 'lines', type = 'scatter',
+          text = ~state.name)
+lfg.dist <- 
+  plot_ly(all.data.pop, y = ~lfg.collected, name = 'LFG Collection', mode = 'lines', type = 'scatter',
+          text = ~state.name)
+renewables.dist <- 
+  plot_ly(all.data.pop, y = ~renews, name = 'Renewable Power', mode = 'lines', type = 'scatter',
+          text = ~state.name)
+combustion.dist <- 
+  plot_ly(all.data.pop, y = ~combustion, name = 'Noncombustables', mode = 'lines', type = 'scatter',
+          text = ~state.name)
 
 
 
