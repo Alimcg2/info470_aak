@@ -7,6 +7,16 @@ output:
 
 by Alison McGuire, Alyssa Holzer and MacKenzie Olson
 
+<br>
+<br>
+
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("script.R")
+overall.map
+```
+
+<br>
+
 ## Table of Contents
 [Introduction](#introduction)
 
@@ -15,6 +25,8 @@ by Alison McGuire, Alyssa Holzer and MacKenzie Olson
 [Method Description](#method-description)
 
 [Data Analysis](#data-analysis)
+
+[Appendix](#appendix)
 
 
 ## Introduction
@@ -64,9 +76,6 @@ This data is from the Environmental Protection Agency’s (EPA) Landfill Methane
 This data has two major parts, information about the landfill and information about methane saving projects at the landfill. The landfill data is a collection of 2,400 municipal solid waste landfills across the United States. This data has been collected largely in part due to the partnerships the EPA has with landfills. It includes landfills that both do and don’t report to the EPA’s Greenhouse Gas Reporting Program. The landfill data includes information like the state it’s located in, the landfill’s name, the landfill operator’s name (or organization), the county it’s located in, the latitude and longitude of the plant and the amount of trash it contains (in tons); to name a few. It also contains information about landfill operations including the year it opened, the year it has closed if it has closed, if they have have methane protection projects going on, the year those methane protection projects started, and much more. 
 
 
-##### Analysis
-
-
 ### Power Plant Emissions
 
 ##### Source
@@ -81,8 +90,6 @@ EIA-923: this includes data reported to EIA on fuel consumption and generation. 
 ##### Description
 This data set comes with hundreds of columns, we have narrowed down those to just a few that are important to our mission. It describes the different amounts of emission of the different greenhouse gases, the amount of energy it produces and the type of energy it produces. It also shows summary statistics on the amount of renewable vs nonrenewable energy that it generates and combustible v.s. noncombustible energy that it generates. 
 
-##### Analysis
-
 
 ### Water Withdrawals
 
@@ -92,7 +99,50 @@ The data was gathered from the United States Geological Survey. This agency coll
 ##### Description
 This data describes how much water is being used by the population of the United States. The data has been aggregated to reflect a state by state total for each column. The data is separated into many different parts, including where the water is coming from (surface water or groundwater), where it’s going to (agriculture, mining, industrial, livestock, aquaculture), who is using it (publicly supplied, domestically supplied), and the type of water (fresh or saline). There is also information on the populations for each state and the populations that use this water. 
 
-##### Analysis
+### Analysis
+
+<br>
+<br>
+
+# Data Analysis
+## Introduction
+
+Our analysis revolves around six variables that we chose to represnent enviromental impacts of the different states. The six variables were chosen out of our three major datasets (Water Withdrawals, Landfills, and Power Plants). First we looked at the total amount of emissions in tons per capita per state. Second we took the total water withdrawals in million of gallons per day as a percentage of the population in each state. Third was the amount waste in tons per person for each state. Fourth was the percentage of renewable energy vs the total energy produced by each state. The fifth variable was amount of emissions collected through an LFG system for each state. The last variable we took into consideration was the rate of combustable fuel vs non combustable fuels for each state.  
+
+Based on our research about our data and the environemnt in general we were able to conclude that these 6 variables had a significant impact on our environment. We knew that these variables didn't have the same amount of impact so the next step was to determine which variables impacted the environment more or less. We consoluted an expert in the field as well as our own research in order to determine how we would weigh each variable. Our research concluded that they should be placed in the following order:
+
+1. Total emissions
+2. Total water withdrawals
+3. Total waste
+4. Percentage of renewable energy
+5. Total LFG collected
+5. Percentage of non-combustibles
+
+Total emissions, water with drawals and waste were all ranked at the top because they were the most direct impacts on the environemnt. Grennhouse gas emissions have been proven to  directly cause climate change on Earth, lending this to be the first in our rankings of variables. Water withdrawals also directly contribute to the earth's climate problem because it is measuring the imapct humans are having on the water ecosystems. Waste comes in third because it is both influencing ecosystems by poisining land and contributing to the Greenhouse gas emissions. Renewable energy and LFG collection are important to the prevention of greenhouse gas emissions. And finally, the percentage of non-combustible gasses which have potential to be dangerous to our earth, but aren't directly influencing climate change. 
+
+Once we ranked the variables we decided on a weighted system to determine each state's score. We weighted the more important variables heavier than the less important (based on our rankings). The total score comprised of:
+
+25% : Total emissions <br>
+20% : Water Withdrawals <br>
+16% : Total waste <br>
+14% : Percentage of renewable energy <br>
+13% : Total LFG collected <br>
+12% : Percentage of non-combustibles <br>
+
+These factors contributed to our total score for each state. The rest of our analysis was completed based on this score. 
+
+
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+
+
+```
+
+
+
+<br>
+<br>
+
+# Appendix
 
 ### Column Tables
 
@@ -209,13 +259,4 @@ This data describes how much water is being used by the population of the United
 | Thermoelectric-Surfacewater    | "Thermoelectric, surface-water withdrawals, total, in Mgal/d"        |  | 
 | Thermoelectric-Total           | "Thermoelectric, total withdrawals, total (fresh+saline), in Mgal/d" |  | 
 | ThermoelectricPower-Generated  | "Thermoelectric, power generated, in gigawatt-hours"                 |  | 
-
-
-
-# Data Analysis
-
-```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("script.R")
-
-```
 

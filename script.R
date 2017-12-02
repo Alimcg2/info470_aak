@@ -35,13 +35,13 @@ landfill_by_state <- landfill %>%
             total.with.lfg = sum(LFG.Collection.System.In.Place. == "Yes", na.rm = TRUE), 
             total.lfg.collected = sum(LFG.Collected..mmscfd., na.rm = TRUE),
             total.capacity = sum(MW.Capacity, na.rm = TRUE),
-            total.reduction = sum(Current.Year.Emission.Reductions..MMTCO2e.yr....Direct, na.rm = TRUE)) %>% 
+            total.reduction = sum(Current.Year.Emission.Reductions..MMTCO2e.yr....Direct, na.rm = TRUE)) 
 
 #write.csv(landfill_by_state, file = "CABS.csv")
-casum <- landfill %>% 
-  filter(State == "CA") %>% 
-  filter(Waste.in.Place..tons. != "NA") %>% 
-  summarise(total = sum(as.numeric(Waste.in.Place..tons.)))
+#casum <- landfill %>% 
+#  filter(State == "CA") %>% 
+#  filter(Waste.in.Place..tons. != "NA") %>% 
+#  summarise(total = sum(as.numeric(Waste.in.Place..tons.)))
 landfill_by_state <- read.csv("CABS.csv")
 
 #landfill_by_state <- left_join(landfill_by_state, states, by = c("State" = "stateabrev")) 
@@ -170,16 +170,16 @@ locations <- state.abb
 # population 
 all.data.pop <- all.data %>% 
   filter(state.name != "District of Columbia") %>% 
-  mutate(totalScore = (waste.pop * 0.16) +
+  mutate(totalScore = ((waste.pop * 0.16) +
            (lfg.collected * 0.13) +
            (emissions * 0.25) + 
-           (renews * 0.12) +
-           (combustion * 0.14) +
-           (withdrawals * 0.2)) %>% 
+           (renews * 0.14) +
+           (combustion * 0.12) +
+           (withdrawals * 0.2))) %>% 
   arrange(state.name) %>% 
   mutate(loc = locations)
-choroplthFunc(all.data.pop, all.data.pop$totalScore, all.data.pop$loc, all.data.pop$totalScore, 
-              "titleText", c("red", "yellow"))
+overall.map <- choroplthFunc(all.data.pop, all.data.pop$totalScore, all.data.pop$loc, all.data.pop$totalScore, 
+              "States Overall Impact Scores", c("red", "yellow"))
 
 # population density
 all.data.density <- all.data %>% 
@@ -187,16 +187,18 @@ all.data.density <- all.data %>%
   mutate(totalScore = (waste.density * 0.16) +
            (lfg.collected * 0.13) +
            (emissions * 0.25) + 
-           (renews * 0.12) +
-           (combustion * 0.14) +
+           (renews * 0.14) +
+           (combustion * 0.12) +
            (withdrawals * 0.2)) %>% 
   arrange(state.name) %>% 
   mutate(loc = locations)
-choroplthFunc(all.data.density, all.data.density$totalScore, all.data.density$loc,
+density.map <- choroplthFunc(all.data.density, all.data.density$totalScore, all.data.density$loc,
               all.data.density$totalScore, "titleText", c("red", "yellow"))
 
+# ----------------------------------------------------------------------------------------------#
 # summary stats
 
+# table
 emissions.sum.stats <- summarise(total.emissions, variable = "total emissions by population", mean = mean(emissions.total.gen),
             median = median(emissions.total.gen))
 water.sum.stats <- summarise(water.withdrawls.by.pop, variable = "total water withdrawls by population", mean = mean(scores),
@@ -206,6 +208,25 @@ water.sum.stats <- summarise(water.withdrawls.by.pop, variable = "total water wi
 # total LFG collected
 # % non-combustible
 sum.stats <- rbind(emissions.sum.stats, water.sum.stats)
+
+
+# distributions
+
+distribution.plot <- 
+  plot_ly(all.data.pop, x = ~state.name, y = ~emissions, name = 'Emissions', type = 'scatter', mode = 'lines',
+          text = ~state.name) %>%
+  add_trace(y = ~withdrawals, name = 'Withdrawals', mode = 'lines') %>%
+  add_trace(y = ~waste.pop, name = 'Waste', mode = 'lines') %>%
+  add_trace(y = ~lfg.collected, name = 'LFG Collection', mode = 'lines') %>%
+  add_trace(y = ~renews, name = 'Renewable Power', mode = 'lines') %>%
+  add_trace(y = ~combustion, name = 'Noncombustables', mode = 'lines') 
+
+
+
+
+
+
+
 
 
 
