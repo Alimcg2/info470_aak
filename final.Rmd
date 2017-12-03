@@ -100,6 +100,41 @@ The data was gathered from the United States Geological Survey. This agency coll
 This data describes how much water is being used by the population of the United States. The data has been aggregated to reflect a state by state total for each column. The data is separated into many different parts, including where the water is coming from (surface water or groundwater), where it’s going to (agriculture, mining, industrial, livestock, aquaculture), who is using it (publicly supplied, domestically supplied), and the type of water (fresh or saline). There is also information on the populations for each state and the populations that use this water. 
 
 ### Analysis
+  We will be performing multiple regression to see if there is a linear, predictive relationship between the rankings we assign to the states (dependent variable) and the scores that compose said ranking (independent variables) which are built on the following 6 categories: total emissions, total water withdrawals, total waste, percentage renewable, total LFG collected, and percentage non-combustible. This test was done to make sure how we weighted and created the scores aligns well with the overall ranking system. There are 3 checks to make sure multiple regression is the appropriate test to conduct: 
+<br>
+1.	There is a linear relationship between the independent and dependent variables. 
+<br>
+  Unfortunately, there does not seem to be a strong linear relationship in the scatterplots above. However, we are not seeing any different types of patterns such as logarithmic or exponential functions which are even more worrisome. As a result, we will proceed cautiously. 
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
+a
+b
+c
+d
+e
+f
+```
+<br>
+2. For each value of X, the probability distribution of Y has the same standard deviation and the y values are independent. 
+<br>
+The easiest way to evaluate this check is to check the graphs of the residuals given the fitted value. The variability of the residuals should fairly consistent given any value of x and there shouldn’t be a clear pattern. 
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
+p
+```
+As displayed by the graph, it seems to be an okay fit! There isn’t a clear pattern to the residuals and they appear to vary by approximately the same amount. 
+<br>
+3. The dependent variable’s distribution is roughly normally distributed
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
+h
+```
+As one can see, there is a uniform distribution for scores. This is not a normal distribution; however, there is a lack of skew or signs of being bimodal and thus we will proceed with caution.
+<br>
+Now that the checks have been discussed, we can proceed and go over the results in the data analysis section.
 
 <br>
 <br>
@@ -138,11 +173,20 @@ kable(sum.stats)
 
 ```
 
+## Multivariate Regression
+The following equation was created by the linear regression function in R: <br>
+<br>
+*Predicted Rank* = -15.6131 + 28.944 (*emissions*) – 0.9015 (*withdrawals*) + 50.2727 (*waste*) – 10.3764 (*combustion*) + 34.6818 (*lfg.collected*) – 21.3631 (*renews*)
+<br>
+<br>
+  By creating a linear regression function in R, R additionally runs an F-test. The null hypothesis for an f-test is that a model with only a y-intercept is just as good a fit as the model created through linear regression. After conducting the f-test, we received a sample statistic of 4.772. If we were to conduct a million f-tests with a million different randomly selected samples, the odds of getting a more extreme f-statistic is 0.08%. As a result, we can reject the null hypothesis. This means that we have created a model that is better than a model with only the y-intercept.
+<br>
+<br>
+	Overall, this confirms that we have made a model for assigning ranks that is fairly predictable which is encouraging. This means that if one only knew information about the 6 independent variables, they could use this equation to get a predicted rank that would be very close to correct.  
 
 
 <br>
 <br>
-
 # Appendix
 
 ### Column Tables
