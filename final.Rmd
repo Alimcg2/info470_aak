@@ -121,7 +121,6 @@ f
 The easiest way to evaluate this check is to check the graphs of the residuals given the fitted value. The variability of the residuals should fairly consistent given any value of x and there shouldn’t be a clear pattern. 
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
 p
 ```
 As displayed by the graph, it seems to be an okay fit! There isn’t a clear pattern to the residuals and they appear to vary by approximately the same amount. 
@@ -129,7 +128,6 @@ As displayed by the graph, it seems to be an okay fit! There isn’t a clear pat
 3. The dependent variable’s distribution is roughly normally distributed
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
 h
 ```
 As one can see, there is a uniform distribution for scores. This is not a normal distribution; however, there is a lack of skew or signs of being bimodal and thus we will proceed with caution.
@@ -187,6 +185,7 @@ The following equation was created by the linear regression function in R: <br>
 
 <br>
 <br>
+
 # Appendix
 
 ### Column Tables
