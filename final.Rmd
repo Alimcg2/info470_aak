@@ -101,43 +101,15 @@ This data describes how much water is being used by the population of the United
 
 ### Analysis
   We will be performing multiple regression to see if there is a linear, predictive relationship between the rankings we assign to the states (dependent variable) and the scores that compose said ranking (independent variables) which are built on the following 6 categories: total emissions, total water withdrawals, total waste, percentage renewable, total LFG collected, and percentage non-combustible. This test was done to make sure how we weighted and created the scores aligns well with the overall ranking system. There are 3 checks to make sure multiple regression is the appropriate test to conduct: 
-<br>
-1.	There is a linear relationship between the independent and dependent variables. 
-<br>
-  Unfortunately, there does not seem to be a strong linear relationship in the scatterplots above. However, we are not seeing any different types of patterns such as logarithmic or exponential functions which are even more worrisome. As a result, we will proceed cautiously. 
-<br>
-```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
-a
-b
-c
-d
-e
-f
-```
-<br>
-2. For each value of X, the probability distribution of Y has the same standard deviation and the y values are independent. 
-<br>
-The easiest way to evaluate this check is to check the graphs of the residuals given the fitted value. The variability of the residuals should fairly consistent given any value of x and there shouldn’t be a clear pattern. 
-<br>
-```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-p
-```
-As displayed by the graph, it seems to be an okay fit! There isn’t a clear pattern to the residuals and they appear to vary by approximately the same amount. 
-<br>
-3. The dependent variable’s distribution is roughly normally distributed
-<br>
-```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
-h
-```
-As one can see, there is a uniform distribution for scores. This is not a normal distribution; however, there is a lack of skew or signs of being bimodal and thus we will proceed with caution.
-<br>
-Now that the checks have been discussed, we can proceed and go over the results in the data analysis section.
 
-<br>
+1. There is a linear relationship between the independent and dependent variables.
+2. For each value of X, the probability distribution of Y has the same standard deviation and the y values are independent.
+3. The dependent variable’s distribution is roughly normally distributed.
+
 <br>
 
 # Data Analysis
+
 ## Introduction
 
 Our analysis revolves around six variables that we chose to represnent enviromental impacts of the different states. The six variables were chosen out of our three major datasets (Water Withdrawals, Landfills, and Power Plants). First we looked at the total amount of emissions in tons per capita per state. Second we took the total water withdrawals in million of gallons per day as a percentage of the population in each state. Third was the amount waste in tons per person for each state. Fourth was the percentage of renewable energy vs the total energy produced by each state. The fifth variable was amount of emissions collected through an LFG system for each state. The last variable we took into consideration was the rate of combustable fuel vs non combustable fuels for each state.  
@@ -169,6 +141,8 @@ These factors contributed to our total score for each state. The rest of our ana
 library(knitr)
 kable(sum.stats)
 
+distribution.plot
+
 ```
 
 ## Multivariate Regression
@@ -181,7 +155,49 @@ The following equation was created by the linear regression function in R: <br>
 <br>
 <br>
 	Overall, this confirms that we have made a model for assigning ranks that is fairly predictable which is encouraging. This means that if one only knew information about the 6 independent variables, they could use this equation to get a predicted rank that would be very close to correct.  
+<br>
 
+###Results of the checks
+
+The results of the checks to make sure multiple regression is an appropriate test as as follows:
+
+####1.	There is a linear relationship between the independent and dependent variables. 
+
+Unfortunately, there does not seem to be a strong linear relationship in the scatterplots above. However, we are not seeing any different types of patterns such as logarithmic or exponential functions which are even more worrisome. As a result, we will proceed cautiously. 
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
+a
+b
+c
+d
+e
+f
+```
+
+#### 2. For each value of X, the probability distribution of Y has the same standard deviation and the y values are independent. 
+
+The easiest way to evaluate this check is to check the graphs of the residuals given the fitted value. The variability of the residuals should fairly consistent given any value of x and there shouldn’t be a clear pattern. 
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
+p.emissions
+p.withdrawals
+p.waste.pop
+p.combustion
+p.lfg.collected
+p.renews
+
+```
+As displayed by the graph, it seems to be an okay fit! There isn’t a clear pattern to the residuals and they appear to vary by approximately the same amount. 
+
+#### 3. The dependent variable’s distribution is roughly normally distributed
+
+```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
+h
+```
+As one can see, there is a uniform distribution for scores. This is not a normal distribution; however, there is a lack of skew or signs of being bimodal and thus we will proceed with caution.
 
 <br>
 <br>
