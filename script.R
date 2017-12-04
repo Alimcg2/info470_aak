@@ -281,6 +281,40 @@ combustion.dist <-
 
 
 
+# ----------------------------------------------------------------------------------------------#
+# Discussion
+
+getRanks <- function(StateName){
+  all.data <- arrange(all.data, waste.pop)
+  waste.pop <- which(grepl(StateName, all.data$state.name))
+  all.data <- arrange(all.data, lfg.collected)
+  lfg.collected <- which(grepl(StateName, all.data$state.name))
+  all.data <- arrange(all.data, emissions)
+  emissions <- which(grepl(StateName, all.data$state.name))
+  all.data <- arrange(all.data, renews)
+  renews <- which(grepl(StateName, all.data$state.name))
+  all.data <- arrange(all.data, combustion)
+  combustion <- which(grepl(StateName, all.data$state.name))
+  all.data <- arrange(all.data, withdrawals)
+  withdrawals <-  which(grepl(StateName, all.data$state.name))
+  
+  ranks <- list("Total Waste" = 51 - waste.pop, "LFG Collection" = 51 - lfg.collected,
+                   "Emissions" = 51 - emissions, "Renewable Energy" = 51 - renews,
+                   "Combustables" = 51 - combustion, "Water Withdrawals" = 51 - withdrawals)
+  return(ranks)
+}
+
+wy.ranks <- as.data.frame(getRanks("Wyoming"))
+wa.ranks <- as.data.frame(getRanks("Washington"))
+ca.ranks <- as.data.frame(getRanks("California"))
+
+
+wy.landfill <- landfill_by_state %>% 
+  mutate(num.without = num.landfills - total.with.lfg) %>% 
+  mutate(percent.without = (num.without / num.landfills) * 100) %>% 
+  select(State, num.without, percent.without) %>% 
+  arrange(num.without)
+
 
 # ----------------------------------------------------------------------------------------------#
 # Old Stuff
