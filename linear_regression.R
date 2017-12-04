@@ -6,28 +6,43 @@ library(leaflet)
 source("script.R")
 
 # getting data and assigning scores
-df <- all.data.density
+df <- all.data.pop
 df <- df %>% arrange(-totalScore)
 df$scores <- seq.int(nrow(df))
 
 # creating linear regression model
 fit <- lm(scores ~ emissions + withdrawals + waste.pop + combustion + lfg.collected + renews, data=df)
-summary(fit)
+summaryof.fit <- summary(fit)
+tableSummary <- as.data.frame(summaryof.fit["coefficients"])
 
 # checking to make sure there's a linear relationship between 
 # independent and dependent variables (prerequisite for linear regression)
-a <- plot(df$emissions, df$scores, xlab = "Emissions", ylab = "Scores", main = "Scores Given Emmissions")
-b <- plot(df$withdrawals, df$scores, xlab = "Withdrawals", ylab = "Scores", main = "Scores Given Withdrawals")
-c <- plot(df$waste.pop, df$scores, xlab = "Waste by Population", ylab = "Scores", main = "Scores Given Waste by Population")
-d <- plot(df$combustion, df$scores, xlab = "Combustion", ylab = "Scores", main = "Scores Given Combustion")
-e <- plot(df$lfg.collected, df$scores, xlab = "LFG Collected", ylab = "Scores", main = "Scores Given LFG Collected")
-f <- plot(df$renews, df$scores, xlab = "Renews", ylab = "Scores", main = "Scores Given Renewables")
+plotFunc <- function(xVar, colorInside, colorOutside, titleText) {
+  plot_ly(data = df, x = xVar, y = ~scores, mode = "markers",
+             text = ~state.name,
+             marker = list(size = 10,
+                           color = colorInside,
+                           line = list(color = colorOutside,
+                                       width = 2))) %>%
+  layout(title = titleText,
+         yaxis = list(zeroline = FALSE),
+         xaxis = list(zeroline = FALSE))
+}
+a <- plotFunc(df$emissions,'rgba(255, 182, 193, .9)', 'rgba(152, 0, 0, .8)', 'Scores Given Emissions')
+b <- plotFunc(df$withdrawals,'rgba(255, 182, 193, .9)', 'rgba(152, 0, 0, .8)', "Scores Given Withdrawals")
+c <- plotFunc(df$waste.pop, 'rgba(255, 182, 193, .9)', 'rgba(152, 0, 0, .8)',"Scores Given Waste by Population")
+d <- plotFunc(df$combustion, 'rgba(255, 182, 193, .9)', 'rgba(152, 0, 0, .8)', "Scores Given Combustion")
+e <- plotFunc(df$lfg.collected, 'rgba(255, 182, 193, .9)', 'rgba(152, 0, 0, .8)', "Scores Given LFG Collected")
+f <- plotFunc(df$renews, 'rgba(255, 182, 193, .9)', 'rgba(152, 0, 0, .8)', "Scores Given Renewables")
 
 # plotting the residuals versus fitted values
 # don't want to see a pattern
-p <- plot(fitted(fit), residuals(fit), xlab = "Fitted Values", ylab = "Residuals")
-title("Residual vs Fit. value - OK model")
-p <- p + abline(0,0, col = "red")
+p.emissions <- plot_ly(x = df$emissions, y = residuals(fit), mode = "markers", text = ~state.name)
+p.withdrawals <- plot_ly(x = df$withdrawals, y = residuals(fit), mode = "markers", text = ~state.name)
+p.waste.pop <- plot_ly(x = df$waste.pop, y = residuals(fit), mode = "markers", text = ~state.name)
+p.combustion <- plot_ly(x = df$combustion, y = residuals(fit), mode = "markers", text = ~state.name)
+p.lfg.collected <- plot_ly(x = df$lfg.collected, y = residuals(fit), mode = "markers", text = ~state.name)
+p.renews <- plot_ly(x = df$renews, y = residuals(fit), mode = "markers", text = ~state.name)
 
 # checking distribution of the dependent variable
-h <- hist(df$scores, xlab = "Scores", ylab = "Frequency", breaks = 20, main = "Distribution of Scores")
+h <- plot_ly(data = df, x = ~scores, type = "histogram")
