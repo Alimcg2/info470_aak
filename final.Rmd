@@ -253,6 +253,33 @@ This proves that if we would have chosen some other way to measure LFG Collectio
 <br>
 Wyoming ranked second to last in the total emissions and didn’t do well in the renewables or combustible power sections as well. This is probably in part due to the fact that they are the number one resource of coal in the United States, mining almost 400 million tons of coal per year (Wikipedia Coal). Using coal to produce energy emits large amounts of Sulfur Dioxide (SO2) and Nitrogen Oxides( NOx) (GreenPeace). 
 
+<br>
+Another variable that struck us as interesting was how low California’s score was. California is regarded one of the most strict in terms of environmental regulations. Looking at California's individual scores we see that they are 3rd to last for waste. 
+
+```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
+kable(ca.ranks)
+```
+
+We thought this was odd so we looked further into the reasoning behind why their score is so low. The waste score is calculated by the sum of all of the waste divided by the population. Going back and looking at the data we noticed that some of the states don’t have a total for their waste, meaning this data was never collected. Here is chart showing the percentage of landfills that have their waste data collected. (Note the states with NA have all of their landfill data collected.)
+
+```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
+kable(head(landfill.withna))
+kable(tail(landfill.withna, 15L))
+```
+
+As you can see California has 94% of their landfill data collected, while Idaho only has 25% of their landfill data collected. This means that Idaho could have 75% more trash than we accounted for. This error skewes all of our data significantly and explains why California, has a bad score for waste. 
+
+If we multiplied their total waste by the percentage of waste that each state has, here is the new scores if we had adjusted for missing variables. 
+
+```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
+overall.map2
+kable(ca.ranks2)
+```
+
+
+
+
+<br>
 
 # Appendix
 
