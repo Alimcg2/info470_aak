@@ -91,11 +91,26 @@ power <- bind_cols(power, StateFull)
 # ----------------------------------------------------------------------------------------------#
 # New Stuff
 
+landfill.withna <- landfill %>% 
+  filter(is.na(Waste.in.Place..tons.)) %>% 
+  group_by(State) %>% 
+  summarise(Total.With.No.Waste = n())
+landfill.withna <- left_join(landfill_by_state, landfill.withna, by = "State") 
+landfill.withna <- select(landfill.withna, State, Total.With.No.Waste, num.landfills) %>% 
+  mutate(percent = ( 1 - (Total.With.No.Waste / num.landfills)) * 100) %>% 
+  arrange(percent)
+
+landfill_by_state <- left_join(landfill_by_state, landfill.withna, by = "State")  
+landfill_by_state <- landfill_by_state %>% 
+  arrange(percent)
+landfill_by_state$percent[46:50] <- 1
+#new waste
+total.waste.population <- landfill_by_state %>% 
+  mutate(total.waste.pop = (total.waste * (100 - percent)) / X2017.Population) %>% 
+  select(state.name, total.waste.pop) 
 # Landfill Scores
 # get waste/pop
-total.waste.population <- landfill_by_state %>% 
-  mutate(total.waste.pop = total.waste / X2017.Population) %>% 
-  select(state.name, total.waste.pop) 
+
 # get waste scores
 waste.score <- total.waste.population %>% 
   mutate(biggest = max(total.waste.pop)) %>% 
@@ -240,7 +255,13 @@ sum.stats <- rbind(emissions.sum.stats, water.sum.stats, waste.sum.stats, renewa
 
 
 # distributions
-
+m <- list(
+  l = 50,
+  r = 50,
+  b = 100,
+  t = 100,
+  pad = 4
+)
 distribution.plot <- 
   plot_ly(all.data.pop, x = ~state.name, y = ~emissions, name = 'Emissions', type = 'scatter', mode = 'lines',
           text = ~state.name) %>%
@@ -248,7 +269,8 @@ distribution.plot <-
   add_trace(y = ~waste.pop, name = 'Waste', mode = 'lines') %>%
   add_trace(y = ~lfg.collected, name = 'LFG Collection', mode = 'lines') %>%
   add_trace(y = ~renews, name = 'Renewable Power', mode = 'lines') %>%
-  add_trace(y = ~combustion, name = 'Noncombustables', mode = 'lines') 
+  add_trace(y = ~combustion, name = 'Noncombustables', mode = 'lines')  %>% 
+  layout(autosize = F, width = 970, height = 500, margin = m)
 
 emissions.dist <- 
   plot_ly(all.data.pop, x = ~state.name, y = ~emissions, name = 'Emissions', type = 'scatter', mode = 'lines',
@@ -312,27 +334,15 @@ ca.ranks <- as.data.frame(getRanks("California"))
 
 
 wy.landfill <- landfill_by_state %>% 
-  mutate(num.without = num.landfills - total.with.lfg) %>% 
-  mutate(percent.without = (num.without / num.landfills) * 100) %>% 
+  mutate(num.without = num.landfills.x - total.with.lfg) %>% 
+  mutate(percent.without = (num.without / num.landfills.x) * 100) %>% 
   select(State, num.without, percent.without) %>% 
   arrange(num.without)
 
-landfill.withna <- landfill %>% 
-  filter(is.na(Waste.in.Place..tons.)) %>% 
-  group_by(State) %>% 
-  summarise(Total.With.No.Waste = n())
-landfill.withna <- left_join(landfill_by_state, landfill.withna, by = "State") 
-landfill.withna <- select(landfill.withna, State, Total.With.No.Waste, num.landfills) %>% 
-  mutate(percent = ( 1 - (Total.With.No.Waste / num.landfills)) * 100) %>% 
-  arrange(percent)
 
-landfill_by_state <- left_join(landfill_by_state, landfill.withna, by = "State")  
-landfill_by_state <- landfill_by_state %>% 
-  arrange(percent)
-landfill_by_state$percent[46:50] <- 1
 #new waste
 total.waste.population2 <- landfill_by_state %>% 
-  mutate(total.waste.pop = (total.waste * (100 - percent)) / X2017.Population) %>% 
+  mutate(total.waste.pop = total.waste / X2017.Population) %>% 
   select(state.name, total.waste.pop) 
 # get waste scores
 waste.score2 <- total.waste.population2 %>% 

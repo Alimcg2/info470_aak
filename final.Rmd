@@ -147,6 +147,8 @@ distribution.plot
 
 ```
 
+<br>
+
 ## Multivariate Regression
 The following equation was created by the linear regression function in R: <br>
 <br>
@@ -239,7 +241,11 @@ Wyoming ranked second to last in the total emissions and didn’t do well in the
 
 
 Another variable that struck us as interesting was how low California’s score was. California is regarded one of the most strict in terms of environmental regulations. Looking at California's individual scores we see that they are 3rd to last for waste.
+
+```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
 kable(ca.ranks)
+```
+
 We thought this was odd so we looked further into the reasoning behind why their score is so low. The waste score is calculated by the sum of all of the waste divided by the population. Going back and looking at the data we noticed that some of the states don’t have a total for their waste, meaning this data was never collected. Here is chart showing the percentage of landfills that have their waste data collected. (Note the states with NA have all of their landfill data collected.)
 
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
@@ -255,6 +261,8 @@ If we multiplied their total waste by the percentage of waste that each state ha
 overall.map2
 kable(ca.ranks2)
 ```
+
+As you can see, the overall scores and map hasn't changed too much but California's overall score went up by about 10 points. This error changes the HELP ME OMG 
 
 <br>
 <br>
