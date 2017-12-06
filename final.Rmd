@@ -3,7 +3,11 @@ output:
   html_document: default
   pdf_document: default
 ---
-# How Sustainable Is Your State? Investigating the Global Environmental Impacts Of Our States in America.
+# How Sustainable Is Your State? 
+
+#### Investigating the Global Environmental Impacts Of Our States in America.
+<br>
+<br>
 
 by Alison McGuire, Alyssa Holzer and MacKenzie Olson
 
@@ -32,36 +36,46 @@ overall.map
 
 [Appendix](#appendix)
 
+<hr>
 
 ## Introduction
+
 Environmental sustainability is the practice of using renewable and environmentally friendly practices in order to protect the earth's resources and provide for future generations. In this report we seek to understand the environmental impact of every state by analyzing data on landfills, water withdrawals, and power plant emissions for each state. As organic materials in landfills decompose they emit ozone depleting substances, also known as landfill gas (LFG), which have a negative effect on the environment and contribute to global warming. However, some landfills have LFG systems in place that collect emissions and lessen the amount of greenhouse gases emitted by the landfill. Water withdrawals refer to the amount of water withdrawn from a natural groundwater or surface water source. There are many activities such as agriculture, power generation, and manufacturing that require water and contribute to water withdrawals across the country. Water withdrawal has many associated problems including drought; however, more efficient transfer of water, storm water capture and water recycling can help reduce the impact of water withdrawals. Power plants use a variety of fuels to produce energy, including fossil fuels such as coal, oil, and natural gas. When these fuels are burned, they produce greenhouse gases, which contribute to global warming. Other renewable sources of energy such as solar, wind, hydro, and geothermal do not emit greenhouse gases, and are therefore much better for the environment. Different states may have different laws and regulations regarding these three areas and therefore have varying levels of environmental impact. Using data on landfills, water withdrawals and power plant emissions, we have created scores for each of the 50 states in order to rank the environmental impact of each state by combining and weighing several sustainability factors based on their importance and impact.
+
+<hr>
 
 ## Literature Review
 
 ### Landfills 
-	In _The municipal solid waste landfill as a source of ozone-depleting substances in the United States and United Kingdom_ by E.L. Hodson, D. Martin, and R. G. Prinn, said researchers look to better understand the relationship between lingering ozone depleting substance (ODS) emissions and landfills who emit them. It is known fact that ODS influence climate change as they weaken the Earth’s defense against the sun: the ozone. When waste is not disposed of properly in landfills, it has the potential to release ODS.
-<br>
-	Luckily, the accumulation of ODS has depleted to the point where tropospheric concentrations are stable or decreasing (Hodson et. all, 2010, pg. 1). However, accurate predictions of future ODS emissions is necessary so that appropriate strategies are developed to minimize ozone loss. While there are several different types of ODS, for the sake of simplicity Hodson et. all decided to study the following four: CFC- 11 (trichlorofluoromethane), CFC-12 (dichlorodifluoromethane), CFC-113 (1,1,2-trichloro-1,2,2-trifluoroethane), and CH3CCl3 (1,1,1-trichloroethane) (Hodson et. all, 2010, pg. 1). These four were selected because of their high ozone depleting potential (ODP) and were historically released in large quantities into the atmosphere. Furthermore, they have long lifetimes until they dissolve and this makes these chlorofluorocarbons (CFCs) even more relevant to study. Prior to this study, CFC-11, CFC-12, CFC-1143, and Ch3CCI3 have all been detected at above normal levels in landfills (Hodson et. all, 2010, pg. 2). Despite this compelling evidence, there are not any existing national inventory methods to quantify national ODS emissions from landfills (Hodson et. all, 2010, pg. 2). 
-<br>
-	In terms of methodology, Hodson et. all studied seven US and nine UK municipal solid waste (MSW) landfills with active gas management (2010, pg. 2). It is important to note that these landfills accept more than 50% of their waste from domestic and commercial sources (Hodson et. all, 2010, pg. 2). These landfills additionally varied in size- ranging from small, medium and large- to get the most representative sample. Most fields received one-time field sampling; however, one US MSW landfills was sampled every month for over a year (Hodson et. all, 2010, pg. 2).  The US MSW landfills had triplicate canister samples where they UK MSW landfills only had one canister samples. 
-<br>
-	After performing various chemistry based calculates to get the different percentages of gases that made up the various samples, Hodson et. all developed confidence intervals to best estimate the percentage these CFCs and CH3CCI3 make-up of the landfill emissions.  The results were the following: CFC-11 (0.037 - 0.074 Gg/y), CFC-12 (0.089 - 0.18 Gg/y), CFC-113 (0.0058 - 0.012 Gg/y), CH3CCl3 (0.012 - 0.024 Gg/y) (Hodson et. all, 2010, page 7). Understandably, the results without context do not mean much. Luckily, these quantities support the hypothesis that US and MK MSW landfills aren’t a significant source of these gases. In fact, these estimates indicate that US MSW landfills account for less than 1% of total US emissions (Hodson et. all, 2010, page 10). Thus, this study shows that monitoring and properly disposing of trash can keep ODS levels low, and can make a significant difference. 
+
+In _The municipal solid waste landfill as a source of ozone-depleting substances in the United States and United Kingdom_ by E.L. Hodson, D. Martin, and R. G. Prinn, said researchers look to better understand the relationship between lingering ozone depleting substance (ODS) emissions and landfills who emit them. It is known fact that ODS influence climate change as they weaken the Earth’s defense against the sun: the ozone. When waste is not disposed of properly in landfills, it has the potential to release ODS.
+
+Luckily, the accumulation of ODS has depleted to the point where tropospheric concentrations are stable or decreasing (Hodson et. all, 2010, pg. 1). However, accurate predictions of future ODS emissions is necessary so that appropriate strategies are developed to minimize ozone loss. While there are several different types of ODS, for the sake of simplicity Hodson et. all decided to study the following four: CFC- 11 (trichlorofluoromethane), CFC-12 (dichlorodifluoromethane), CFC-113 (1,1,2-trichloro-1,2,2-trifluoroethane), and CH3CCl3 (1,1,1-trichloroethane) (Hodson et. all, 2010, pg. 1). These four were selected because of their high ozone depleting potential (ODP) and were historically released in large quantities into the atmosphere. Furthermore, they have long lifetimes until they dissolve and this makes these chlorofluorocarbons (CFCs) even more relevant to study. Prior to this study, CFC-11, CFC-12, CFC-1143, and Ch3CCI3 have all been detected at above normal levels in landfills (Hodson et. all, 2010, pg. 2). Despite this compelling evidence, there are not any existing national inventory methods to quantify national ODS emissions from landfills (Hodson et. all, 2010, pg. 2). 
+
+In terms of methodology, Hodson et. all studied seven US and nine UK municipal solid waste (MSW) landfills with active gas management (2010, pg. 2). It is important to note that these landfills accept more than 50% of their waste from domestic and commercial sources (Hodson et. all, 2010, pg. 2). These landfills additionally varied in size- ranging from small, medium and large- to get the most representative sample. Most fields received one-time field sampling; however, one US MSW landfills was sampled every month for over a year (Hodson et. all, 2010, pg. 2).  The US MSW landfills had triplicate canister samples where they UK MSW landfills only had one canister samples. 
+
+
+After performing various chemistry based calculates to get the different percentages of gases that made up the various samples, Hodson et. all developed confidence intervals to best estimate the percentage these CFCs and CH3CCI3 make-up of the landfill emissions.  The results were the following: CFC-11 (0.037 - 0.074 Gg/y), CFC-12 (0.089 - 0.18 Gg/y), CFC-113 (0.0058 - 0.012 Gg/y), CH3CCl3 (0.012 - 0.024 Gg/y) (Hodson et. all, 2010, page 7). Understandably, the results without context do not mean much. Luckily, these quantities support the hypothesis that US and MK MSW landfills aren’t a significant source of these gases. In fact, these estimates indicate that US MSW landfills account for less than 1% of total US emissions (Hodson et. all, 2010, page 10). Thus, this study shows that monitoring and properly disposing of trash can keep ODS levels low, and can make a significant difference. 
 
 ### Water withdrawals
-	In _Factors Governing Change in Water Withdrawals for U.S. Industrial Sectors from 1997 to 2002_, Hui Wang, Mitchell J. Small, and David A. Dzomback looked to understand why water withdrawal levels have been maintained despite a rapidly growing population. Wang et. all define water shortage as the total amount of water withdrawn from its source (2014, pg. 1). Water withdrawal can be alleviated through strategies like “water recycling and reuse, storm water capture, water transfer from more water-rich areas, and desalination of seawater” (Wang et. all, 2014, paragraph 1).  It was found that in 2002, U.S. sectors like agricultural activities, power generation, and food manufacturing were responsible for 50% of the water withdrawal (Wang et. all, 2014, paragraph 2). As the population grows, it relies more heavily on these basic sectors and can heavily impact water quantity, quality, and availability. Luckily, despite population growth rates of water withdrawal have been increasing at a much slower place. Inspired by this phenomena, Wang et. all decided to study 5 factors: “changes in population, GDP per capita, water use intensity, production structure, and consumption patterns” (Wang et. all, 2014, paragraph 4). 
-<br>
-	In terms of data collection, Wang et. all used the U.S. Bureau of Economic Analysis (BEA) benchmark economic input-output (EIO) table from 1997 and 2002 to gain information about water withdrawals about summary sectors for both years (Wang et. all, 2014, paragraph 5). Wang et. all additionally used USGS data to get information about Thermoelectric power generation, Mining, Industrial, Irrigation, Residential, Public supply, Livestock, and Aquaculture (Wang et. all, 2014, paragraph 6). 
+
+In _Factors Governing Change in Water Withdrawals for U.S. Industrial Sectors from 1997 to 2002_, Hui Wang, Mitchell J. Small, and David A. Dzomback looked to understand why water withdrawal levels have been maintained despite a rapidly growing population. Wang et. all define water shortage as the total amount of water withdrawn from its source (2014, pg. 1). Water withdrawal can be alleviated through strategies like “water recycling and reuse, storm water capture, water transfer from more water-rich areas, and desalination of seawater” (Wang et. all, 2014, paragraph 1).  It was found that in 2002, U.S. sectors like agricultural activities, power generation, and food manufacturing were responsible for 50% of the water withdrawal (Wang et. all, 2014, paragraph 2). As the population grows, it relies more heavily on these basic sectors and can heavily impact water quantity, quality, and availability. Luckily, despite population growth rates of water withdrawal have been increasing at a much slower place. Inspired by this phenomena, Wang et. all decided to study 5 factors: “changes in population, GDP per capita, water use intensity, production structure, and consumption patterns” (Wang et. all, 2014, paragraph 4). 
+
+In terms of data collection, Wang et. all used the U.S. Bureau of Economic Analysis (BEA) benchmark economic input-output (EIO) table from 1997 and 2002 to gain information about water withdrawals about summary sectors for both years (Wang et. all, 2014, paragraph 5). Wang et. all additionally used USGS data to get information about Thermoelectric power generation, Mining, Industrial, Irrigation, Residential, Public supply, Livestock, and Aquaculture (Wang et. all, 2014, paragraph 6). 
 	Once the data was collected, Wang et. all created an Economic Input-Output Life Cycle Assessment (EIO-LCA). This uses independent variables that are subsections of the 5 main factors listed above to estimate the overall water withdrawal. From there, a structural decomposition analysis (SDA) was done to see how the variables independent variables influence the dependent variable as well as their relationship with each other. Upon extensive regression-based modeling, Wang et. all found that water use intensity was able to most accurately predict water withdrawal rates (Wang et. all, 2014, paragraph 34). Thus, it will be important to keep water withdrawal rates in mind when examining state to state.
 	
 ### Power Plants Emissions
+
 _North American Power Plant Air Emissions_ describes the Commission for Environmental Cooperation’s (CEC) 2011 report on criteria air pollutant and greenhouse gas emissions from fossil fuel-fired power plants in North America for the year 2005, which was the most recent year for which data was available from United States, Canada, and Mexico, when the report was written. For the purpose of our research we will focus on their analysis of data collected on power plants in the United States. Criteria air pollutants (including sulfur dioxide, and nitrogen oxides) and greenhouse gases are atmospheric pollutants emitted by power plants. It is also possible for power plants to release trace metals, such as mercury, with certain fuels (Anonymous, 2012, page 1.1). About two-thirds of power generation in North America comes from fossil fuels including coal, residual fuel oil, and natural gas, which release air pollutants when burned (Anonymous, 2012, page 1.2).
-<br>
+
 The CEC’s methodology involved collecting public information on individual fossil fuel-fired power plants, including their installed capacity, electricity generation, technologies used, and fuels burned from public sources including each country’s national emission inventories. They used other public information to calculate estimates where data was absent. Limited availability of data narrowed the CEC’s analysis to data on SO2, NOX, and CO2 emissions (Anonymous, 2012, page 1.1). For the United States, they obtained data for CO2, NOX, SO2, methane, nitrous oxide and mercury emissions from 2,728 registered facilities. Data on PM-10 (particulate matter with a diameter of 10 mircormeters or less) and PM-2.5 (particulate matter with a diameter of 2.5 micrometers or less) emissions were only included for 1,182 of the facilities (Anonymous, 2012, page 1.2).
 In their analysis, the CEC determined there was no significant change in the overall amount of emissions across North America between 2002 and 2005 (Anonymous, 2012, 1.3). In 2005, the net electricity generation in the U.S. was 49.7% from coal, 18.7% from natural gas, 5.46% from hydroelectric, 2.3% from renewable energy sources (including biomass, wind, geothermal, and solar), and 3% from other sources (Anonymous, 2012, pages 2-3). Electricity generation is the source of about one-third of total greenhouse gas emissions in the U.S, contributing 39.3% of CO2 emissions nation-wide in 2005 (Anonymous, 2012, page 3). The CEC also found that coal-fired power plants were the largest contributor of SO2, NOx, PM-10, PM-2.5, and greenhouse gas emissions in the U.S. (Anonymous, 2012, page 5).
 
 ### Summary
-	Now that a sufficient background has been laid down about waste disposal, water withdrawal, and power consumption, this paper will delve into its area of focus. It is clear that extensive research has been in all of these areas individually; however, with a problem as large as climate change, an interdisciplinary approach is required to get a holistic overview of the problem without compromising the quality of information. As a result of this belief, this paper takes on a pragmatic worldview, constructed by a statistician, data-visualization expert, and a data analyst. All of these papers offer great depth, however, this research article will focus on assigning each of the 50 United States a score based on how they are navigating their relationship between waste disposal, power consumption, and water withdrawals. 
+Now that a sufficient background has been laid down about waste disposal, water withdrawal, and power consumption, this paper will delve into its area of focus. It is clear that extensive research has been in all of these areas individually; however, with a problem as large as climate change, an interdisciplinary approach is required to get a holistic overview of the problem without compromising the quality of information. As a result of this belief, this paper takes on a pragmatic worldview, constructed by a statistician, data-visualization expert, and a data analyst. All of these papers offer great depth, however, this research article will focus on assigning each of the 50 United States a score based on how they are navigating their relationship between waste disposal, power consumption, and water withdrawals. 
 
+
+<hr>
 
 ## Method Description
 
@@ -112,11 +126,18 @@ This data describes how much water is being used by the population of the United
 
 <br>
 
+<hr>
+
 # Data Analysis
 
 ## Introduction
 
 Our analysis revolves around six variables that we chose to represent the environmental impacts of the different states. The six variables were chosen out of our three major datasets (Water Withdrawals, Landfills, and Power Plants). First, we looked at the total amount of emissions in tons per capita per state. Second, we took the total water withdrawals in millions of gallons per day as a percentage of the population in each state. Thirdly, we looked at the amount waste in tons per person for each state. The fourth variable was the percentage of renewable energy vs the total energy produced by each state. The fifth variable was amount of emissions collected through an LFG system for each state. The last variable we took into consideration was the ratio of combustible fuel vs noncombustible fuels for each state.  
+
+Here is a summary of how each score was calculated. 
+
+$$ Waste \space Score = 1 - {State \space Total \space Waste \space Amount \space (tons) \over Largest  \space Amount  \space Of  \space Waste \space Generated  \space By  \space All  \space  50  \space  States } $$
+$$ LFG \space Score = {State \space Total \space LFG \space Collected \space (MMBTUs) \over Largest  \space Amount  \space Of  \space Waste \space Generated  \space By  \space All  \space  50  \space  States } $$
 
 We knew that these variables didn't have the same amount of impact so the next step was to determine which variables weighed more heavily. We consulted an expert in the field, Lynn McGuire, as well as our own literature in order to determine how we would weigh each variable. Our research concluded that they should be placed in the following order:
 
@@ -138,17 +159,28 @@ Once we ranked the variables we decided on a weighted system to determine each s
 13% : Total LFG collected <br>
 12% : Percentage of non-combustibles <br>
 
-These factors contributed to our total score for each state. The rest of our analysis was completed based on this score.
+These factors contributed to our total score for each state. The rest of our analysis was completed based on this score. 
 
 ### Summary Statistics
+
+Here is a table with all of the scores for each category for each state, as well as their total score. 
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 library(knitr)
+kable(all.data.output)
+
+```
+
+<br>
+Here is a list of some summary statistics gathered from the scores above. 
+
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+library(knitr)
+names(sum.stats)<-c(paste("Variable"), paste("Mean"), paste("Median"))
 kable(sum.stats)
 
 distribution.plot
 
 ```
-
 <br>
 
 ## Multivariate Regression
@@ -166,12 +198,33 @@ Unfortunately, there does not seem to be a strong linear relationship in the sca
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 source("linear_regression.R")
 a
+```
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
 b
+```
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
 c
+```
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
 d
+```
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
 e
+```
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
 f
 ```
+<br>
 
 #### 2. For each value of X, the probability distribution of Y has the same standard deviation and the y values are independent. 
 
@@ -180,13 +233,39 @@ The easiest way to evaluate this check is to check the graphs of the residuals g
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 source("linear_regression.R")
 p.emissions
+
+```
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
 p.withdrawals
+
+```
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
 p.waste.pop
-p.combustion
+
+```
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
 p.lfg.collected
+
+```
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
 p.renews
 
 ```
+<br>
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+source("linear_regression.R")
+p.combustion
+```
+
+
 As displayed by the graph, it seems to be an okay fit! There isn’t a clear pattern to the residuals and they appear to vary by approximately the same amount. 
 
 #### 3. The dependent variable’s distribution is roughly normally distributed
@@ -212,6 +291,7 @@ The following equation was created by the linear regression function in R: <br>
 <br>
 	Overall, this confirms that we have made a model for assigning ranks that is fairly predictable which is encouraging. This means that if one only knew information about the 6 independent variables, they could use this equation to get a predicted rank that would be very close to correct.  
 <br>
+<hr>
 
 # Discussion 
 
@@ -249,9 +329,12 @@ Wyoming ranked second to last in the total emissions and didn’t do well in the
 
 <br>
 <br>
+<hr>
 
 # Conclusion
 In conclusion, we creaking a ranking system that evaluated the 50 United States and assigned them each a score depending on how well they did for each of the 6 variables. Our system for assigning scores proved to be statistically significant on a multivaraite regression model, which simply means our system predicts rank in an appropriate way given the different weights we chose to assign to the six variables. We acknowledge choosing weighs can be subjectective and thus tried to reduce this liability via information from our literature review. Overall, we created a system that offers holistic breath that a research paper has yet to do. We hope this inspires people to be more conscious of their impact on all three facets - landfill, power, and water withdrawal - regardless of state.  
+<br>
+<hr>
 
 # Reference List
 Access Project and Landfill Data. (2017, October 27). Retrieved December 05, 2017, from https://www.epa.gov/lmop/access-project-and-landfill-data
@@ -275,7 +358,8 @@ Mission Areas. (n.d.). Retrieved December 05, 2017, from https://www.usgs.gov/sc
 Tiwary, R.K. Water, Air, & Soil Pollution (2001) 132: 185. https://doi.org/10.1023/A:1012083519667
 
 Wang, H., Small, M., & Dzombak, D. (2014). Factors governing change in water withdrawals for U.S. industrial sectors from 1997 to 2002. Environmental Science & Technology, 48(6), 3420-9.
-
+<br>
+<hr>
 
 # Appendix
 

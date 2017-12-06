@@ -117,14 +117,6 @@ waste.score <- total.waste.population %>%
   mutate(waste.pop = 1 - (total.waste.pop / biggest))%>% 
   select(state.name, waste.pop)
 
-#pop den scores
-total.waste.populationdensity <- landfill_by_state %>% 
-  mutate(waste.density = total.waste / Density) %>% 
-  select(state.name, waste.density) %>% 
-  mutate(biggest = max(waste.density)) %>% 
-  mutate(landfill.a.1 = 1 - (waste.density / biggest))%>% 
-  select(state.name, waste.density)
-
 # get lfg/pop
 lfg.collected.population <- landfill_by_state %>% 
   mutate(lfg.collected.pop = total.lfg.collected / X2017.Population) %>% 
@@ -193,7 +185,6 @@ water.score <- water.withdrawals.by.pop %>%
   select(State, withdrawals)
 
 all.data <- left_join(waste.score, lfg.score, by="state.name")
-all.data <- left_join(all.data, total.waste.populationdensity, by = "state.name")
 all.data <- left_join(all.data, noncombust.score, by = c("state.name" = "StateFull"))
 all.data <- left_join(all.data,renewables.score, by = c("state.name" = "StateFull"))
 all.data <- left_join(all.data,emissions.score, by = c("state.name" = "StateFull"))
@@ -210,26 +201,35 @@ all.data.pop <- all.data %>%
            (combustion * 0.12) +
            (withdrawals * 0.2))) %>% 
   arrange(state.name) %>% 
-  mutate(loc = locations)
+  mutate(loc = locations) 
 overall.map <- choroplthFunc(all.data.pop, all.data.pop$totalScore, all.data.pop$loc, all.data.pop$totalScore, 
-              "States Overall Impact Scores", c("red", "yellow"))
+              "States Overall Impact Scores",c('red4', 'khaki1'))
 
-# population density
-all.data.density <- all.data %>% 
-  filter(state.name != "District of Columbia") %>% 
-  mutate(totalScore = (waste.density * 0.16) +
-           (lfg.collected * 0.13) +
-           (emissions * 0.25) + 
-           (renews * 0.14) +
-           (combustion * 0.12) +
-           (withdrawals * 0.2)) %>% 
-  arrange(state.name) %>% 
-  mutate(loc = locations)
-density.map <- choroplthFunc(all.data.density, all.data.density$totalScore, all.data.density$loc,
-              all.data.density$totalScore, "titleText", c("red", "yellow"))
 
 # ----------------------------------------------------------------------------------------------#
 # summary stats
+all.data.output <- all.data.pop %>% 
+  mutate(waste.pop = paste0(round((waste.pop * 100), 2), "%")) %>% 
+  mutate(lfg.collected = paste0(round((lfg.collected * 100), 2), "%")) %>% 
+  mutate(combustion = paste0(round((combustion * 100), 2), "%")) %>% 
+  mutate(renews = paste0(round((renews * 100), 2), "%")) %>% 
+  mutate(emissions = paste0(round((emissions * 100), 2), "%")) %>% 
+  mutate(withdrawals = paste0(round((withdrawals * 100), 2), "%")) %>% 
+  arrange(-totalScore) %>% 
+  mutate(totalScore = paste0(round((totalScore * 100), 2), "%"))  
+all.data.output$Rank <- seq.int(nrow(all.data.output))
+all.data.output <- all.data.output %>% 
+  select(-loc) %>% 
+  arrange(state.name)
+
+names(all.data.output)[1]<-paste("State")
+names(all.data.output)[2]<-paste("Waste")
+names(all.data.output)[3]<-paste("LFG")
+names(all.data.output)[4]<-paste("Noncombustables")
+names(all.data.output)[5]<-paste("Renewables")
+names(all.data.output)[6]<-paste("Emissions")
+names(all.data.output)[7]<-paste("Withdrawals")
+names(all.data.output)[8]<-paste("Score")
 
 # get sum stats and combine
 emissions.sum.stats <- summarise(total.emissions, variable = "total emissions by net generation", 
@@ -263,14 +263,15 @@ m <- list(
   pad = 4
 )
 distribution.plot <- 
-  plot_ly(all.data.pop, x = ~state.name, y = ~emissions, name = 'Emissions', type = 'scatter', mode = 'lines',
-          text = ~state.name) %>%
-  add_trace(y = ~withdrawals, name = 'Withdrawals', mode = 'lines') %>%
-  add_trace(y = ~waste.pop, name = 'Waste', mode = 'lines') %>%
-  add_trace(y = ~lfg.collected, name = 'LFG Collection', mode = 'lines') %>%
-  add_trace(y = ~renews, name = 'Renewable Power', mode = 'lines') %>%
-  add_trace(y = ~combustion, name = 'Noncombustables', mode = 'lines')  %>% 
-  layout(autosize = F, width = 970, height = 500, margin = m)
+  plot_ly(all.data.pop, x = ~state.name, y = ~emissions, name = 'Emissions', type = 'scatter', mode = 'markers',
+          text = ~state.name, marker = list(color = 'rgb(10, 36, 99)')) %>%
+  add_trace(y = ~withdrawals, name = 'Withdrawals', mode = 'markers', marker = list(color = 'rgb(63, 136, 197)')) %>%
+  add_trace(y = ~waste.pop, name = 'Waste', mode = 'markers', marker = list(color = 'rgb(232, 151, 44)')) %>%
+  add_trace(y = ~lfg.collected, name = 'LFG Collection', mode = 'markers', marker = list(color = 'rgb(239, 219, 127)')) %>%
+  add_trace(y = ~renews, name = 'Renewable Power', mode = 'markers', marker = list(color = 'rgb(215, 38, 56)')) %>%
+  add_trace(y = ~combustion, name = 'Noncombustables', mode = 'markers', marker = list(color = 'rgb(148, 16, 32)'))  %>% 
+  layout(autosize = F, width = 930, height = 500, margin = m, xaxis = list(title = "", tickfont = list(size = 10)), 
+         yaxis = list(title = "score"))
 
 emissions.dist <- 
   plot_ly(all.data.pop, x = ~state.name, y = ~emissions, name = 'Emissions', type = 'scatter', mode = 'lines',
@@ -290,16 +291,6 @@ renewables.dist <-
 combustion.dist <- 
   plot_ly(all.data.pop, y = ~combustion, name = 'Noncombustables', mode = 'lines', type = 'scatter',
           text = ~state.name)
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -369,7 +360,7 @@ all.data.pop2 <- all.data2 %>%
   arrange(state.name) %>% 
   mutate(loc = locations)
 overall.map2 <- choroplthFunc(all.data.pop2, all.data.pop2$totalScore, all.data.pop2$loc, all.data.pop2$totalScore, 
-                             "States Overall Impact Scores", c("red", "yellow"))
+                             "States Overall Impact Scores", c('red4', 'khaki1'))
 
 getRanks2 <- function(StateName){
   all.data2 <- arrange(all.data2, waste.pop)
