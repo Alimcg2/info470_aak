@@ -199,9 +199,10 @@ all.data.pop <- all.data %>%
            (emissions * 0.25) + 
            (renews * 0.14) +
            (combustion * 0.12) +
-           (withdrawals * 0.2))) %>% 
-  arrange(-totalScore) %>% 
-  mutate(loc = locations) 
+           (withdrawals * 0.2)))%>% 
+  arrange(state.name) %>%
+  mutate(loc = locations)  %>% 
+  arrange(-totalScore)
 all.data.pop$Rank <- seq.int(nrow(all.data.pop))
 all.data.pop <- all.data.pop %>% 
   arrange(state.name)
