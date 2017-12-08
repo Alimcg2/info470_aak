@@ -150,7 +150,7 @@ Our analysis revolves around six variables that we chose to represent the enviro
 Here is a summary of how each score was calculated. 
 <br>
 For the Waste score the calculation looks like:
-$$ Waste \space Score = 1 - {{State \space Total \space Waste \space Amount \space (tons) * (100 - Percent \space Landfills \space ) \over State } \over Largest  \space Amount  \space Of  \space Waste \space Generated  \space By  \space All  \space  50  \space  States } $$
+$$ Waste \space Score = 1 - {{State \space Total \space Waste \space Amount \space (tons) * (100 - Percent \space Landfills \space With \space No \space Waste \space Data) \over State Population } \over Largest  \space Amount  \space Of  \space Waste \space Generated  \space By  \space All  \space  50  \space  States } $$
 For the LFG score the calculation looks like:
 $$ LFG \space Score = {{State \space Total \space LFG \space Collected \space (mmscfd) \over State Population} \over Largest  \space Amount  \space Of  \space LFG \space Collected \space Per \space Capita \space Of  \space All  \space  50  \space  States } $$
 For the Noncombustibles score the calculation looks like:
@@ -158,7 +158,7 @@ $$ Noncombustibles \space Score = {{State \space Total \space Noncombustibles \o
 For the Renewables score the calculation looks like:
 $$ Renewables \space Score = {{State \space Total \space Renewables \over State \space Total \space Net \space Generation } \over Largest  \space Percent  \space Of  \space Renewables \space Generated \space Of  \space All  \space  50  \space  States } $$
 For the Emissions score the calculation looks like:
-$$ Emissions \space Score = 1 - {{State \space NOx \space Emissions (tons) + State \space CO2 \space Emissions (tons) + State \space SO2 \space Emissions (tons) + (State \space CH4 \space Emissions (lbs) * 0.005) + (State \space N2O \space Emissions (lbs) * 0.005) \over State \space Total \space Net \space Generation } \over Largest  \space Amount  \space Of  \space Emissions \space Generated \space Of  \space All  \space  50  \space  States } $$
+$$ Emissions \space Score = 1 - {{State \space NOx \space Emissions (tons) + State \space CO2 \space Emissions (tons) + State \space SO2 \space Emissions (tons) + \\ (State \space CH4 \space Emissions (lbs) * 0.005) + (State \space N2O \space Emissions (lbs) * 0.005) \over State \space Total \space Net \space Generation } \over Largest  \space Amount  \space Of  \space Emissions \space Generated \space Of  \space All  \space  50  \space  States } $$
 For the Water score the calculation looks like:
 $$ Water \space Score = {{State \space Total \space Water \space Withdrawals \space (Mgal/d) \over State Population} \over Largest  \space Amount  \space Of  \space Water \space Withdrawals \space Per \space Capita \space Of  \space All  \space  50  \space  States } $$
 
