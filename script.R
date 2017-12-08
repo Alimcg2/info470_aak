@@ -200,10 +200,13 @@ all.data.pop <- all.data %>%
            (renews * 0.14) +
            (combustion * 0.12) +
            (withdrawals * 0.2))) %>% 
-  arrange(state.name) %>% 
+  arrange(-totalScore) %>% 
   mutate(loc = locations) 
+all.data.pop$Rank <- seq.int(nrow(all.data.pop))
+all.data.pop <- all.data.pop %>% 
+  arrange(state.name)
 overall.map <- choroplthFunc(all.data.pop, all.data.pop$totalScore, all.data.pop$loc, all.data.pop$totalScore, 
-              "States Overall Impact Scores",c('red4', 'khaki1'))
+              "States Overall Impact Scores - Graph 1",c('red4', 'khaki1'), paste("Rank:", all.data.pop$Rank))
 
 
 # ----------------------------------------------------------------------------------------------#
@@ -232,22 +235,22 @@ names(all.data.output)[7]<-paste("Withdrawals")
 names(all.data.output)[8]<-paste("Score")
 
 # get sum stats and combine
-emissions.sum.stats <- summarise(total.emissions, variable = "total emissions by net generation", 
+emissions.sum.stats <- summarise(total.emissions, variable = "Emissions", 
                                  mean = mean(emissions.total.gen),
                                  median = median(emissions.total.gen))
-water.sum.stats <- summarise(water.withdrawals.by.pop, variable = "total water withdrawals by population", 
+water.sum.stats <- summarise(water.withdrawals.by.pop, variable = "Water Withdrawals", 
                              mean = mean(withdrawal.pop),
                              median = median(withdrawal.pop))
-waste.sum.stats <- summarise(total.waste.population, variable = "total waste by population",
+waste.sum.stats <- summarise(total.waste.population, variable = "Waste",
                              mean = mean(total.waste.pop),
                              median = median(total.waste.pop))
-renewables.sum.stats <- summarise(renewables.total , variable = "renewables ratio",
+renewables.sum.stats <- summarise(renewables.total , variable = "Renewables",
                                   mean = mean(renewables),
                                   median = median(renewables))
-lfg.sum.stats <- summarise(lfg.collected.population, variable = "lfg collected by population",
+lfg.sum.stats <- summarise(lfg.collected.population, variable = "LFG",
                            mean = mean(lfg.collected.pop),
                            median = median(lfg.collected.pop))
-noncombust.sum.stats <- summarise(noncombust.total, variable = "noncombustion ratio",
+noncombust.sum.stats <- summarise(noncombust.total, variable = "Noncombustible",
                                   mean = mean(noncombust),
                                   median = median(noncombust))
 sum.stats <- rbind(emissions.sum.stats, water.sum.stats, waste.sum.stats, renewables.sum.stats,
@@ -271,7 +274,7 @@ distribution.plot <-
   add_trace(y = ~renews, name = 'Renewable Power', mode = 'markers', marker = list(color = 'rgb(215, 38, 56)')) %>%
   add_trace(y = ~combustion, name = 'Noncombustables', mode = 'markers', marker = list(color = 'rgb(148, 16, 32)'))  %>% 
   layout(autosize = F, width = 930, height = 500, margin = m, xaxis = list(title = "", tickfont = list(size = 10)), 
-         yaxis = list(title = "score"))
+         yaxis = list(title = "score"), font = list(family = "times"))
 
 emissions.dist <- 
   plot_ly(all.data.pop, x = ~state.name, y = ~emissions, name = 'Emissions', type = 'scatter', mode = 'lines',
@@ -326,7 +329,7 @@ ca.ranks <- as.data.frame(getRanks("California"))
 
 wy.landfill <- landfill_by_state %>% 
   mutate(num.without = num.landfills.x - total.with.lfg) %>% 
-  mutate(percent.without = (num.without / num.landfills.x) * 100) %>% 
+  mutate(percent.without = paste0(round(((num.without / num.landfills.x) * 100), 2), "%")) %>% 
   select(State, num.without, percent.without) %>% 
   arrange(num.without)
 
@@ -360,7 +363,7 @@ all.data.pop2 <- all.data2 %>%
   arrange(state.name) %>% 
   mutate(loc = locations)
 overall.map2 <- choroplthFunc(all.data.pop2, all.data.pop2$totalScore, all.data.pop2$loc, all.data.pop2$totalScore, 
-                             "States Overall Impact Scores", c('red4', 'khaki1'))
+                             "States Overall Impact Scores", c('red4', 'khaki1'), paste("Rank"))
 
 getRanks2 <- function(StateName){
   all.data2 <- arrange(all.data2, waste.pop)

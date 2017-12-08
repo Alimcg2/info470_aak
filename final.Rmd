@@ -1,24 +1,37 @@
 ---
 output:
-  html_document: default
-  pdf_document: default
+  html_document:
+    css: styles.css
 ---
-# How Sustainable Is Your State? 
 
-#### Investigating the Global Environmental Impacts Of Our States in America.
+<br>
+<br>
+<br>
+
+# How Sustainable Is Your State? 
+<br>
+
+#### Investigating the Global Environmental Impacts Of Our States in America. {#title2}
 <br>
 <br>
 
 by Alison McGuire, Alyssa Holzer and MacKenzie Olson
-
 <br>
 <br>
 
-```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+
+```{r, fig.align='center', out.extra='angle=90',eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE} 
 source("script.R")
-overall.map
+overall.map 
 ```
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 
 ## Table of Contents
@@ -128,17 +141,29 @@ This data describes how much water is being used by the population of the United
 
 <hr>
 
-# Data Analysis
+## Data Analysis
 
-## Introduction
+### Introduction
 
 Our analysis revolves around six variables that we chose to represent the environmental impacts of the different states. The six variables were chosen out of our three major datasets (Water Withdrawals, Landfills, and Power Plants). First, we looked at the total amount of emissions in tons per capita per state. Second, we took the total water withdrawals in millions of gallons per day as a percentage of the population in each state. Thirdly, we looked at the amount waste in tons per person for each state. The fourth variable was the percentage of renewable energy vs the total energy produced by each state. The fifth variable was amount of emissions collected through an LFG system for each state. The last variable we took into consideration was the ratio of combustible fuel vs noncombustible fuels for each state.  
 
 Here is a summary of how each score was calculated. 
+<br>
+For the Waste score the calculation looks like:
+$$ Waste \space Score = 1 - {{State \space Total \space Waste \space Amount \space (tons) * (100 - Percent \space Landfills \space ) \over State } \over Largest  \space Amount  \space Of  \space Waste \space Generated  \space By  \space All  \space  50  \space  States } $$
+For the LFG score the calculation looks like:
+$$ LFG \space Score = {{State \space Total \space LFG \space Collected \space (mmscfd) \over State Population} \over Largest  \space Amount  \space Of  \space LFG \space Collected \space Per \space Capita \space Of  \space All  \space  50  \space  States } $$
+For the Noncombustibles score the calculation looks like:
+$$ Noncombustibles \space Score = {{State \space Total \space Noncombustibles \over State \space Total \space Net \space Generation } \over Largest  \space Percent  \space Of  \space Noncombustibles \space Generated \space Of  \space All  \space  50  \space  States } $$
+For the Renewables score the calculation looks like:
+$$ Renewables \space Score = {{State \space Total \space Renewables \over State \space Total \space Net \space Generation } \over Largest  \space Percent  \space Of  \space Renewables \space Generated \space Of  \space All  \space  50  \space  States } $$
+For the Emissions score the calculation looks like:
+$$ Emissions \space Score = 1 - {{State \space NOx \space Emissions (tons) + State \space CO2 \space Emissions (tons) + State \space SO2 \space Emissions (tons) + (State \space CH4 \space Emissions (lbs) * 0.005) + (State \space N2O \space Emissions (lbs) * 0.005) \over State \space Total \space Net \space Generation } \over Largest  \space Amount  \space Of  \space Emissions \space Generated \space Of  \space All  \space  50  \space  States } $$
+For the Water score the calculation looks like:
+$$ Water \space Score = {{State \space Total \space Water \space Withdrawals \space (Mgal/d) \over State Population} \over Largest  \space Amount  \space Of  \space Water \space Withdrawals \space Per \space Capita \space Of  \space All  \space  50  \space  States } $$
 
-$$ Waste \space Score = 1 - {State \space Total \space Waste \space Amount \space (tons) \over Largest  \space Amount  \space Of  \space Waste \space Generated  \space By  \space All  \space  50  \space  States } $$
-$$ LFG \space Score = {State \space Total \space LFG \space Collected \space (MMBTUs) \over Largest  \space Amount  \space Of  \space Waste \space Generated  \space By  \space All  \space  50  \space  States } $$
 
+<br>
 We knew that these variables didn't have the same amount of impact so the next step was to determine which variables weighed more heavily. We consulted an expert in the field, Lynn McGuire, as well as our own literature in order to determine how we would weigh each variable. Our research concluded that they should be placed in the following order:
 
 1. Total emissions
@@ -166,7 +191,7 @@ These factors contributed to our total score for each state. The rest of our ana
 Here is a table with all of the scores for each category for each state, as well as their total score. 
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 library(knitr)
-kable(all.data.output)
+kable(all.data.output, caption = "Table 1")
 
 ```
 
@@ -174,24 +199,24 @@ kable(all.data.output)
 Here is a list of some summary statistics gathered from the scores above. 
 
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-library(knitr)
-names(sum.stats)<-c(paste("Variable"), paste("Mean"), paste("Median"))
-kable(sum.stats)
+
+names(sum.stats)<-c("Variable", "Mean", "Median")
+kable(sum.stats, caption = "Table 2")
 
 distribution.plot
 
 ```
 <br>
 
-## Multivariate Regression
+### Multivariate Regression
 
 We conducted amultivaraite regression test to check that our scores were assigned with states' ranks in an appropiate and linear fashion.
 
-### Statistical Checks
+#### Statistical Checks
 
 The results of the checks to make sure multiple regression is an appropriate test as as follows:
 
-#### 1.	There is a linear relationship between the independent and dependent variables. 
+##### 1.	There is a linear relationship between the independent and dependent variables. 
 
 Unfortunately, there does not seem to be a strong linear relationship in the scatterplots above. However, we are not seeing any different types of patterns such as logarithmic or exponential functions which are even more worrisome. As a result, we will proceed cautiously. 
 <br>
@@ -201,99 +226,96 @@ a
 ```
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 b
 ```
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 c
 ```
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 d
 ```
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 e
 ```
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 f
 ```
 <br>
 
-#### 2. For each value of X, the probability distribution of Y has the same standard deviation and the y values are independent. 
+##### 2. For each value of X, the probability distribution of Y has the same standard deviation and the y values are independent. 
 
 The easiest way to evaluate this check is to check the graphs of the residuals given the fitted value. The variability of the residuals should fairly consistent given any value of x and there shouldn’t be a clear pattern. 
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 p.emissions
 
 ```
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 p.withdrawals
 
 ```
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 p.waste.pop
 
 ```
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 p.lfg.collected
 
 ```
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 p.renews
 
 ```
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 p.combustion
 ```
 
 
 As displayed by the graph, it seems to be an okay fit! There isn’t a clear pattern to the residuals and they appear to vary by approximately the same amount. 
 
-#### 3. The dependent variable’s distribution is roughly normally distributed
+##### 3. The dependent variable’s distribution is roughly normally distributed
+
+As one can see in Graph 15 below, there is a uniform distribution for scores. This is not a normal distribution; however, there is a lack of skew or signs of being bimodal and thus we will proceed with caution.
 
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
-source("linear_regression.R")
+
 h
 ```
-As one can see, there is a uniform distribution for scores. This is not a normal distribution; however, there is a lack of skew or signs of being bimodal and thus we will proceed with caution.
 
-<br>
-<br>
 
 ### Results
 
-The following equation was created by the linear regression function in R: <br>
-<br>
-*Predicted Rank* = 85.655 - 39.127 (*emissions*) - 13.994 (*withdrawals*) - 24.256 (*waste*) – 12.535 (*combustion*) - 15.064 (*lfg.collected*) – 6.114 (*renews*)
-<br>
-<br>
-  By creating a linear regression function in R, R additionally runs an F-test. The null hypothesis for an f-test is that a model with only a y-intercept is just as good a fit as the model created through linear regression. After conducting the f-test, we received a sample statistic of 109.9 If we were to conduct a million f-tests with a million different randomly selected samples, the odds of getting a more extreme f-statistic is ~0.0002%. As a result, we can reject the null hypothesis. This means that we have created a model that is better than a model with only the y-intercept.
-<br>
-<br>
-	Overall, this confirms that we have made a model for assigning ranks that is fairly predictable which is encouraging. This means that if one only knew information about the 6 independent variables, they could use this equation to get a predicted rank that would be very close to correct.  
+The following equation was created by the linear regression function in R: 
+$$ Predicted Rank = 85.655 - 39.127 (*emissions*) - 13.994 (*withdrawals*) - 24.256 (*waste*) – 12.535 (*combustion*) - 15.064 (*lfg.collected*) – 6.114 (*renews*)$$
+
+By creating a linear regression function in R, R additionally runs an F-test. The null hypothesis for an f-test is that a model with only a y-intercept is just as good a fit as the model created through linear regression. After conducting the f-test, we received a sample statistic of 109.9 If we were to conduct a million f-tests with a million different randomly selected samples, the odds of getting a more extreme f-statistic is ~0.0002%. As a result, we can reject the null hypothesis. This means that we have created a model that is better than a model with only the y-intercept.
+
+Overall, this confirms that we have made a model for assigning ranks that is fairly predictable which is encouraging. This means that if one only knew information about the 6 independent variables, they could use this equation to get a predicted rank that would be very close to correct.  
+	
 <br>
 <hr>
 
-# Discussion 
+## Discussion 
 
 Overall, we synthesized information from three unique datasets that had one common binding: the 50 United States. We picked out the six most important traits across all three of these data frames, and ranked as well as weighted them based on importance. As discussed above, the word importance is inherently subjective. If one were to choose different weights for these six traits, one would receive a completely different rank for the 50 states. Thus, it is here we will check our assumptions. We assigned these weights based off of feedback from Lynn McGuire, a subject matter expert in environmental conservation, and her experience in the field. By incorporating her feedback as well as key takeaways from the literature review, we hope to mitigate our bias.
 
@@ -302,9 +324,12 @@ In addition to receiving feedback from subject matter experts, we also ran a mul
 As for the rankings, the overall order of the results did not surprise us. Washington has the best overall score and the state of Wyoming has the worst score. Here is a breakdown for Washington’s ranks on our 6 factors.
 
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
-source("script.R")
-library(knitr)
-kable(wa.ranks)
+
+
+names(wa.ranks) <- c("Waste", "LFG " ,
+                   "Emissions", "Renewables",
+                   "Combustables", "Withdrawals")
+kable(wa.ranks, caption = "Table 3")
 ```
 
 Washington ranks number two for both combustables and renewable energy sources. We were curious why this might be, and found that it might have something to do with their laws regarding energy. In 2008, Washington began the Energy Independence Act, which requires large electrical utility companies to use renewable energy. This act sets requirements for these companies that have to do with both conservation and the utilization of renewable energy sources. Companies must attempt to conserve energy in an effective manner, creating a 10 year plan and making 2 year benchmarks. They also must hit renewable energy standards that increase over time, totaling to 15% renewables by 2020 ("Energy Independence", paragraph 2). Regulations like these force the increase the amount of renewable energy generated in the state and are directly responsible for the 76% of energy in the state of Washington being renewable. Ambitious atricles like _A 100% wind, water, sunlgish (WWS) all-sector energy plan for Washington State)_ even claim that Washington state could get 100% of its energy from wind, water, and sunlight by 2050 (Jacobson et. all, 2016, pg. 75)
@@ -312,31 +337,39 @@ Washington ranks number two for both combustables and renewable energy sources. 
 Here is a breakdown for Wyoming’s score, ranking number 50, on our 6 factors.
 
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
-library(knitr)
-kable(wy.ranks)
+
+names(wy.ranks) <- c("Waste", "LFG " ,
+                   "Emissions", "Renewables",
+                   "Combustables", "Withdrawals")
+kable(wy.ranks, caption = "Table 4")
 ```
 
 Looking at Wyoming’s scores we can see that they did poorly in a few different areas. First in the LFG collection they ranked last. This is probably because they don’t have any LFG collection systems at any of their landfills. However, in their defense, they only have a total of 4 landfills in the entire state, the smallest number of landfills in all of the US. If we look at the number of landfills that don’t have LFG collection systems for each state, Wyoming actually ties for 4th.
 
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
-kable(head(wy.landfill, 8L))
-kable(tail(wy.landfill, 8L))
+
+wy.landfill <- mutate(wy.landfill, num.without = as.character(wy.landfill$num.without))
+names(wy.landfill) <- c("State", "Number of Landfills Without LFG Collection", "Percent of Landfills Without LFG Collection")
+kable(head(wy.landfill, 8L), caption = "Table 5")
 ```
 
-This proves that if we would have chosen some other way to measure LFG Collection, Wyoming’s scores have changed significantly. It is also further proof that our scores are subjective and it shows the importance of disclosure of our methods and calculations that lead us to these scores. 
+This goes to show that if we would have chosen some other way to measure LFG Collection, Wyoming’s scores have changed significantly. It is also further proof that our scores are subjective and it shows the importance of disclosure of our methods and calculations that lead us to these scores. For example, if we instead chose to 
 
-Wyoming ranked second to last in the total emissions and didn’t do well in the renewables or combustible power sections as well. This is probably in part due to the fact that they are the number one resource of coal in the United States, mining almost 400 million tons of coal per year ("Coal Mining", paragraph 6). Using coal to produce energy emits large amounts of Sulfur Dioxide (SO2) and Nitrogen Oxides (NOx) ("Air Pollution", 2016, paragraph 1).This is an avoidable problem, as it has been shown management of these wastes at a primary and secondary level can control the pollution via the source (Tiwary, 2001, pg. 1)
+Another reason why Wyoming is ranked the worst is because Wyoming ranked second to last in the total emissions and didn’t do well in the renewables or combustible power sections as well. This is probably in part due to the fact that they are the number one resource of coal in the United States, mining almost 400 million tons of coal per year ("Coal Mining", paragraph 6). Using coal to produce energy emits large amounts of Sulfur Dioxide (SO2) and Nitrogen Oxides (NOx) ("Air Pollution", 2016, paragraph 1).This is an avoidable problem, as it has been shown management of these wastes at a primary and secondary level can control the pollution via the source (Tiwary, 2001, pg. 1)
 
 <br>
 <br>
 <hr>
 
-# Conclusion
+## Conclusion
+
 In conclusion, we creaking a ranking system that evaluated the 50 United States and assigned them each a score depending on how well they did for each of the 6 variables. Our system for assigning scores proved to be statistically significant on a multivaraite regression model, which simply means our system predicts rank in an appropriate way given the different weights we chose to assign to the six variables. We acknowledge choosing weighs can be subjectective and thus tried to reduce this liability via information from our literature review. Overall, we created a system that offers holistic breath that a research paper has yet to do. We hope this inspires people to be more conscious of their impact on all three facets - landfill, power, and water withdrawal - regardless of state.  
+
 <br>
 <hr>
 
-# Reference List
+## Reference List
+
 Access Project and Landfill Data. (2017, October 27). Retrieved December 05, 2017, from https://www.epa.gov/lmop/access-project-and-landfill-data
 
 Air Pollution from Coal Power Plants. (n.d.). Retrieved December 05, 2017, from http://www.greenpeace.org/international/en/campaigns/climate-change/coal/Coal-plants-pollute-the-air/
@@ -361,7 +394,7 @@ Wang, H., Small, M., & Dzombak, D. (2014). Factors governing change in water wit
 <br>
 <hr>
 
-# Appendix
+## Appendix
 
 ### Column Tables
 
