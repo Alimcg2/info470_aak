@@ -273,8 +273,8 @@ distribution.plot <-
   add_trace(y = ~lfg.collected, name = 'LFG Collection', mode = 'markers', marker = list(color = 'rgb(239, 219, 127)')) %>%
   add_trace(y = ~renews, name = 'Renewable Power', mode = 'markers', marker = list(color = 'rgb(215, 38, 56)')) %>%
   add_trace(y = ~combustion, name = 'Noncombustables', mode = 'markers', marker = list(color = 'rgb(148, 16, 32)'))  %>% 
-  layout(autosize = F, width = 930, height = 500, margin = m, xaxis = list(title = "Plot of Scores by State and Score Type - Graph 2", tickfont = list(size = 10)), 
-         yaxis = list(title = "score"), font = list(family = "times"))
+  layout(autosize = F, width = 930, height = 500, margin = m, xaxis = list(title = "", tickfont = list(size = 10)), 
+         yaxis = list(title = "score"), font = list(family = "times"), title = "Plot of Scores by State and Score Type - Graph 2")
 
 emissions.dist <- 
   plot_ly(all.data.pop, x = ~state.name, y = ~emissions, name = 'Emissions', type = 'scatter', mode = 'lines',
