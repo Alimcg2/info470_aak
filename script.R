@@ -207,7 +207,7 @@ all.data.pop$Rank <- seq.int(nrow(all.data.pop))
 all.data.pop <- all.data.pop %>% 
   arrange(state.name)
 overall.map <- choroplthFunc(all.data.pop, all.data.pop$totalScore, all.data.pop$loc, all.data.pop$totalScore, 
-              "States Overall Impact Scores - Graph 1",c('red4', 'khaki1'), paste("Rank:", all.data.pop$Rank))
+              "The States' Overall Impact Scores and Ranks",c('red4', 'khaki1'), paste("Rank:", all.data.pop$Rank))
 
 
 # ----------------------------------------------------------------------------------------------#
