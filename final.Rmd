@@ -75,17 +75,17 @@ After performing various chemistry based calculates to get the different percent
 In _Factors Governing Change in Water Withdrawals for U.S. Industrial Sectors from 1997 to 2002_, Hui Wang, Mitchell J. Small, and David A. Dzomback looked to understand why water withdrawal levels have been maintained despite a rapidly growing population. Wang et. all define water shortage as the total amount of water withdrawn from its source (2014, pg. 1). Water withdrawal can be alleviated through strategies like “water recycling and reuse, storm water capture, water transfer from more water-rich areas, and desalination of seawater” (Wang et. all, 2014, paragraph 1).  It was found that in 2002, U.S. sectors like agricultural activities, power generation, and food manufacturing were responsible for 50% of the water withdrawal (Wang et. all, 2014, paragraph 2). As the population grows, it relies more heavily on these basic sectors and can heavily impact water quantity, quality, and availability. Luckily, despite population growth rates of water withdrawal have been increasing at a much slower place. Inspired by this phenomena, Wang et. all decided to study 5 factors: “changes in population, GDP per capita, water use intensity, production structure, and consumption patterns” (Wang et. all, 2014, paragraph 4). 
 
 In terms of data collection, Wang et. all used the U.S. Bureau of Economic Analysis (BEA) benchmark economic input-output (EIO) table from 1997 and 2002 to gain information about water withdrawals about summary sectors for both years (Wang et. all, 2014, paragraph 5). Wang et. all additionally used USGS data to get information about Thermoelectric power generation, Mining, Industrial, Irrigation, Residential, Public supply, Livestock, and Aquaculture (Wang et. all, 2014, paragraph 6). 
-	Once the data was collected, Wang et. all created an Economic Input-Output Life Cycle Assessment (EIO-LCA). This uses independent variables that are subsections of the 5 main factors listed above to estimate the overall water withdrawal. From there, a structural decomposition analysis (SDA) was done to see how the variables independent variables influence the dependent variable as well as their relationship with each other. Upon extensive regression-based modeling, Wang et. all found that water use intensity was able to most accurately predict water withdrawal rates (Wang et. all, 2014, paragraph 34). Thus, it will be important to keep water withdrawal rates in mind when examining state to state.
+	Once the data was collected, Wang et. all created an Economic Input-Output Life Cycle Assessment (EIO-LCA). This uses independent variables that are subsections of the 5 main factors listed above to estimate the overall water withdrawal. From there, a structural decomposition analysis (SDA) was done to see how the variables independent variables influence the dependent variable as well as their relationship with each other. Upon extensive regression-based modeling, Wang et. all found that water use intensity was able to most accurately predict water withdrawal rates (Wang et. all, 2014, paragraph 34). Thus, it was important to keep water withdrawal rates in mind when examining state to state.
 	
 ### Power Plants Emissions
 
-_North American Power Plant Air Emissions_ describes the Commission for Environmental Cooperation’s (CEC) 2011 report on criteria air pollutant and greenhouse gas emissions from fossil fuel-fired power plants in North America for the year 2005, which was the most recent year for which data was available from United States, Canada, and Mexico, when the report was written. For the purpose of our research we will focus on their analysis of data collected on power plants in the United States. Criteria air pollutants (including sulfur dioxide, and nitrogen oxides) and greenhouse gases are atmospheric pollutants emitted by power plants. It is also possible for power plants to release trace metals, such as mercury, with certain fuels (Anonymous, 2012, page 1.1). About two-thirds of power generation in North America comes from fossil fuels including coal, residual fuel oil, and natural gas, which release air pollutants when burned (Anonymous, 2012, page 1.2).
+_North American Power Plant Air Emissions_ describes the Commission for Environmental Cooperation’s (CEC) 2011 report on criteria air pollutant and greenhouse gas emissions from fossil fuel-fired power plants in North America for the year 2005, which was the most recent year for which data was available from United States, Canada, and Mexico, when the report was written. For the purpose of our research we focused on their analysis of data collected on power plants in the United States. Criteria air pollutants (including sulfur dioxide, and nitrogen oxides) and greenhouse gases are atmospheric pollutants emitted by power plants. It is also possible for power plants to release trace metals, such as mercury, with certain fuels (Anonymous, 2012, page 1.1). About two-thirds of power generation in North America comes from fossil fuels including coal, residual fuel oil, and natural gas, which release air pollutants when burned (Anonymous, 2012, page 1.2).
 
 The CEC’s methodology involved collecting public information on individual fossil fuel-fired power plants, including their installed capacity, electricity generation, technologies used, and fuels burned from public sources including each country’s national emission inventories. They used other public information to calculate estimates where data was absent. Limited availability of data narrowed the CEC’s analysis to data on SO2, NOX, and CO2 emissions (Anonymous, 2012, page 1.1). For the United States, they obtained data for CO2, NOX, SO2, methane, nitrous oxide and mercury emissions from 2,728 registered facilities. Data on PM-10 (particulate matter with a diameter of 10 mircormeters or less) and PM-2.5 (particulate matter with a diameter of 2.5 micrometers or less) emissions were only included for 1,182 of the facilities (Anonymous, 2012, page 1.2).
 In their analysis, the CEC determined there was no significant change in the overall amount of emissions across North America between 2002 and 2005 (Anonymous, 2012, 1.3). In 2005, the net electricity generation in the U.S. was 49.7% from coal, 18.7% from natural gas, 5.46% from hydroelectric, 2.3% from renewable energy sources (including biomass, wind, geothermal, and solar), and 3% from other sources (Anonymous, 2012, pages 2-3). Electricity generation is the source of about one-third of total greenhouse gas emissions in the U.S, contributing 39.3% of CO2 emissions nation-wide in 2005 (Anonymous, 2012, page 3). The CEC also found that coal-fired power plants were the largest contributor of SO2, NOx, PM-10, PM-2.5, and greenhouse gas emissions in the U.S. (Anonymous, 2012, page 5).
 
 ### Summary
-Now that a sufficient background has been laid down about waste disposal, water withdrawal, and power consumption, this paper will delve into its area of focus. It is clear that extensive research has been in all of these areas individually; however, with a problem as large as climate change, an interdisciplinary approach is required to get a holistic overview of the problem without compromising the quality of information. As a result of this belief, this paper takes on a pragmatic worldview, constructed by a statistician, data-visualization expert, and a data analyst. All of these papers offer great depth, however, this research article will focus on assigning each of the 50 United States a score based on how they are navigating their relationship between waste disposal, power consumption, and water withdrawals. 
+Now that a sufficient background has been laid down about waste disposal, water withdrawal, and power consumption, this paper will delve into its area of focus. It is clear that extensive research has been in all of these areas individually; however, with a problem as large as climate change, an interdisciplinary approach is required to get a holistic overview of the problem without compromising the quality of information. As a result of this belief, this paper takes on a pragmatic worldview, constructed by a statistician, data-visualization expert, and a data analyst. All of these papers offer great depth, however, this research article will focus on how we assigned each of the 50 United States a score based on how they are navigating their relationship between waste disposal, power consumption, and water withdrawals. 
 
 
 <hr>
@@ -100,10 +100,10 @@ Our dataset consists of three major categories that contribute to environmental 
 ### Landfills
 
 ##### Source
-This data is from the Environmental Protection Agency’s (EPA) Landfill Methane Outreach Program (LMOP). This data is current as of June 2017. The LMOP is an program that aims to reduce methane emissions from landfills. One of the ways they accomplish this goal is through gathering data on landfills and potential energy projects. 
+This data is from the Environmental Protection Agency’s (EPA) Landfill Methane Outreach Program (LMOP) and is current as of June 2017. The LMOP is an program that aims to reduce methane emissions from landfills. One of the ways they accomplish this goal is through gathering data on landfills and potential energy projects. 
 
 ##### Description
-This data has two major parts, information about the itself landfill and information about methane saving projects at the landfill ("Access Landfill", 2017). The landfill data is a collection of 2,400 municipal solid waste landfills across the United States. This data has been collected largely in part due to the partnerships the EPA has with landfills. It includes landfills that both do and don’t report to the EPA’s Greenhouse Gas Reporting Program. The landfill specific data includes information like the state it’s located in, the landfill’s name, the landfill operator’s name (or organization), the county it’s located in, the latitude and longitude of the plant and the amount of trash it contains (in tons); to name a few. It also contains information about landfill operations including the year it opened, the year it has closed applicable, if they have methane protection projects going on, the year those methane protection projects started, and much more. The appendix has all the columns from this dataset. 
+This data has two major parts, information about the itself landfill and information about methane saving projects at the landfill ("Access Landfill", 2017). The landfill data is a collection of 2,400 municipal solid waste landfills across the United States. This data has been collected largely in part due to the partnerships the EPA has with landfills. It includes landfills that both do and do not report to the EPA’s Greenhouse Gas Reporting Program. The landfill specific data includes information like the state it’s located in, the landfill’s name, the landfill operator’s name (or organization), the county it’s located in, the latitude and longitude of the plant and the amount of trash it contains (in tons); to name a few. It also contains information about landfill operations including the year it opened, the year it has closed applicable, if they have methane protection projects going on, the year those methane protection projects started, and much more. The appendix has all the columns from this dataset. 
 
 ### Power Plant Emissions
 
@@ -119,7 +119,7 @@ There are three major sources that the eGRID gets its data from:
 
 
 ##### Description
-This data set comes with hundreds of columns; we have narrowed down those to just a few that are important to our mission. It describes the different amounts of emission of the different greenhouse gases, the amount of energy it produces and the type of energy it produces. It also shows summary statistics on the amount of renewable vs nonrenewable energy that it generates and combustible vs. noncombustible energy that it generates.
+This data set comes with hundreds of columns; we have narrowed down those to just a few that are important to our mission. It describes the different amounts of emission of the different greenhouse gases, the amount of energy it produces and the type of energy it produces. It also shows summary statistics on the amount of renewable versus nonrenewable energy that it generates and combustible versus noncombustible energy that it generates.
 
 
 ### Water Withdrawals
@@ -131,7 +131,7 @@ The data was gathered from the United States Geological Survey (“Misson”). T
 This data describes how much water is being used by the population of the United States. The data has been aggregated to reflect a state by state total for each column. Furthermore, it has been separated into many different parts, including where the water is coming from (surface water or groundwater), where it’s going to (agriculture, mining, industrial, livestock, aquaculture), who is using it (publicly supplied, domestically supplied), and the type of water (fresh or saline). There is also information on the populations for each state and the populations that use this water. 
 
 ### Analysis
-  We will be performing multiple regression to see if there is a linear, predictive relationship between the rankings we assign to the states (dependent variable) and the scores that compose said ranking (independent variables) which are built on the following 6 categories: total emissions, total water withdrawals, total waste, percentage renewable, total LFG collected, and percentage non-combustible. The scoring system will be described in detail later below. This test was done to make sure how we weighted and created the scores aligns well with the overall ranking system. There are 3 checks to make sure multiple regression is the appropriate test to conduct: 
+  We performed multiple regression to see if there is a linear, predictive relationship between the rankings we assigned to the states (dependent variable) and the scores that compose said ranking (independent variables) which are built on the following 6 categories: total emissions, total water withdrawals, total waste, percentage renewable, total LFG collected, and percentage non-combustible. The scoring system will be described in detail later below. This test was done to make sure how we weighted and created the scores aligns well with the overall ranking system. There are 3 checks we used to make sure multiple regression is the appropriate test to conduct: 
 
 1. There is a linear relationship between the independent and dependent variables.
 2. For each value of X, the probability distribution of Y has the same standard deviation and the y values are independent.
@@ -145,7 +145,7 @@ This data describes how much water is being used by the population of the United
 
 ### Introduction
 
-Our analysis revolves around six variables that we chose to represent the environmental impacts of the different states. The six variables were chosen out of our three major datasets (Water Withdrawals, Landfills, and Power Plants). First, we looked at the total amount of emissions in tons per capita per state. Second, we took the total water withdrawals in millions of gallons per day as a percentage of the population in each state. Thirdly, we looked at the amount waste in tons per person for each state. The fourth variable was the percentage of renewable energy vs the total energy produced by each state. The fifth variable was amount of emissions collected through an LFG system for each state. The last variable we took into consideration was the ratio of combustible fuel vs noncombustible fuels for each state.  
+Our analysis revolved around six variables that we chose to represent the environmental impacts of the different states. The six variables were chosen out of our three major datasets (Water Withdrawals, Landfills, and Power Plants). First, we looked at the total amount of emissions in tons per capita per state. Second, we took the total water withdrawals in millions of gallons per day as a percentage of the population in each state. Thirdly, we looked at the amount waste in tons per person for each state. The fourth variable was the percentage of renewable energy vs the total energy produced by each state. The fifth variable was amount of emissions collected through an LFG system for each state. The last variable we took into consideration was the ratio of combustible fuel vs noncombustible fuels for each state.  
 
 Here is a summary of how each score was calculated. 
 <br>
@@ -164,7 +164,7 @@ $$ Water \space Score = {{State \space Total \space Water \space Withdrawals \sp
 
 
 <br>
-We knew that these variables didn't have the same amount of impact so the next step was to determine which variables weighed more heavily. We consulted an expert in the field, Lynn McGuire, as well as our own literature in order to determine how we would weigh each variable. Our research concluded that they should be placed in the following order:
+We knew that these variables didn't have the same amount of impact so the next step was to determine which variables should be weighed more heavily. We consulted an expert in the field, Lynn McGuire, as well as our own literature in order to determine how we would weigh each variable. Our research concluded that they should be placed in the following order:
 
 1. Total emissions
 2. Total water withdrawals
@@ -188,7 +188,7 @@ These factors contributed to our total score for each state. The rest of our ana
 
 ### Summary Statistics
 
-Here is a table with all of the scores for each category for each state, as well as their total score. 
+This table includes the scores for each of our focus categories for each state, as well as the total score for each state. 
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 library(knitr)
 kable(all.data.output, caption = "Table 1")
@@ -210,7 +210,7 @@ distribution.plot
 
 ### Multivariate Regression
 
-We conducted amultivaraite regression test to check that our scores were assigned with states' ranks in an appropiate and linear fashion.
+We conducted a multivaraite regression test to check that our scores were assigned with states' ranks in an appropiate and linear fashion.
 
 #### Statistical Checks
 
@@ -218,7 +218,7 @@ The results of the checks to make sure multiple regression is an appropriate tes
 
 ##### 1.	There is a linear relationship between the independent and dependent variables. 
 
-Unfortunately, there does not seem to be a strong linear relationship in the scatterplots above. However, we are not seeing any different types of patterns such as logarithmic or exponential functions which are even more worrisome. As a result, we will proceed cautiously. 
+Unfortunately, there did not seem to be a strong linear relationship in the scatterplots above. However, we did not see any different types of patterns such as logarithmic or exponential functions which is even more worrisome. As a result, we proceeded cautiously. 
 <br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 source("linear_regression.R")
@@ -317,7 +317,7 @@ Overall, this confirms that we have made a model for assigning ranks that is fai
 
 ## Discussion 
 
-Overall, we synthesized information from three unique datasets that had one common binding: the 50 United States. We picked out the six most important traits across all three of these data frames, and ranked as well as weighted them based on importance. As discussed above, the word importance is inherently subjective. If one were to choose different weights for these six traits, one would receive a completely different rank for the 50 states. Thus, it is here we will check our assumptions. We assigned these weights based off of feedback from Lynn McGuire, a subject matter expert in environmental conservation, and her experience in the field. By incorporating her feedback as well as key takeaways from the literature review, we hope to mitigate our bias.
+Overall, we synthesized information from three unique datasets that had one common binding: the 50 United States. We picked out the six most important traits across all three of these data frames, and ranked as well as weighted them based on importance. As discussed above, the word importance is inherently subjective. If one were to choose different weights for these six traits, one would receive a completely different rank for the 50 states. Thus, it is here we will check our assumptions. We assigned these weights based off of feedback from Lynn McGuire, a subject matter expert in environmental conservation, and her experience in the field. By incorporating her feedback as well as key takeaways from the literature review, we hoped to mitigate our bias.
 
 In addition to receiving feedback from subject matter experts, we also ran a multivariate regression test to make sure one could predict rank based off of these scores we assigned to these 6 factors by states. The model proved to be statistically significant and assure us that our math checked out. That being said, all models are inherently wrong; they just give us an idea of approximation. To clarify, this multivariate regression analysis gave us assurance that our math was correct, but does not affirm our ranking system itself is inherently correct.
 
@@ -344,7 +344,7 @@ names(wy.ranks) <- c("Waste", "LFG " ,
 kable(wy.ranks, caption = "Table 4")
 ```
 
-Looking at Wyoming’s scores we can see that they did poorly in a few different areas. First in the LFG collection they ranked last. This is probably because they don’t have any LFG collection systems at any of their landfills. However, in their defense, they only have a total of 4 landfills in the entire state, the smallest number of landfills in all of the US. If we look at the number of landfills that don’t have LFG collection systems for each state, Wyoming actually ties for 4th.
+Looking at Wyoming’s scores we can see that they did poorly in a few different areas. First in the LFG collection they ranked last. This is probably because they don’t have any LFG collection systems at any of their landfills. However, in their defense, they only have a total of 4 landfills in the entire state, the smallest number of landfills in all of the US. If we look at the number of landfills that do not have LFG collection systems for each state, Wyoming actually ties for 4th.
 
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
 
@@ -353,7 +353,7 @@ names(wy.landfill) <- c("State", "Number of Landfills Without LFG Collection", "
 kable(head(wy.landfill, 8L), caption = "Table 5")
 ```
 
-This goes to show that if we would have chosen some other way to measure LFG Collection, Wyoming’s scores have changed significantly. It is also further proof that our scores are subjective and it shows the importance of disclosure of our methods and calculations that lead us to these scores. For example, if we instead chose to 
+This goes to show that if we would have chosen some other way to measure LFG Collection, Wyoming’s scores have changed significantly. It is also further proof that our scores are subjective and it shows the importance of disclosure of our methods and calculations that lead us to these scores.
 
 Another reason why Wyoming is ranked the worst is because Wyoming ranked second to last in the total emissions and didn’t do well in the renewables or combustible power sections as well. This is probably in part due to the fact that they are the number one resource of coal in the United States, mining almost 400 million tons of coal per year ("Coal Mining", paragraph 6). Using coal to produce energy emits large amounts of Sulfur Dioxide (SO2) and Nitrogen Oxides (NOx) ("Air Pollution", 2016, paragraph 1).This is an avoidable problem, as it has been shown management of these wastes at a primary and secondary level can control the pollution via the source (Tiwary, 2001, pg. 1)
 
@@ -363,7 +363,7 @@ Another reason why Wyoming is ranked the worst is because Wyoming ranked second 
 
 ## Conclusion
 
-In conclusion, we creaking a ranking system that evaluated the 50 United States and assigned them each a score depending on how well they did for each of the 6 variables. Our system for assigning scores proved to be statistically significant on a multivaraite regression model, which simply means our system predicts rank in an appropriate way given the different weights we chose to assign to the six variables. We acknowledge choosing weighs can be subjectective and thus tried to reduce this liability via information from our literature review. Overall, we created a system that offers holistic breath that a research paper has yet to do. We hope this inspires people to be more conscious of their impact on all three facets - landfill, power, and water withdrawal - regardless of state.  
+In conclusion, we created a ranking system that evaluated the 50 United States and assigned them each a score depending on how well they did for each of the 6 variables. Our system for assigning scores proved to be statistically significant on a multivaraite regression model, which simply means our system predicts rank in an appropriate way given the different weights we chose to assign to the six variables. We acknowledge choosing weighs can be subjectective and thus tried to reduce this liability via information from our literature review. Overall, we created a system that offers holistic breadth that a research paper has yet to do. We hope this inspires people to be more conscious of their impact on all three facets - landfill, power, and water withdrawal - regardless of state.  
 
 <br>
 <hr>
