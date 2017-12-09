@@ -18,3 +18,10 @@ h5 {
   display:block;
   margin: auto;
 }
+
+h6 {
+  text-align: left;
+  font-size: 12pt;
+  color: #999999;
+  line-height: 1;
+}

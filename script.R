@@ -207,7 +207,8 @@ all.data.pop$Rank <- seq.int(nrow(all.data.pop))
 all.data.pop <- all.data.pop %>% 
   arrange(state.name)
 overall.map <- choroplthFunc(all.data.pop, all.data.pop$totalScore, all.data.pop$loc, all.data.pop$totalScore, 
-              "States Overall Impact Scores - Graph 1",c('red4', 'khaki1'), paste("Rank:", all.data.pop$Rank))
+              "",c('red4', 'khaki1'), paste("Rank:", all.data.pop$Rank, "<br>", "Score: ", 
+                                            round((all.data.pop$totalScore * 100), 2), "%"))
 
 
 # ----------------------------------------------------------------------------------------------#
@@ -263,7 +264,7 @@ m <- list(
   l = 50,
   r = 50,
   b = 100,
-  t = 100,
+  t = 0,
   pad = 4
 )
 distribution.plot <- 
@@ -275,7 +276,7 @@ distribution.plot <-
   add_trace(y = ~renews, name = 'Renewable Power', mode = 'markers', marker = list(color = 'rgb(215, 38, 56)')) %>%
   add_trace(y = ~combustion, name = 'Noncombustables', mode = 'markers', marker = list(color = 'rgb(148, 16, 32)'))  %>% 
   layout(autosize = F, width = 930, height = 500, margin = m, xaxis = list(title = "", tickfont = list(size = 10)), 
-         yaxis = list(title = "score"), font = list(family = "times"), title = "Plot of Scores by State and Score Type - Graph 2")
+         yaxis = list(title = "score"), font = list(family = "times"), title = "")
 
 emissions.dist <- 
   plot_ly(all.data.pop, x = ~state.name, y = ~emissions, name = 'Emissions', type = 'scatter', mode = 'lines',

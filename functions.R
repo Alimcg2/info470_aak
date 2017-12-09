@@ -5,7 +5,7 @@ choroplthFunc <- function(data, zData, stateAbb, colorData, titleText, colorPick
     l = 50,
     r = 50,
     b = 100,
-    t = 100,
+    t = 0,
     pad = 4
   )
   l <- list(color = toRGB("white"), width = 2)
