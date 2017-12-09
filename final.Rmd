@@ -344,7 +344,7 @@ As one can see in Graph 15 below, there is a uniform distribution for scores. Th
 
 
 ###### Graph 15
-###### Distribution of Scores by State
+Distribution of Scores by State
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
 
 h
