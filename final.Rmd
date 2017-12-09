@@ -184,7 +184,7 @@ Once we ranked the variables we decided on a weighted system to determine each s
 13% : Total LFG collected <br>
 12% : Percentage of non-combustibles <br>
 
-These factors were tehen summed to composed our total score for each state. The states were then assigned a rank depending on their score. A higher score correlated to a higher rank meaning the state had a low environmental impact. The rest of our analysis was completed based on this score. 
+These factors were then summed to composed our total score for each state. The states were then assigned a rank depending on their score. A higher score correlated to a higher rank meaning the state had a low environmental impact. The rest of our analysis was completed based on this score. 
 
 ### Summary Statistics
 
