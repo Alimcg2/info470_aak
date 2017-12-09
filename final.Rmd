@@ -151,7 +151,7 @@ Our analysis revolved around six variables that we chose to represent the enviro
 Here is a summary of how each score was calculated. 
 <br>
 For the Waste score the calculation is as follows:
-$$ Waste \space Score = 1 - {{State \space Total \space Waste \space Amount \space (tons) * (100 - Percent \space Landfills \space With \space No \space Waste \space Data) \over State Population } \over Largest  \space Amount  \space Of  \space Waste \space Generated  \space By  \space All  \space  50  \space  States } $$
+$$ Waste \space Score = 1 - {{State \space Total \space Waste \space Amount \space (tons) * (100 - Percent \space Landfills \space With \space No \space Waste \space Data) \over State Population } \over Largest  \space Amount  \space Of  \space Waste \space Generated  \space By  \space All  \space  50  \space  States }} $$
 For the LFG score the calculation is as follows:
 $$ LFG \space Score = {{State \space Total \space LFG \space Collected \space (mmscfd) \over State Population} \over Largest  \space Amount  \space Of  \space LFG \space Collected \space Per \space Capita \space Of  \space All  \space  50  \space  States } $$
 For the Noncombustibles score the calculation is as follows:
