@@ -19,9 +19,8 @@ by Alison McGuire, Alyssa Holzer and MacKenzie Olson
 <br>
 <br>
 
-###### Graph 1 
-###### The States' Overall Impact Scores and Ranks 
-```{r, fig.align='center', out.extra='angle=90',eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+
+```{r, fig.align='center', out.extra='angle=90',eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE} 
 source("script.R")
 overall.map 
 ```
@@ -66,7 +65,7 @@ In _The municipal solid waste landfill as a source of ozone-depleting substances
 
 Luckily, the accumulation of ODS has depleted to the point where tropospheric concentrations are stable or decreasing (Hodson et. all, 2010, pg. 1). However, accurate predictions of future ODS emissions is necessary so that appropriate strategies are developed to minimize ozone loss. While there are several different types of ODS, for the sake of simplicity Hodson et. all decided to study the following four: CFC- 11 (trichlorofluoromethane), CFC-12 (dichlorodifluoromethane), CFC-113 (1,1,2-trichloro-1,2,2-trifluoroethane), and CH3CCl3 (1,1,1-trichloroethane) (Hodson et. all, 2010, pg. 1). These four were selected because of their high ozone depleting potential (ODP) and the fact they were historically released in large quantities into the atmosphere. Furthermore, they have long lifetimes until they dissolve which further increases their impact. Prior to this study, CFC-11, CFC-12, CFC-1143, and Ch3CCI3 have all been detected at above normal levels in landfills (Hodson et. all, 2010, pg. 2). Despite this compelling evidence that these ODS need to be monitored, there are not any existing national inventory methods to quantify national ODS emissions from landfills (Hodson et. all, 2010, pg. 2). 
 
-In terms of methodology, Hodson et. all studied seven US and nine UK municipal solid waste (MSW) landfills with active gas management (2010, pg. 2). It is important to note that these landfills accept more than 50% of their waste from domestic and commercial sources (Hodson et. all, 2010, pg. 2). These landfills additionally varied in size- ranging from small, medium and large- to get the most representative sample. Most fields received one-time field sampling; however, one US MSW landfills was sampled every month for over a year (Hodson et. all, 2010, pg. 2).  The US MSW landfills had triplicate canister samples where they UK MSW landfills only had one canister samples. 
+In terms of methodology, Hodson et. all studied seven US and nine UK municipal solid waste (MSW) landfills with active gas management (2010, pg. 2). It is important to note that these landfills accept more than 50% of their waste from domestic and commercial sources (Hodson et. all, 2010, pg. 2). These landfills additionally varied in size- ranging from small, medium and large- to get the most representative sample. Most fields received one-time field sampling; however, one US MSW landfill was sampled every month for over a year (Hodson et. all, 2010, pg. 2).  The US MSW landfills had triplicate canister samples where the UK MSW landfills only had one canister samples. 
 
 After performing various chemistry based calculations to get the different percentages of gases that made up the various samples, Hodson et. all developed confidence intervals to best estimate the percentage these CFCs and CH3CCI3 make-up of the landfill emissions.  The results were the following: CFC-11 (0.037 - 0.074 Gg/y), CFC-12 (0.089 - 0.18 Gg/y), CFC-113 (0.0058 - 0.012 Gg/y), CH3CCl3 (0.012 - 0.024 Gg/y) (Hodson et. all, 2010, page 7). Understandably, the results without context do not mean much. Luckily, these quantities support the hypothesis that US and MK MSW landfills aren’t a significant source of these gases. In fact, these estimates indicate that US MSW landfills account for less than 1% of total US emissions (Hodson et. all, 2010, page 10). Thus, this study shows that monitoring and properly disposing of trash can keep ODS levels low and as a result make a significant difference. 
 
@@ -76,7 +75,7 @@ In _Factors Governing Change in Water Withdrawals for U.S. Industrial Sectors fr
 
 In terms of data collection, Wang et. all used the U.S. Bureau of Economic Analysis (BEA) benchmark economic input-output (EIO) table from 1997 and 2002 to gain information about water withdrawals about summary sectors for both years (Wang et. all, 2014, paragraph 5). Wang et. all additionally used USGS data to get information about Thermoelectric power generation, Mining, Industrial, Irrigation, Residential, Public supply, Livestock, and Aquaculture (Wang et. all, 2014, paragraph 6). 
 
-Once the data was collected, Wang et. all created an Economic Input-Output Life Cycle Assessment (EIO-LCA). This uses independent variables that are subsections of the 5 main factors listed above to estimate the overall water withdrawal. From there, a structural decomposition analysis (SDA) was done to see how the variables independent variables influence the dependent variable as well as their relationship with each other. Upon extensive regression-based modeling, Wang et. all found that water use intensity was able to most accurately predict water withdrawal rates (Wang et. all, 2014, paragraph 34). Thus, it was important to keep water withdrawal rates in mind when examining state to state.
+Once the data was collected, Wang et. all created an Economic Input-Output Life Cycle Assessment (EIO-LCA). This uses independent variables that are subsections of the 5 main factors listed above to estimate the overall water withdrawal. From there, a structural decomposition analysis (SDA) was done to see how the independent variables influenced the dependent variables. Upon extensive regression-based modeling, Wang et. all found that water use intensity was able to most accurately predict water withdrawal rates (Wang et. all, 2014, paragraph 34). Thus, it was important to keep water withdrawal rates in mind when examining state to state.
 	
 ### Power Plants Emissions
 
@@ -87,7 +86,7 @@ The CEC’s methodology involved collecting public information on individual fos
 In their analysis, the CEC determined there was no significant change in the overall amount of emissions across North America between 2002 and 2005 (Anonymous, 2012, 1.3). In 2005, the net electricity generation in the U.S. was 49.7% from coal, 18.7% from natural gas, 5.46% from hydroelectric, 2.3% from renewable energy sources (including biomass, wind, geothermal, and solar), and 3% from other sources (Anonymous, 2012, pages 2-3). Electricity generation is the source of about one-third of total Greenhouse Gas emissions in the U.S, contributing 39.3% of CO2 emissions nation-wide in 2005 (Anonymous, 2012, page 3). The CEC also found that coal-fired power plants were the largest contributor of SO2, NOx, PM-10, PM-2.5, and Greenhouse Gas emissions in the U.S. (Anonymous, 2012, page 5).
 
 ### Summary
-Now that a sufficient background has been laid down about waste disposal, water withdrawal, and power consumption, this paper will delve into its area of focus. It is clear that extensive research has been in all of these areas individually; however, with a problem as large as climate change, an interdisciplinary approach is required to get a holistic overview of the problem without compromising the quality of information. As a result of this belief, this paper takes on a pragmatic worldview, constructed by a statistician, data-visualization expert, and a data analyst. All of these papers offer great depth, however, this research article will focus on how we assigned each of the 50 United States a score based on how they are navigating their relationship between waste disposal, power consumption, and water withdrawals. 
+Now that a sufficient background has been laid down about waste disposal, water withdrawal, and power consumption, this paper will delve into its area of focus. It is clear that extensive research has been done in all of these areas individually; however, with a problem as large as climate change, an interdisciplinary approach is required to get a holistic overview of the problem without compromising the quality of information. As a result of this belief, this paper takes on a pragmatic worldview, constructed by a statistician, data-visualization expert, and a data analyst. All of these papers offer great depth, however, this research article will focus on how we assigned each of the 50 United States a score based on how they are navigating their relationship between waste disposal, power consumption, and water withdrawals. 
 
 
 <hr>
@@ -199,23 +198,15 @@ kable(all.data.output, caption = "Table 1")
 <br>
 Here is a list of some summary statistics gathered from the scores above. 
 
-
-<br>
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 names(sum.stats)<-c("Variable", "Mean", "Median")
 kable(sum.stats, caption = "Table 2")
 
+distribution.plot
 
 ```
 <br>
-
-###### Graph 2
-###### Plot of Scores by State and Score Type
-```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
-distribution.plot
-```
-
 
 ### Multivariate Regression
 
@@ -229,49 +220,31 @@ The results of the checks, mentioned earlier in this paper, to make sure multipl
 
 Unfortunately, there did not seem to be a strong linear relationship in the scatterplots above. However, we did not see any different types of patterns such as logarithmic or exponential functions which is even more worrisome. As a result, we proceeded cautiously. 
 <br>
-
-###### Graph 3
-###### Scores Given Emissions
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 source("linear_regression.R")
 a
 ```
 <br>
-
-###### Graph 4
-###### Scores Given Withdrawals
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 b
 ```
 <br>
-
-###### Graph 5
-###### Scores Given Waste by Population
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 c
 ```
 <br>
-
-###### Graph 6
-###### Scores Given LFG Collected
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 d
 ```
 <br>
-
-###### Graph 7
-###### Scores Given Renewables
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 e
 ```
 <br>
-
-###### Graph 8
-###### Scores Given Combustion
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 f
@@ -282,54 +255,36 @@ f
 
 The easiest way to evaluate this check is to check the graphs of the residuals given the fitted value. The variability of the residuals should fairly consistent given any value of x and there shouldn’t be a clear pattern. 
 <br>
-
-###### Graph 9
-###### Emission Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.emissions
 
 ```
 <br>
-
-###### Graph 10
-###### Withdrawal Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.withdrawals
 
 ```
 <br>
-
-###### Graph 11
-###### Waste Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.waste.pop
 
 ```
 <br>
-
-###### Graph 12
-###### LFG Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.lfg.collected
 
 ```
 <br>
-
-###### Graph 13
-###### Renewables Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.renews
 
 ```
 <br>
-
-###### Graph 14
-###### Combustion Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.combustion
@@ -342,9 +297,6 @@ As displayed by the graph, it seems to be an okay fit! There isn’t a clear pat
 
 As one can see in Graph 15 below, there is a uniform distribution for scores. This is not a normal distribution; however, there is a lack of skew or signs of being bimodal and thus we will proceed with caution.
 
-
-###### Graph 15
-Distribution of Scores by State
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
 
 h
@@ -356,7 +308,7 @@ h
 The following equation was created by the linear regression function in R: 
 $$ Predicted\space Rank = 85.655 - 39.127 (emissions) - 13.994 (withdrawals) - 24.256 (waste) – 12.535 (combustion) - 15.064 (lfg.collected) – 6.114 (renews)$$
 
-By creating a linear regression function in R, R additionally runs an F-test. The null hypothesis for an f-test is that a model with only a y-intercept is just as good a fit as the model created through linear regression. After conducting the f-test, we received a sample statistic of 109.9 If we were to conduct a million f-tests with a million different randomly selected samples, the odds of getting a more extreme f-statistic is ~0.0002%. As a result, we can reject the null hypothesis. This means that we have created a model that is better than a model with only the y-intercept.
+By creating a linear regression function in R, R additionally runs an F-test. The null hypothesis for an f-test is that a model with only a y-intercept is just as good a fit as the model created through linear regression. After conducting the f-test, we received a sample statistic of 109.9. If we were to conduct a million f-tests with a million different randomly selected samples, the odds of getting a more extreme f-statistic is ~0.0002%. As a result, we can reject the null hypothesis. This means that we have created a model that is better than a model with only the y-intercept.
 
 Overall, this confirms that we have made a model for assigning ranks that is fairly predictable which is encouraging. This means that if one only knew information about the 6 independent variables, they could use this equation to get a predicted rank that would be extremely close to correct.  
 	
