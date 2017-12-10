@@ -19,7 +19,8 @@ by Alison McGuire, Alyssa Holzer and MacKenzie Olson
 <br>
 <br>
 
-
+###### Graph 1 
+###### The States' Overall Impact Scores and Ranks 
 ```{r, fig.align='center', out.extra='angle=90',eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE} 
 source("script.R")
 overall.map 
@@ -148,7 +149,9 @@ We performed multiple regression analysis to see if there is a linear, predictiv
 Our analysis revolved around six variables that we chose to represent the environmental impacts of the different states. The six variables were chosen out of our three major datasets (Water Withdrawals, Landfills, and Power Plants). First, we looked at the total amount of emissions in tons per capita per state. Secondly, we took the total water withdrawals in millions of gallons per day as a percentage of the population in each state. Thirdly, we looked at the amount waste in tons per person for each state. The fourth variable was the percentage of renewable energy vs the total energy produced by each state. The fifth variable was amount of emissions collected through an LFG system for each state. The last variable we took into consideration was the ratio of combustible fuel vs noncombustible fuels for each state.  
 
 Here is a summary of how each score was calculated. 
+
 <br>
+
 For the Waste score the calculation is as follows:
 $$ Waste \space Score = 1 - {{State \space Total \space Waste \space Amount \space (tons) * (100 - Percent \space Landfills \space With \space No \space Waste \space Data) \over State Population } \over Largest  \space Amount  \space Of  \space Waste \space Generated  \space By  \space All  \space  50  \space  States } $$
 For the LFG score the calculation is as follows:
@@ -164,6 +167,7 @@ $$ Water \space Score = {{State \space Total \space Water \space Withdrawals \sp
 
 
 <br>
+
 We knew that these variables did not have the same amount of impact so the next step was to determine which variables should be weighed more heavily. We consulted an expert in the field, Lynn McGuire, as well as our own literature review in order to determine how we would weigh each variable. Our research concluded that they should be placed in the following order:
 
 1. Total emissions
@@ -203,6 +207,12 @@ Here is a list of some summary statistics gathered from the scores above.
 names(sum.stats)<-c("Variable", "Mean", "Median")
 kable(sum.stats, caption = "Table 2")
 
+```
+
+
+###### Graph 2		
+###### Plot of Scores by State and Score Type
+```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 distribution.plot
 
 ```
@@ -220,31 +230,49 @@ The results of the checks, mentioned earlier in this paper, to make sure multipl
 
 Unfortunately, there did not seem to be a strong linear relationship in the scatterplots above. However, we did not see any different types of patterns such as logarithmic or exponential functions which is even more worrisome. As a result, we proceeded cautiously. 
 <br>
+
+###### Graph 3		
+###### Scores Given Emissions
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 source("linear_regression.R")
 a
 ```
 <br>
+
+###### Graph 4		
+###### Scores Given Withdrawals
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 b
 ```
 <br>
+
+###### Graph 5		
+###### Scores Given Waste by Population
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 c
 ```
 <br>
+
+###### Graph 6		
+###### Scores Given LFG Collected
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 d
 ```
 <br>
+
+###### Graph 7		
+###### Scores Given Renewables
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 e
 ```
 <br>
+
+###### Graph 8		
+###### Scores Given Combustion
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 f
@@ -255,36 +283,54 @@ f
 
 The easiest way to evaluate this check is to check the graphs of the residuals given the fitted value. The variability of the residuals should fairly consistent given any value of x and there shouldn’t be a clear pattern. 
 <br>
+
+###### Graph 9		
+###### Emission Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.emissions
 
 ```
 <br>
+
+###### Graph 10		
+###### Withdrawal Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.withdrawals
 
 ```
 <br>
+
+###### Graph 11		
+###### Waste Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.waste.pop
 
 ```
 <br>
+
+###### Graph 12		
+###### LFG Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.lfg.collected
 
 ```
 <br>
+
+###### Graph 13		
+###### Renewables Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.renews
 
 ```
 <br>
+
+###### Graph 14		
+###### Combustion Score Residuals vs Fitted Values
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 
 p.combustion
@@ -297,6 +343,8 @@ As displayed by the graph, it seems to be an okay fit! There isn’t a clear pat
 
 As one can see in Graph 15 below, there is a uniform distribution for scores. This is not a normal distribution; however, there is a lack of skew or signs of being bimodal and thus we will proceed with caution.
 
+###### Graph 15		
+###### Distribution of Scores by State
 ```{r eval=TRUE, echo=FALSE, warning=FALSE, evaluted=FALSE, error=FALSE, message=FALSE}
 
 h
